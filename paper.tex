@@ -1,0 +1,89 @@
+\documentclass{ntmanuscript}
+
+\usepackage[acronym,toc]{glossaries}
+\newacronym{MIT}{MIT}{the Massachusetts Institute of Technology}
+\newacronym{UW}{UW}{University of Wisconsin}
+%\newacronym{<++>}{<++>}{<++>}
+\makeglossaries
+
+\usepackage[printwatermark]{xwatermark}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\newwatermark[allpages,color=black!5,angle=45,scale=6,xpos=-40,ypos=40]{DRAFT}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Facility and Time Step Discretization Effects in Fuel Cycle Simulation}
+
+\author{Robert~W.~Carlsen, Paul~P.H.~Wilson}
+
+% Institutes of the authors
+\institute{University of Wisconsin - Madison, Department of Nuclear Engineering and Engineering Physics, Madison, WI 53706}
+
+% Information concerning the person submitting the manuscript
+\submitter{Robert W. Carlsen}
+
+\submitteraddress{229 N Midvale Blvd Apt 1, Madison, WI 53705}
+\submitteremail{rwcarlsen@gmail.com}
+
+% No more than three keywords, though each can be a phrase
+\keywords{nuclear fuel cycle, simulation, TODO:third}
+
+\usepackage{cite} % order citations correctly
+
+\usepackage{float} % used to help position figures with the H modifier
+
+%%%%%%%%%%%%% stuff for syntax highlighting and code blocks %%%%%%%%%%%%%%%%
+\usepackage{listings} % for highlighted code blocks
+\usepackage{color}
+
+% create listings pkg definition of diff language
+\lstdefinelanguage{diff}{
+  morecomment=[l][\color{blue}]{@@},     % group identifier
+  morecomment=[l][\color{red}]-,         % deleted lines
+  morecomment=[l][\color{green}]+,       % added lines
+  morecomment=[l][\color{magenta}]{---}, % Diff header lines (must appear after +,-)
+  morecomment=[l][\color{magenta}]{+++},
+}
+\definecolor{bkggray}{rgb}{0.93,0.93,0.93}
+\lstset{
+    backgroundcolor=\color{bkggray}
+}
+%%%%%%%%%%% end stuff for syntax highlighting and code blocks %%%%%%%%%%%%%%
+
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{booktabs} % nice rules for tables
+\usepackage{microtype} % if using PDF
+\usepackage{xspace}
+\usepackage{hyperref}
+\newcommand{\units}[1] {\:\text{#1}}%
+\newcommand{\SN}{S$_N$}%{S$_\text{N}$}%{$S_N$}%
+\newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
+\newcommand{\Cycamore}{\textsc{Cycamore}\xspace}%
+\newcommand{\Class}[1] {\texttt{#1}}%
+\newcommand{\TODO}[1] {{\color{red}\textbf{TODO: #1}}}%
+\date{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\newpage
+\begin{abstract}
+As nuclear power expands, technical, economic, political, and environmental
+analyses of nuclear fuel cycles by simulators increase in importance.  To date,
+however, current tools are often fleet-based rather than discrete and privately
+\end{abstract}
+
+\section{Introduction}
+\subsection{BLABLA}
+\section{BLABLA}
+
+\section{Acknowledgements}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{ans}
+\bibliography{refs}
+\end{document}
+
+
+
