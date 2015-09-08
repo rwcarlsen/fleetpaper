@@ -102,7 +102,7 @@
         {.75\baselineskip}%             %afterskip
         {\reset@font\bf}%               %bold
 }
-\renewcommand{\thesubsection}{\thesection\@Alph\c@subsection}
+\renewcommand{\thesubsection}{\thesection.\@Alph\c@subsection}
 
 \renewcommand\subsubsection{\@startsection
         {subsubsection}{3}{\z@}%        %name, level, indent

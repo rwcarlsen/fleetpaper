@@ -1,0 +1,5 @@
+{
+    "unfueled-fleet": "select tl.time,ifnull(f.offlinecap,0) as offline from timelist as tl left join (select p.time,sum(c.value-p.value) as offlinecap from timeseriespower as p join timeseriesfleetreactorcapacity as c on p.agentid=c.agentid and p.time=c.time group by p.time) as f on tl.time=f.time",
+    "unfueled": "select tl.time,ifnull(f.n,0) as noffline from timelist as tl left join (select time,count(*) as n from reactorfuelinfo WHERE offline > 0 group by time) as f on tl.time=f.time",
+    "badshare": "select tl.time,ifnull(f.n,0) from timelist as tl left join (SELECT f1.time,SUM(f1.ncoreadd) AS n FROM reactorfuelinfo AS f1 JOIN reactorfuelinfo AS f2 ON f1.cycle=f2.cycle and f1.agentid=f2.agentid WHERE f2.offline > 0 AND f1.ncoreadd > 0 GROUP BY f1.time) as f on tl.time=f.time"
+}
