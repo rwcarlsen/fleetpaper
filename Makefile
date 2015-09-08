@@ -1,26 +1,37 @@
 manuscript = paper
 references = $(wildcard *.bib)
 latexopt   = -halt-on-error -file-line-error
+latexclass = style.cls
+latexstyle = ntmanuscript.cls
 
 figs = exp2/sync-cycle.eps exp2/power.eps exp2/power-rel.eps exp2/unfueled.eps exp2/badshare.eps exp2/puinv.eps exp2/fuel-sharing.pdf exp2/flow.eps
 
 all: all-via-pdf
 
-all-via-pdf: $(manuscript).tex $(references) $(figs)
+pub: latexstyle = anstrans.cls
+pub: all-via-pdf
+
+all-via-pdf: $(manuscript).tex $(references) latexclass $(figs)
 	pdflatex $(latexopt) $<
 	bibtex $(manuscript).aux
 	pdflatex $(latexopt) $<
 	bibtex $(manuscript).aux
 	pdflatex $(latexopt) $<
 
-all-via-dvi: $(figs)
+release: build
+
+latexclass: 
+	rm -f $(latexclass)
+	ln -s $(latexstyle) $(latexclass)
+
+all-via-dvi: $(figs) latexclass
 	latex $(latexopt) $(manuscript)
 	bibtex $(manuscript).aux
 	latex $(latexopt) $(manuscript)
 	latex $(latexopt) $(manuscript)
 	dvipdf $(manuscript)
 
-epub: $(figs)
+epub: $(figs) latexclass
 	latex $(latexopt) $(manuscript)
 	bibtex $(manuscript).aux
 	mk4ht htlatex $(manuscript).tex 'xhtml,charset=utf-8,pmathml' ' -cunihtf -utf8 -cvalidate'
@@ -63,5 +74,5 @@ exp2/badshare.eps: exp2/badshare.gp exp2/badshare.dat
 zip:
 	zip paper.zip *.tex *.eps *.bib
 
-.PHONY: all clean
+.PHONY: all clean latexclass
 

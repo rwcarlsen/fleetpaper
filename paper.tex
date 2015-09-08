@@ -1,4 +1,4 @@
-\documentclass{ntmanuscript}
+\documentclass{style}
 
 \usepackage[acronym,toc]{glossaries}
 \newacronym{MIT}{MIT}{the Massachusetts Institute of Technology}
@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage[printwatermark]{xwatermark}
 \usepackage{xcolor}
+\usepackage{placeins}
 
 \newwatermark[allpages,color=black!5,angle=45,scale=6,xpos=-40,ypos=40]{DRAFT}
 
@@ -130,30 +131,9 @@ reactor modeling and time step duration.
 \section{Fleet Modeling Overview}
 
 There are various low level phenomena that have potential to affect the larger
-outcome of simulations with respect to facility modeling decisions.  One
-potential difference caused by fleet-based modeling involves fuel sharing.
-Power production by a group of individual reactors for a fixed amount of fuel
-shortage may vary depending on how the existing fuel is distributed.  This is
-illustrated in Figure \ref{fig:fuel-sharing}.  Being short 3 batches might
-mean that one reactor has no batches and isn't operating or that 3 reactors
-are missing a single batch.  This will be referred to as the \emph{fuel
-sharing effect}.
+outcome of simulations with respect to facility modeling decisions.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.70\textwidth]{exp2/fuel-sharing.pdf}
-    \caption[The fuel sharing effect]{
-        A simple diagram showing effects of constrained fuel supply
-        distribution choices. In both cases A and B, reactor 1 needs 3 new
-        fuel batches to operate and reactors 2 and 3 each need 1 fresh batch.
-        In case A, the two batches are given to reactors 2 and 3, resulting in
-        reactor 1 remaining offline. In case B, the available fuel batches are
-        given to reactor 1 resulting in all three reactors being offline.
-    }
-    \label{fig:fuel-sharing}
-\end{figure}
-
-Another difference between the fleet and individual modeling is the
+One difference between the fleet and individual modeling is the
 \emph{quantized shutdown effect}.  If a fleet-based reactor modeling 3-batch
 cores is short a half batch of fuel it will produce $\frac{5}{6}\cdot C$ of
 power for that time step where $C$ is the power capacity of a single reactor
@@ -162,10 +142,10 @@ half batch of fuel, then it will produce no power that time step.  Time step
 duration can also have this effect.  For both fleet and individual reactor
 modeling, power goes offline in for full time steps.  For example, if a
 3-batch fleet based reactor is short $\frac{1}{2}$ batch of fuel with a 3
-month time step, then it will produce $\frac{5}{6} \cdot 3 \text{mo} \cdot C $ of
-energy.  In contrast, a monthly time step might allow the same reactor to
-produce $[\frac{5}{6} \cdot 1 \text{mo} + 2 \text{mo}] \cdot C $ of energy if there was
-actually a fuel shortage for only 1 month.
+month time step, then it will produce $\frac{5}{6} \cdot 3 \text{mo} \cdot C $
+of energy.  In contrast, a monthly time step might allow the same reactor to
+produce $[\frac{5}{6} \cdot 1 \text{mo} + 2 \text{mo}] \cdot C $ of energy if
+there was actually a fuel shortage for only 1 month.
 
 Individually modeled reactors each have their own refueling cycles.  Depending
 on how the refueling cycles and outages are staggered, power production can
@@ -178,7 +158,7 @@ Figure \ref{fig:sync-cycle}.  This effect is closely related to the
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{exp2/sync-cycle.eps}
+    \includegraphics[width=1.0\columnwidth]{exp2/sync-cycle.eps}
     \caption[The cycle staggering effect]{
         In this scenario, reactors are deployed annualy with a refueling cycle
         length (including outage) of 18 months.  So all reactors deployed
@@ -187,6 +167,28 @@ Figure \ref{fig:sync-cycle}.  This effect is closely related to the
         this plot shows only a single time series.
     }
     \label{fig:sync-cycle}
+\end{figure}
+
+Another difference between fleet-based and individual facility modeling
+involves fuel sharing.  Power production by a group of individual reactors for
+a fixed amount of fuel shortage may vary depending on how the existing fuel is
+distributed.  This is illustrated in Figure \ref{fig:fuel-sharing}.  Being
+short 3 batches might mean that one reactor has no batches and isn't operating
+or that 3 reactors are missing a single batch.  This will be referred to as
+the \emph{fuel sharing effect}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{exp2/fuel-sharing.pdf}
+    \caption[The fuel sharing effect]{
+        A simple diagram showing effects of constrained fuel supply
+        distribution choices. In both cases A and B, reactor 1 needs 3 new
+        fuel batches to operate and reactors 2 and 3 each need 1 fresh batch.
+        In case A, the two batches are given to reactors 2 and 3, resulting in
+        reactor 1 remaining offline. In case B, the available fuel batches are
+        given to reactor 1 resulting in all three reactors being offline.
+    }
+    \label{fig:fuel-sharing}
 \end{figure}
 
 Another consequence of synchronized reactor cycles is fuel fabrication
@@ -290,6 +292,13 @@ relationships between the facilities.  Compositions used for the simulations
 were simple, containing primarily $^{238}U$, $^{235}U$, $^{239}Pu$,
 $^{241}Am$, and small quantities of a few lanthanides.
 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.47\textwidth]{exp2/flow.eps}
+    \caption[Material flow paths]{Potential material flow paths between facility types.}
+    \label{fig:flow}
+\end{figure}
+
 Cyclus version ?.? (TODO:~update~version) was used for this analysis.
 Facility models used were the standard ones provided with Cyclus in the
 Cycamore library (also version ?.?).  A custom storage facility was used
@@ -319,13 +328,6 @@ parameters for the reactor types are shown in Table \ref{tab:reactors}.
     \caption[Reactor facility parameters]{Reactor facility parameters.}
     \label{tab:reactors}
 \end{table}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{exp2/flow.eps}
-    \caption[Material flow paths]{Potential material flow paths between facility types.}
-    \label{fig:flow}
-\end{figure}
 
 The described scenario together with a few perterbations result in four
 different cases for investigation:
@@ -377,7 +379,7 @@ individual reactor cases refuel at the same time.
     \label{tab:exp2-invar}
 \end{table}
 
-\begin{table}
+\begin{table*}
     \centering
     \begin{tabular}{ |r | c c | c c | }
         \hline                       
@@ -396,7 +398,7 @@ individual reactor cases refuel at the same time.
     }
 
     \label{tab:exp2-reactors}
-\end{table}
+\end{table*}
 
 The parameters for each case were also selected to keep capacity factors for
 individual reactors very roughly around 90\%.  The template input file for
@@ -446,9 +448,9 @@ continues, however, new reactors continue to be deployed and reactors with
 synchornized cycles retire resulting in a gradual return to decent better
 staggering visible by the end of the 200 years.
 
-\begin{figure}[h]
+\begin{figure*}[!h]
     \centering
-    \includegraphics[width=1.0\textwidth]{exp2/power.eps}
+    \includegraphics[width=0.8\textwidth]{exp2/power.eps}
     \caption[Generated power]{
         Generated power for all four cases.  A fuel shortage occurs from about
         year 100 to about year 140.  In cases 1 and 3 with individual reactor
@@ -457,11 +459,11 @@ staggering visible by the end of the 200 years.
         \emph{cycle staggering effect}).
     }
     \label{fig:exp2-power}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[h]
+\begin{figure*}[!h]
     \centering
-    \includegraphics[width=1.0\textwidth]{exp2/power-rel.eps}
+    \includegraphics[width=0.8\textwidth]{exp2/power-rel.eps}
     \caption[Normalized power]{
         Generated power is normalized to the expected 1\% exponential growth
         curve for all four cases.  A fuel shortage occurs from about year 100
@@ -476,7 +478,7 @@ staggering visible by the end of the 200 years.
         offline (multiples of 12 months) and the build period (21 months).
     }
     \label{fig:exp2-power-rel}
-\end{figure}
+\end{figure*}
 
 \subsection{Fuel Shortage}
 
@@ -489,9 +491,9 @@ fleet based simulations in cases 2 and 4.  The monthly time step simulations
 also have roughly twice as much offline power as their corresponding quarterly
 cases.
 
-\begin{figure}[h]
+\begin{figure}[!h]
     \centering
-    \includegraphics[width=1.0\textwidth]{exp2/unfueled.eps}
+    \includegraphics[width=1.0\columnwidth]{exp2/unfueled.eps}
     \caption[Cumulative offline power due to fuel shortage]{
         Cumulative offline power for reactors that had delayed cycle start due
         to fuel shortage. The difference between individual and fleet based
@@ -568,9 +570,9 @@ lower it will set its request preference.  This will have the effect of
 allowing the resource exchange resolution in Cyclus to globally prefer sending
 fuel to reactors that need less to operate.
 
-\begin{figure}[h]
+\begin{figure}[!h]
     \centering
-    \includegraphics[width=1.0\textwidth]{exp2/badshare.eps}
+    \includegraphics[width=1.0\columnwidth]{exp2/badshare.eps}
     \caption[Cumulative unnecessary idling fuel]{
         Fuel sharing inefficiency approximated by the cumulative number of
         fuel batches given to each reactor on each refueling period multiplied
@@ -611,7 +613,7 @@ points.  Case 2 Pu inventory is similarly limited at about the 30 tonne level.
 As expected, the case 4 withdrawals are also three times higher case 2
 withdrawals.
 
-\begin{figure}[!h]
+\begin{figure*}[!h]
     \centering
     \includegraphics[width=1.0\textwidth]{exp2/puinv.eps}
     \caption[Pu inventory and flow]{
@@ -624,7 +626,7 @@ withdrawals.
         \emph{inventory drawdown effect}.
     }
     \label{fig:exp2-puinv}
-\end{figure}
+\end{figure*}
 
 Different modeling choices can have a significant impact on the outcome of a
 simulation.  With discrete reactor modeling many factors must be considered in
