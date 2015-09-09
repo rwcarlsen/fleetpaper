@@ -45,11 +45,8 @@
 
 \newpage
 \begin{abstract}
-As nuclear power expands, technical, economic, political, and environmental
-analyses of nuclear fuel cycles by simulators increase in importance.  To date,
-however, current tools are often fleet-based rather than discrete and privately
+TODO: Write this abstract.
 \end{abstract}
-
 
 \section{Introduction}
 
@@ -133,30 +130,39 @@ reactor modeling together with variations in time step duration.
 \section{Fleet Modeling Overview}
 
 There are various low level phenomena that have potential to affect the larger
-outcome of simulations with respect to facility modeling decisions.
+outcome of simulations with respect to facility modeling decisions. Several
+effects are described below that result from fundamental differences between
+these two modeling paradigms.
 
-One difference between the fleet and individual modeling is the
+One difference between the fleet and individual facility modeling is the
 \emph{quantized shutdown effect}.  If a fleet-based reactor modeling 3-batch
 cores is short a half batch of fuel it will produce $\frac{5}{6}\cdot C$ of
 power for that time step where $C$ is the power capacity of a single reactor
 of the fleet (e.g. 1000 MWe).  If an individually modeled reactor is short a
 half batch of fuel, then it will produce no power that time step.  Time step
 duration can also have this effect.  For both fleet and individual reactor
-modeling, power goes offline in for full time steps.  For example, if a
+modeling, power goes offline in full time step increments.  For example, if a
 3-batch fleet based reactor is short $\frac{1}{2}$ batch of fuel with a 3
 month time step, then it will produce $\frac{5}{6} \cdot 3 \text{mo} \cdot C $
 of energy.  In contrast, a monthly time step might allow the same reactor to
 produce $[\frac{5}{6} \cdot 1 \text{mo} + 2 \text{mo}] \cdot C $ of energy if
-there was actually a fuel shortage for only 1 month.
+the fuel shortage actually ended after only 1 month.
 
 Individually modeled reactors each have their own refueling cycles.  Depending
 on how the refueling cycles and outages are staggered, power production can
 vary significantly.  For example, if all reactors refuel at the same time,
-then all reactors would be offline refueling at the same time.  This is
-referred to as the \emph{cycle staggering effect} and does not occur in
-fleet-based facility models.  An example of poor cycle staggering is shown in
-Figure \ref{fig:sync-cycle}.  This effect is closely related to the
-\emph{inventory drawdown effect} described next.
+then all reactors would be offline at the same time.  This is referred to as
+the \emph{cycle staggering effect} and does not occur in fleet-based reactor
+models.  An example of poor cycle staggering is shown in Figure
+\ref{fig:sync-cycle}.  Poor staggering causes spikes of material supply and
+demand that can lead to suboptimal resource utilization.  A fuel fabrication
+facility might receive requests for new batches for every reactor all at once.
+The reactors draw out inventory from the fuel fabrication facility together in
+a large quantity of orders.  If the fabrication facility does not have enough
+on hand, some number of reactors will need to wait until enough fuel can be
+pumped through fabrication.  Avoiding such constraints would require the
+fabrication facility to maintain suboptimally large on-hand inventories as a
+contingency.
 
 \begin{figure}[h]
     \centering
@@ -174,10 +180,10 @@ Figure \ref{fig:sync-cycle}.  This effect is closely related to the
 Another difference between fleet-based and individual facility modeling
 involves fuel sharing.  Power production by a group of individual reactors for
 a fixed amount of fuel shortage may vary depending on how the existing fuel is
-distributed.  This is illustrated in Figure \ref{fig:fuel-sharing}.  Being
-short 3 batches might mean that one reactor has no batches and isn't operating
-or that 3 reactors are missing a single batch.  This will be referred to as
-the \emph{fuel sharing effect}.
+distributed.  This is illustrated in Figure \ref{fig:fuel-sharing}.  A system
+being short 3 batches might mean that one reactor has no batches and isn't
+operating or that 3 reactors are each missing a single batch.  This is
+referred to as the \emph{fuel sharing effect}.
 
 \begin{figure}[h]
     \centering
@@ -193,24 +199,17 @@ the \emph{fuel sharing effect}.
     \label{fig:fuel-sharing}
 \end{figure}
 
-Another consequence of synchronized reactor cycles is fuel fabrication
-capacity idling for an entire cycle (e.g. 18 months), and then receiving
-requests for new batches for every reactor all at once.  The reactors draw out
-inventory from the fuel fabrication facility together in a large quantity of
-orders. In order to avoid running short of inventory for making fresh fuel,
-the fabrication facility must keep at enough material on-hand to satisfy all
-the reactors at once.  If the reactor cycles were staggered, then a much lower
-on-hand inventory would be sufficient to prevent fuel shortages. This is
-referred to as the \emph{inventory drawdown effect}.  Increasing time step
-duration can also cause similar effects as it reduces the time granularity
-over which refueling can occur, resulting in larger impulse drawdown on
-inventories. Another component of this effect is that incoming and outgoing
-material flows occur "simultaneously" on a given time step. Facilities do not
-know about incoming material when they make commitments for outgoing material.
-For longer time steps, larger incoming quanta of material are not available
-for making offers. In general longer time steps and individual reactor
-modeling create a need for larger floating inventory buffers in order to avoid
-temporary material shortages.
+One important phenomenon related to time step duration is the \emph{inventory
+drawdown effect}.  Increasing time step duration reduces the frequency over
+which refueling can occur, resulting in larger impulse drawdown on
+inventories. This by itself is not problematic because this is balanced by
+larger inventory top-up quantities.  Another component of this effect is the
+simultaneity of incoming and outgoing material flows on a given time step.
+Facilities do not know about incoming material when they make commitments for
+outgoing material.  For longer time steps, larger incoming quanta of material
+are not available for making offers. In general longer time steps and
+individual reactor modeling create a need for larger floating inventory
+buffers in order to avoid temporary material shortages.
 
 There are also performance differences between the two modeling paradigms.  A
 single 200 year simulation with several hundred fleet-based reactors takes
