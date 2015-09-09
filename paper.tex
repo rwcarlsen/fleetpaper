@@ -1,70 +1,45 @@
 \documentclass{style}
 
+%%%%%% acronyms %%%%%%
 \usepackage[acronym,toc]{glossaries}
 \newacronym{MIT}{MIT}{the Massachusetts Institute of Technology}
 \newacronym{UW}{UW}{University of Wisconsin}
 %\newacronym{<++>}{<++>}{<++>}
 \makeglossaries
 
-\usepackage{graphicx}
 \usepackage[printwatermark]{xwatermark}
 \usepackage{xcolor}
-\usepackage{placeins}
-
 \newwatermark[allpages,color=black!5,angle=45,scale=6,xpos=-40,ypos=40]{DRAFT}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% cover info %%%%%%%%%%%%%%%
 \title{Facility and Time Step Discretization Effects in Fuel Cycle Simulation}
-
 \author{Robert~W.~Carlsen, Paul~P.H.~Wilson}
 
-% Institutes of the authors
 \institute{University of Wisconsin - Madison, Department of Nuclear Engineering and Engineering Physics, Madison, WI 53706}
-
-% Information concerning the person submitting the manuscript
 \submitter{Robert W. Carlsen}
-
 \submitteraddress{229 N Midvale Blvd Apt 1, Madison, WI 53705}
 \submitteremail{rwcarlsen@gmail.com}
 
 % No more than three keywords, though each can be a phrase
 \keywords{nuclear fuel cycle, simulation, TODO:third}
 
-\usepackage{cite} % order citations correctly
+%%%%%%%%% includes and commands %%%%%%%%%%
 
-\usepackage{float} % used to help position figures with the H modifier
-
-%%%%%%%%%%%%% stuff for syntax highlighting and code blocks %%%%%%%%%%%%%%%%
-\usepackage{listings} % for highlighted code blocks
-\usepackage{color}
-
-% create listings pkg definition of diff language
-\lstdefinelanguage{diff}{
-  morecomment=[l][\color{blue}]{@@},     % group identifier
-  morecomment=[l][\color{red}]-,         % deleted lines
-  morecomment=[l][\color{green}]+,       % added lines
-  morecomment=[l][\color{magenta}]{---}, % Diff header lines (must appear after +,-)
-  morecomment=[l][\color{magenta}]{+++},
-}
-\definecolor{bkggray}{rgb}{0.93,0.93,0.93}
-\lstset{
-    backgroundcolor=\color{bkggray}
-}
-%%%%%%%%%%% end stuff for syntax highlighting and code blocks %%%%%%%%%%%%%%
-
+\usepackage{graphicx}
+\usepackage{placeins}
 \usepackage{tabularx}
 \usepackage{booktabs} % nice rules for tables
 \usepackage{microtype} % if using PDF
 \usepackage{xspace}
 \usepackage{hyperref}
 \usepackage{caption}
-\newcommand{\units}[1] {\:\text{#1}}%
-\newcommand{\SN}{S$_N$}%{S$_\text{N}$}%{$S_N$}%
+\usepackage{cite} % order citations correctly
+\usepackage{float} % used to help position figures with the H modifier
+
 \newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
 \newcommand{\Cycamore}{\textsc{Cycamore}\xspace}%
-\newcommand{\Class}[1] {\texttt{#1}}%
-\newcommand{\TODO}[1] {{\color{red}\textbf{TODO: #1}}}%
 \date{}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
@@ -78,12 +53,37 @@ however, current tools are often fleet-based rather than discrete and privately
 
 \section{Introduction}
 
-One of the major motivations for the development of Cyclus was creating a
-simulation environment that is more expressive and less limited than the more
-traditional system dynamics based simulators. One of the defining differences
-between these two modeling paradigms involves the discretization of
-facilities. System dynamics simulators such as VISION simulate facility
-"fleets". In system dynamics fleet-based modeling:
+One of the major motivations for the development of the Cyclus fuel cycle
+simulator was creating a simulation environment that is more expressive than
+more traditional fuel cycle simulators.  Cyclus was designed with a
+plugin-style architecture that allows different models for facility types to
+be swapped in and out trivially.  As a Cyclus simulation walks through each
+time step, facilities engage in a market-like dynamic resource exchange (DRE).
+They broadcast requests for material and suppliers respond with bids. The DRE
+then creates a network flow problem that it optimizes to resolve which
+transactions actually occur.  The plugin architecture combined with the DRE
+creates a powerful and flexible environment for the natural comparison of
+different modeling paradigms.
+
+Traditionally, many fuel cycle simulators use a system dynamics approach
+\cite{forrester_industrial_1961} to modeling. These simulators model several
+"stocks" that have levels that change over time due to "flows" between them.
+The flows are determined by an equation that is a function of the state of the
+system (i.e.  the system's stocks and flows).  A modeled system is then solved
+in discrete or continuous time depending on the limitations of the software
+and constraints imposed by the model.  In system dynamics simulators, the
+number of stocks and potential flows between them is generally a static
+property of the modeled system, making it more difficult to swap different
+reactor models in and out of the same scenario without wiring them into the
+simulator manually.
+
+System dynamics based fuel cycle simulators generally use a collection of
+stocks to represent the state of groups of like facilities commonly referred
+to as "fleets".  As the simulation steps through time, the levels of stocks
+(e.g. reactor fresh fuel inventory, repository waste inventories, etc.) are
+adjusted according to the calculated flow values.  The VISION simulator
+\cite{jacobson_verifiable_2010} among others operates this way.  In
+fleet-based modeling:
 
 \begin{itemize}
 
@@ -96,12 +96,14 @@ facilities. System dynamics simulators such as VISION simulate facility
 
 Cyclus' agent-based architecture in concert with its dynamic resource exchange
 has the ability to model fleet-based facilities.  However, Cyclus was designed
-with the intent of modeling facilities individually with discrete flows. The
+with the intent of modeling facilities individually with discrete flows
+enabling the investigation of interesting real-world effects such as
+competition, reactor cycle staggering, and individual reactor outages.  The
 difference between these two modeling styles in terms of their affects on
-output of fuel cycle simulators in general is currently unknown. This
-analysis is designed to provide both quantitative and qualitative insight
-about how fleet-based continuous flow models differ from individual facility
-discrete flow models.
+output of fuel cycle simulators in general is currently unknown. This analysis
+is designed to provide both quantitative and qualitative insight about how
+fleet-based continuous flow models differ from individual facility discrete
+flow models.
 
 Many fuel cycle simulators step through time in discrete steps.  The duration
 of a single time step can have significant impact on the dynamics of a
@@ -109,8 +111,8 @@ simulation.  The time step duration can affect the magnitude of individual
 material transfers between facilities and correspondingly affects the noise
 level in facility material inventories.  It can also act as a minimum bound
 for outage durations. The effects of the time step duration will also be
-investigated together with fleet vs facility modeling.  Questions of
-interest include:
+investigated together with fleet vs facility modeling.  Questions of interest
+include:
 
 \begin{itemize}
 
@@ -126,7 +128,7 @@ interest include:
 \end{itemize}
 
 This work investigates in detail differences between fleet vs. individual
-reactor modeling and time step duration.
+reactor modeling together with variations in time step duration.
 
 \section{Fleet Modeling Overview}
 
