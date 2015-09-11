@@ -4,7 +4,7 @@ latexopt   = -halt-on-error -file-line-error
 latexclass = style.cls
 latexstyle = ntmanuscript.cls
 
-figs = exp2/sync-cycle.eps exp2/power.eps exp2/power-rel.eps exp2/unfueled.eps exp2/badshare.eps exp2/puinv.eps exp2/fuel-sharing.pdf exp2/flow.eps
+figs = exp2/sync-cycle.eps exp2/power.eps exp2/power-rel.eps exp2/unfueled.eps exp2/badshare.eps exp2/puinv.eps exp2/fuel-sharing.pdf exp2/flow.eps exp2/power-rel-noshort.eps
 
 all: all-via-pdf
 
@@ -55,6 +55,9 @@ exp2/power.eps: exp2/power.gp exp2/power.dat
 
 exp2/power-rel.eps: exp2/power-rel.gp exp2/power.dat
 	bash -c "cd exp2; gnuplot power-rel.gp"
+
+exp2/power-rel-noshort.eps: exp2/power-rel-noshort.gp exp2/power-noshort.dat
+	bash -c "cd exp2; gnuplot power-rel-noshort.gp"
 
 exp2/unfueled.eps: exp2/unfueled.gp exp2/unfueled.dat
 	bash -c "cd exp2; gnuplot unfueled.gp"
