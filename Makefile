@@ -4,7 +4,7 @@ latexopt   = -halt-on-error -file-line-error
 latexclass = style.cls
 latexstyle = ntmanuscript.cls
 
-figs = exp2/sync-cycle.eps exp2/power.eps exp2/power-rel.eps exp2/unfueled.eps exp2/badshare.eps exp2/puinv.eps exp2/fuel-sharing.pdf exp2/flow.eps exp2/power-rel-noshort.eps exp2/puinv-compare.eps
+figs = exp2/sync-cycle.eps exp2/power.eps exp2/power-rel.eps exp2/unfueled.eps exp2/badshare.eps exp2/puinv.eps exp2/fuel-sharing.pdf exp2/flow.eps exp2/puinv-compare.eps
 
 all: all-via-pdf
 
