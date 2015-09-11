@@ -27,6 +27,7 @@ function indivunfueled {
 function fleetunfueled {
     cyan -db $1 -custom query.json unfueled-fleet
 }
+
 function expand {
     awk 'NR==1{print $0;next;} {print $1*3-2" "$2; print $1*3-1" "$2; print $1*3-0" "$2;}'
 }
@@ -66,12 +67,6 @@ power case3.sqlite | expand > tmp3.dat
 power case4.sqlite | expand > tmp4.dat
 finalize power.dat
 
-power noshortage-case1.sqlite > tmp1.dat
-power noshortage-case2.sqlite > tmp2.dat
-power noshortage-case3.sqlite | expand > tmp3.dat
-power noshortage-case4.sqlite | expand > tmp4.dat
-finalize power-noshort.dat
-
 indivunfueled case1.sqlite | topower > tmp1.dat
 fleetunfueled case2.sqlite > tmp2.dat
 indivunfueled case3.sqlite | expand | topower > tmp3.dat
@@ -82,3 +77,4 @@ badshare case1.sqlite  > tmp1.dat
 badshare case3.sqlite | expand > tmp3.dat
 paste tmp1.dat tmp3.dat | awk 'NR==1 {print "Time\t\tCase1\t\tCase3"; next;} {print $1"\t\t"$2"\t\t"$4}' > badshare.dat
 rm tmp1.dat tmp3.dat
+
