@@ -6,7 +6,7 @@ set yrange [3:2750]
 set logscale y
 set key top center reverse Left
 
-set title "Pu Inventory and Flow: comparison"
+set title "Pu Inventory Comparison"
 set xlabel "Year"
 set ylabel "Separated Pu (tonnes)"
 plot \

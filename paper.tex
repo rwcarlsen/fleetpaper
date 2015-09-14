@@ -347,8 +347,8 @@ using quarterly time steps with individual reactors, cycle and outage times
 must be adjusted to be a multiple of 3 months.  In order to make the
 comparison fair, the cases with monthly time steps are also adjusted to have
 identical cycle and outage times.  The invariants preserved with respect to
-reactor behavior are shown in Table \ref{tab:exp2-invar}.  Table
-\ref{tab:exp2-reactors} shows the computed/selected configuration for both
+reactor behavior are shown in Table \ref{tab:invar}.  Table
+\ref{tab:reactors} shows the computed/selected configuration for both
 reactor types.  In each of the four cases, the initial 100 LWRs are modified
 to have a zero length refueling outage with an explicit 900 MWe power
 capacity.  This was done to avoid having all the initial LWRs in the
@@ -377,7 +377,7 @@ individual reactor cases refuel at the same time.
         simulation cases.
     }
 
-    \label{tab:exp2-invar}
+    \label{tab:invar}
 \end{table}
 
 \begin{table*}
@@ -398,7 +398,7 @@ individual reactor cases refuel at the same time.
         Reactor configuration for each of the four simulation cases.
     }
 
-    \label{tab:exp2-reactors}
+    \label{tab:reactors}
 \end{table*}
 
 The parameters for each case were also selected to keep capacity factors for
@@ -416,10 +416,10 @@ interesting features to investigate and compare.
 
 \subsection{Power Production}
 
-Figure \ref{fig:exp2-power} shows an overall view of the generated
+Figure \ref{fig:power} shows an overall view of the generated
 power over time for each of the four cases.  Figure
-\ref{fig:exp2-power-rel} normalizes the Figure
-\ref{fig:exp2-power} curves to the expected exponential power curve
+\ref{fig:power-rel} normalizes the Figure
+\ref{fig:power} curves to the expected exponential power curve
 magnifying some interesting differences between the four cases.  For the first
 100 years, the four cases behave somewhat similarly, although the individually
 modeled reactors in cases 1 and 3 actually go online and offline for refueling
@@ -459,7 +459,7 @@ staggering visible by the end of the 200 years.
         after the fuel shortage resuting in large power fluctuations (the
         \emph{cycle staggering effect}).
     }
-    \label{fig:exp2-power}
+    \label{fig:power}
 \end{figure*}
 
 \begin{figure*}[!h]
@@ -478,12 +478,12 @@ staggering visible by the end of the 200 years.
         the fleet reactor cases is due to the mis-alignment of reactors going
         offline (multiples of 12 months) and the build period (21 months).
     }
-    \label{fig:exp2-power-rel}
+    \label{fig:power-rel}
 \end{figure*}
 
 \subsection{Fuel Shortage}
 
-Figure \ref{fig:exp2-unfueled} shows the fuel shortage more explicitly
+Figure \ref{fig:unfueled} shows the fuel shortage more explicitly
 for each of the four cases. The individual reactor modeling cases result in
 more cumulative outage than corresponding fleet-based cases. The quarterly
 time step of cases 3 and 4 make the outage significantly more severe. Cases 1
@@ -502,11 +502,11 @@ cases.
         difference between monthly and quarterly time steps is primarily
         caused by the \emph{inventory drawdown effect}.
     }
-    \label{fig:exp2-unfueled}
+    \label{fig:unfueled}
 \end{figure}
 
 Quantifying imperfect fuel sharing is a bit difficult, but Figure
-\ref{fig:exp2-badshare} gives one way to approximate the \emph{fuel
+\ref{fig:badshare} gives one way to approximate the \emph{fuel
 sharing effect}.  Fleet reactor modeling by design exhibits perfect fuel
 sharing by design (zero inefficiency) and so is not included in this figure.
 Every batch that is given to a reactor that ends up not being able to start it
@@ -523,7 +523,7 @@ results in a cumulative offline power caused by poor fuel sharing of roughly
 1,600 $\text{GWe} \cdot \text{months}$ and 5,400 $\text{GWe} \cdot
 \text{months}$ for cases 1 and 3 respectively.  These approximations are a
 significant portion of the difference between individual and fleet cases in
-Figure \ref{fig:exp2-unfueled} suggesting that most of the discrepency
+Figure \ref{fig:unfueled} suggesting that most of the discrepency
 in cumulative outage between fleet and individual modeling is caused by
 inefficient fuel sharing in the individual reactor cases.
 
@@ -583,15 +583,15 @@ fuel to reactors that need less to operate.
         between cases 1 and 3 is mostly due to the \emph{inventory drawdown
         effect}. 
     }
-    \label{fig:exp2-badshare}
+    \label{fig:badshare}
 \end{figure}
 
 \subsection{Inventory Drawdown}
 
 The large differences seen between monthly and quarterly time step cases in
-Figures \ref{fig:exp2-unfueled} and \ref{fig:exp2-badshare} are
+Figures \ref{fig:unfueled} and \ref{fig:badshare} are
 primarily caused by the \emph{inventory drawdown effect}.  Figure
-\ref{fig:exp2-puinv} helps to visualize this effect.  The black dots in
+\ref{fig:puinv} helps to visualize this effect.  The black dots in
 the figure represent impulse flows of available Pu out of the fuel fab and
 into fast reactors.  Blue lines represent the flows into Pu inventory
 available for making fuel. The in flows are not shown for the individual
@@ -626,7 +626,7 @@ withdrawals.
         constraints than occur with smaller time steps - illustrating the
         \emph{inventory drawdown effect}.
     }
-    \label{fig:exp2-puinv}
+    \label{fig:puinv}
 \end{figure*}
 
 Different modeling choices can have a significant impact on the outcome of a
@@ -660,7 +660,14 @@ The impact of modeling assumptions depends heavily on the metrics of interest.
 For example, someone interested in fuel-shortage driven reactor outages could
 observe a factor of four span among the four cases shown in the detail
 comparison.  However, someone more interested in the overall transition speed
-would not see as significant a discrepancy.
+would not see as significant a discrepancy.  Also notable is that these
+different modeling choices may have varying levels of significance depending
+on the scenario/context they are operating in.  Figure \ref{fig:puinv-compare}
+shows the same inventory curves from Figure \ref{fig:puinv} superimposed.
+Before the fuel shortage begins, differences between each of the four cases
+are relatively minor.  However, after the shortage begins around year 100,
+separated Pu inventories vary much more significantly between the different
+cases.
 
 \begin{figure*}[!h]
     \centering
@@ -668,7 +675,7 @@ would not see as significant a discrepancy.
     \caption[TODO]{
         TODO
     }
-    \label{fig:exp2-puinv-compare}
+    \label{fig:puinv-compare}
 \end{figure*}
 
 \section{Conclusion}
