@@ -629,6 +629,26 @@ withdrawals.
     \label{fig:puinv}
 \end{figure*}
 
+Also notable is that different modeling choices (e.g. time step duration,
+facility discretization, etc.) may have varying levels of significance
+depending on the scenario/context they are operating in.  Figure
+\ref{fig:puinv-compare} shows the same inventory curves from Figure
+\ref{fig:puinv} superimposed.  Before the fuel shortage begins, differences
+between each of the four cases are relatively minor.  However, after the
+shortage begins around year 100, separated Pu inventories vary much more
+significantly between the different cases.
+
+\begin{figure*}[!h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{exp2/puinv-compare.eps}
+    \caption[TODO]{
+        TODO
+    }
+    \label{fig:puinv-compare}
+\end{figure*}
+
+\section{Conclusion}
+
 Different modeling choices can have a significant impact on the outcome of a
 simulation.  With discrete reactor modeling many factors must be considered in
 order to ensure the integrity of conclusions.  Individual reactor outage
@@ -660,25 +680,13 @@ The impact of modeling assumptions depends heavily on the metrics of interest.
 For example, someone interested in fuel-shortage driven reactor outages could
 observe a factor of four span among the four cases shown in the detail
 comparison.  However, someone more interested in the overall transition speed
-would not see as significant a discrepancy.  Also notable is that these
-different modeling choices may have varying levels of significance depending
-on the scenario/context they are operating in.  Figure \ref{fig:puinv-compare}
-shows the same inventory curves from Figure \ref{fig:puinv} superimposed.
-Before the fuel shortage begins, differences between each of the four cases
-are relatively minor.  However, after the shortage begins around year 100,
-separated Pu inventories vary much more significantly between the different
-cases.
+would not see as significant a discrepancy.
 
-\begin{figure*}[!h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{exp2/puinv-compare.eps}
-    \caption[TODO]{
-        TODO
-    }
-    \label{fig:puinv-compare}
-\end{figure*}
-
-\section{Conclusion}
+In an unconstrained supply setting, varying the time step duration or
+discretization of facility modeling have a relatively minor impact on the
+overall simulation results.  Differences become more significant in material
+constrained regimes.  Robustness in constrained regimes is especially useful
+in the context of sensitivity and optimization analysis.
 
 \section{Acknowledgements}
 
