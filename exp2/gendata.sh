@@ -78,7 +78,7 @@ indivunfueled case3.sqlite | expand | topower > tmp3.dat
 fleetunfueled case4.sqlite | expand > tmp4.dat
 finalize unfueled.dat
 
-# generate time series of offline reactor capacity due to inefficient fuel
+# generate time series of unutilized batch-months due to inefficient fuel
 # sharing - fleet reactors have perfect sharing and so this metric has no
 # meaning in those cases.
 badshare case1.sqlite  > tmp1.dat

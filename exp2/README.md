@@ -226,11 +226,13 @@ Other important files are:
 
     - ``unfueled.gp``: offline capacity due to fuel shortage
 
-    - ``badshare.gp``:
+    - ``badshare.gp``: wasted batch-months due to inefficient fuel sharing
 
-    - ``puinv.gp``:
+    - ``puinv.gp``: Pu inventory and flow v time for all cases showing the drawdown
+        effect.
 
-    - ``puinv-compare.gp``:
+    - ``puinv-compare.gp``: Pu inventory v time for all cases ploted on top of
+        each other.
 
     - ``sync-cycle.gp``: Not part of the main analysis - just generates a
       sample scenario power curve with poorly staggered reactor cycles.
