@@ -1,0 +1,4 @@
+*.so
+*.gen.*
+rwc_version.h
+*.o
