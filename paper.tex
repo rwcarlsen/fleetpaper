@@ -80,8 +80,8 @@ to as "fleets".  As the simulation steps through time, the levels of stocks
 adjusted according to the calculated flow values.  Simulators that model
 facility fleets built on a system dynamics foundation include VISION
 \cite{jacobson_verifiable_2010}, DANESS \cite{van_den_durpel_daness_2009},
-DYMOND (predecessor to DANESS), and ORION among others.  In fleet-based
-modeling:
+DYMOND (predecessor to DANESS), and ORION \cite{gregg_orion_2012} among
+others.  In fleet-based modeling:
 
 \begin{itemize}
 
@@ -126,16 +126,16 @@ Questions of interest include:
 \subsection{CYCLUS}
 
 One of the major motivations for the development of the Cyclus fuel cycle
-simulator was creating a simulation environment that is more expressive than
-more traditional fuel cycle simulators.  Cyclus was designed with a
-plugin-style architecture that allows different models for facility types to
-be swapped in and out trivially.  As a Cyclus simulation walks through each
-time step, facilities engage in a market-like dynamic resource exchange (DRE).
-They broadcast requests for material and suppliers respond with bids. The DRE
-then creates a network flow problem that it optimizes to resolve which
-transactions actually occur.  The plugin architecture combined with the DRE
-creates a powerful and flexible environment for the natural comparison of
-different modeling paradigms.
+simulator \cite{cyclus_2015} was creating a simulation environment that is
+more expressive than more traditional fuel cycle simulators.  Cyclus was
+designed with a plugin-style architecture that allows different models for
+facility types to be swapped in and out trivially.  As a Cyclus simulation
+walks through each time step, facilities engage in a market-like dynamic
+resource exchange (DRE).  They broadcast requests for material and suppliers
+respond with bids. The DRE then creates a network flow problem that it
+optimizes to resolve which transactions actually occur.  The plugin
+architecture combined with the DRE creates a powerful and flexible environment
+for the natural comparison of different modeling paradigms.
 
 Cyclus' agent-based architecture in concert with its dynamic resource exchange
 has the ability to model fleet-based facilities.  However, Cyclus was designed
