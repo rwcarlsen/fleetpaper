@@ -702,14 +702,14 @@ conversion ratio greater than 1.0.
 \begin{figure*}[!h]
     \centering
     \includegraphics[width=1.0\textwidth]{exp2/puinv.eps}
-    \caption[Pu inventory and flow]{
-        Pu inventory and flows for all four cases.  In-flows for cases 1 and 3
-        are omitted because they are very noisy and obscure useful other
-        information.  Larger time steps results in larger per time step
-        material flows. These larger flows mean more material is not available
-        for supplying to requesters.  This information lag causes more supply
-        constraints than occur with smaller time steps - illustrating the
-        \emph{inventory drawdown effect}.
+    \caption[Separated Pu inventory and flow]{
+        Separated Pu inventory and flows for all four cases.  In-flows for
+        cases 1 and 3 are omitted because they are very noisy and obscure
+        useful other information.  Larger time steps results in larger per
+        time step material flows. These larger flows mean more material is not
+        available for supplying to requesters.  This information lag causes
+        more supply constraints than occur with smaller time steps -
+        illustrating the \emph{inventory drawdown effect}.
     }
     \label{fig:puinv}
 \end{figure*}
@@ -726,8 +726,13 @@ contributions of more unfueled reactors to the separated Pu pool.
 \begin{figure*}[!h]
     \centering
     \includegraphics[width=0.8\textwidth]{exp2/puinv-compare.eps}
-    \caption[TODO]{
-        TODO
+    \caption{
+        Separated Pu inventories for all four cases.  Differences in modeling
+        choices are not particularly significant until about year 100 when
+        fuel shortages begin.  These differences gradually decay away starting
+        in year 140 after the fuel shortages have ebbed.  Higher aggregate Pu
+        inventory  during the shortage is correlated with a longer during and
+        post shortage recovery period.
     }
     \label{fig:puinv-compare}
 \end{figure*}
