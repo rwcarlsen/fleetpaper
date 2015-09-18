@@ -389,7 +389,11 @@ modeling, power goes offline in full time step increments.  For example, if a
 month time step, then it will produce $\frac{5}{6} \cdot 3 \text{mo} \cdot C $
 of energy.  In contrast, a monthly time step might allow the same reactor to
 produce $[\frac{5}{6} \cdot 1 \text{mo} + 2 \text{mo}] \cdot C $ of energy if
-the fuel shortage actually ended after only 1 month.
+the fuel shortage actually ended after only 1 month.  Quantifying this effect
+directly is difficult.  One way of observing it is to compare fleet reactor
+scenarios with that have different time step durations (i.e. cases 2 and 4).
+Because the fleet reactors have perfect fuel sharing (described below) and no
+outage noise, differences observed will likely be due to quantized shutdown.
 
 Individually modeled reactors each have their own refueling cycles.  Depending
 on how the refueling cycles and outages are staggered, power production can
@@ -405,7 +409,8 @@ a large quantity of orders.  If the fabrication facility does not have enough
 on hand, some number of reactors will need to wait until enough fuel can be
 pumped through fabrication.  Avoiding such constraints would require the
 fabrication facility to maintain suboptimally large on-hand inventories as a
-contingency.
+contingency.  This effect can be naturally observed as the fluctuations in the
+difference between deployed power capacity and generated power.
 
 \begin{figure}[h]
     \centering
@@ -426,7 +431,17 @@ a fixed amount of fuel shortage may vary depending on how the existing fuel is
 distributed.  This is illustrated in Figure \ref{fig:fuel-sharing}.  A system
 being short 3 batches might mean that one reactor has no batches and isn't
 operating or that 3 reactors are each missing a single batch.  This is
-referred to as the \emph{fuel sharing effect}.
+referred to as the \emph{fuel sharing effect}.  Fleet reactors, by design,
+have perfect fuel sharing - all fuel is distributed so that the minimum
+possible amount of capacity is offline during shortages. The most correct
+measure of fuel sharing inefficiency is the difference between the actual
+generated power and the maximum amount of power that could have been generated
+among all possible fuel distribution alternatives.  This is difficult to
+actually compute. One possible approximation is to count the number of fresh
+fuel batches distributed to reactors that ended up not having enough fuel to
+operate (i.e. a full core) that time step.  This approximation assumes that
+every "wasted" batch of fuel, could have been given to a reactor that only
+needed one batch to operate.
 
 \begin{figure}[h]
     \centering
@@ -452,8 +467,10 @@ given time step.  Within a particular time step facilities do not know about
 incoming material when they make commitments for outgoing material.  For
 longer time steps, larger incoming quanta of material are not available for
 making offers. In general longer time steps and individual reactor modeling
-create a need for larger floating inventory buffers in order to avoid
-material shortages.
+create a need for larger floating inventory buffers in order to avoid material
+shortages.  Although direct measures of this effect are difficult, some of its
+consequences can be quantified by comparing scenarios with different time step
+durations (e.g. cases 2 and 4).
 
 There are also performance differences between the two modeling paradigms.  A
 single 200 year simulation with several hundred fleet-based reactors takes

@@ -2,9 +2,9 @@
 set output "puinv-compare.eps"
 set terminal epscairo
 
-set yrange [3:2750]
+set yrange [3:5000]
 set logscale y
-set key top center reverse Left
+set key at first 50,4000 top left reverse Left
 
 set title "Pu Inventory Comparison"
 set xlabel "Year"
