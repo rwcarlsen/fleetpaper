@@ -669,7 +669,7 @@ primarily caused by the \emph{inventory drawdown effect}.  Figure
 the figure represent impulse flows of available Pu out of the fuel fab and
 into fast reactors.  Blue lines represent the flows into Pu inventory
 available for making fuel. The in flows are not shown for the individual
-reactor cases because they are somewhat messy and obscure otherinformation in
+reactor cases because they are somewhat messy and obscure other information in
 the plots. The colored curves show Pu inventory available for making fast
 reactor fuel.  When the inventory curves meet and force down the flows, fuel
 shortages occur. 
@@ -678,15 +678,26 @@ Quarterly time steps have less frequent but larger impulse material flows.
 These larger flows, however, do not compensate for the larger withdrawals
 because facilities do not know about incoming inventory when they resolve
 their outflow for a particular time step.  This information lag effectively
-requires the floating Pu inventory to be maintained at a higher level.  This
-can be clearly seen in the case 4 plot which has a higher standing inventory
-than case 2 during the fuel shortage years.  The case 4 Pu inventory is unable
-to drop below approximately 100 tonnes, which indicates out-flows to be
-roughly equal to the Pu flow into inventory each time step during those years.
-This can be confirmed by the in-flow and inventory curves touching at those
-points.  Case 2 Pu inventory is similarly limited at about the 30 tonne level.
-As expected, the case 4 withdrawals are also three times higher case 2
-withdrawals.
+requires the floating Pu inventory to be maintained at a higher level during
+the shortage.  This can be clearly seen in the case 4 plot which has a higher
+standing inventory than case 2 during the fuel shortage years.  The case 4 Pu
+inventory is unable to drop below approximately 100 tonnes, which indicates
+out-flows to be roughly equal to the Pu flow into inventory each time step
+during those years.  This can be confirmed by the in-flow and inventory curves
+touching at those points.  Case 2 Pu inventory is similarly limited at about
+the 30 tonne level.  As expected, the case 4 withdrawals are also three times
+higher case 2 withdrawals.
+
+Throughout most of the shortage, the aggregate outflow of Pu from separated
+inventory is roughly the same in cases 2 and 4.  However, due to the longer
+time steps in case 4, the shortage starts slightly sooner because Pu inventory
+must be maintained at a higher limit as described above.  The small difference
+in outage start time has feed-back effects.  Not only are extra reactors
+offline, but those extra reactors are also discharging less aggregate spent
+fuel for recycling.  This farther increases the discrepency between the two
+cases. Eventually the shortage in case 2 ends slightly before it does in case
+4. This effect feedback occurs because the reactors in question have a
+conversion ratio greater than 1.0.
 
 \begin{figure*}[!h]
     \centering
