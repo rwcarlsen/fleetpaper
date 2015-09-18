@@ -44,11 +44,14 @@
 \begin{document}
 
 \newpage
+
 \begin{abstract}
 TODO: Write this abstract.
 \end{abstract}
 
 \section{Introduction}
+
+TODO: add good intro/overview paragraph 
 
 \subsection{Motivation and Background}
 
@@ -129,19 +132,29 @@ One of the major motivations for the development of the Cyclus fuel cycle
 simulator \cite{cyclus_2015} was creating a simulation environment that is
 more expressive than more traditional fuel cycle simulators.  Cyclus was
 designed with a plugin-style architecture that allows different models for
-facility types to be swapped in and out trivially.  As a Cyclus simulation
-walks through each time step, facilities engage in a market-like dynamic
-resource exchange (DRE).  They broadcast requests for material and suppliers
-respond with bids. The DRE then creates a network flow problem that it
-optimizes to resolve which transactions actually occur.  The plugin
-architecture combined with the DRE creates a powerful and flexible environment
-for the natural comparison of different modeling paradigms.
+facility types, known as \emph{archetypes} to be swapped in and out trivially.
 
+As a Cyclus simulation walks through each time step, facilities engage in a
+market-like dynamic resource exchange (DRE).  They broadcast requests for
+material and suppliers respond with bids. The DRE then creates a network flow
+problem that is optimized to resolve which transactions actually occur.  The
+plugin architecture combined with the DRE creates a powerful and flexible
+environment for the natural comparison of different modeling paradigms.
 Cyclus' agent-based architecture in concert with its dynamic resource exchange
 has the ability to model fleet-based facilities.  However, Cyclus was designed
 to enable modeling facilities individually with discrete flows enabling the
 investigation of interesting real-world effects such as competition, reactor
-cycle staggering, and individual reactor outages.  
+cycle staggering, and individual reactor outages. 
+
+Cyclus was designed to operate natively in unix/linux type environments with
+flexible ascriptable usage and input file format.  Cyclus holds its diverse
+generated data into a powerful open-source database format.  In addition to
+information about material flows and facility deployments, Cyclus' single-file
+database contains version information about the archetypes used in a
+simulation, the simulation input file, version of Cyclus used to run the
+simulation, and the installed versions of Cyclus dependencies. This and other
+features of Cyclus lend themselves well to automation, research provenance and
+reproducibility, and large-scale computing.
 
 \section{Methodology}
 
