@@ -480,10 +480,13 @@ incoming material when they make commitments for outgoing material.  For
 longer time steps, larger incoming quanta of material are not available for
 making offers. In general longer time steps and individual reactor modeling
 create a need for larger floating inventory buffers in order to avoid material
-shortages.  Although direct measures of this effect are difficult, some of its
+shortages.  Another way to think about this effect is that a single material
+object can only move between a single pair of facilities per time step. Larger
+time steps result in longer minimum bounds on time to traverse paths between
+facilities. Although direct measures of this effect are difficult, some of its
 consequences can be quantified by comparing scenarios with different time step
 durations (e.g. cases 2 and 4) such as higher standing inventories during
-shortages.
+shortages.  
 
 There are also performance differences between the two modeling paradigms.  A
 single 200 year simulation with several hundred fleet-based reactors takes
