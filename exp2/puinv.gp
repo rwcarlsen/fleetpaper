@@ -19,7 +19,7 @@ set tmargin at screen 0.86
 set bmargin at screen 0.51
 set title "Monthly Time Steps\n\nCase 1" offset 0,-.8
 plot \
-  "puinv.dat" u ($1/12):($2/1000) w l lc 1 lw 4 title "Inventory", \
+  "puinv.dat" u ($1/12):($2/1000) w p lc 1 pt 1 ps 0.5 title "Inventory", \
   "puflow.dat" u ($1/12):($2/1000) w p lc 8 pt 5 ps .15 title "Monthly outflow", \
 
 unset xlabel
@@ -32,7 +32,7 @@ set tmargin at screen 0.86
 set bmargin at screen 0.51
 set title "Quarterly Time Steps\n\nCase 3"
 plot \
-  "puinv.dat" u ($1/12):($4/1000) w l lc 2 lw 4 title "Inventory", \
+  "puinv.dat" every 3 u ($1/12):($4/1000) w p lc 2 pt 6 ps 0.4 title "Inventory", \
   "puflow.dat" u ($1/12):($4/1000) w p lc 8 pt 5 ps .15 title "Quarterly outflow", \
 
 set xtics rotate by 50 right font ",10"
@@ -62,5 +62,5 @@ set title "Case 4"
 plot \
   "puinv.dat" u ($1/12):($5/1000) w l lc 4 lw 4 title "Inventory", \
   "puflow.dat" u ($1/12):($5/1000) w p lc 8 pt 5 ps .15 title "Quarterly Outflow", \
-  "puflowin.dat" u ($1/12):($5/1000) w l lc rgb "blue" title "Quarterly inflow", \
+  "puflowin.dat" u ($1/12):($5/1000) w l lc rgb "blue" title "Monthly inflow", \
 
