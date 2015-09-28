@@ -678,16 +678,19 @@ fuel to reactors that need less to operate.
 \subsection{Inventory Drawdown}
 
 The large differences seen between monthly and quarterly time step cases in
-Figures \ref{fig:unfueled} and \ref{fig:badshare} are
-primarily caused by the \emph{inventory drawdown effect}.  Figure
-\ref{fig:puinv} helps to visualize this effect.  The black dots in
-the figure represent impulse flows of available Pu out of the fuel fab and
-into fast reactors.  Blue lines represent the flows into Pu inventory
-available for making fuel. The in flows are not shown for the individual
-reactor cases because they are somewhat messy and obscure other information in
-the plots. The colored curves show Pu inventory available for making fast
-reactor fuel.  When the inventory curves meet and force down the flows, fuel
-shortages occur. 
+Figures \ref{fig:unfueled} and \ref{fig:badshare} are primarily caused by the
+\emph{inventory drawdown effect}.  Figure \ref{fig:puinv} helps to visualize
+this effect.  The black dots in the figure represent impulse flows of
+available Pu out of the fuel fab and into fast reactors.  Blue lines represent
+the flows into Pu inventory available for making fuel. The in flows are not
+shown for the individual reactor cases because they are somewhat messy and
+obscure other information in the plots. The colored curves show Pu inventory
+available for making fast reactor fuel.  When the inventory curves meet and
+force down the out-flows, fuel shortages occur.  While this is most clear for
+cases 2 and 4, the individual reactor scenarios (cases 1 and 3) also have many
+points during the shortage where the outflow point lies exactly on top of the
+inventory point - indicating that all available inventory is being
+transferred.
 
 Quarterly time steps have less frequent but larger impulse material flows.
 These larger flows, however, do not compensate for the larger withdrawals
@@ -701,7 +704,8 @@ out-flows to be roughly equal to the Pu flow into inventory each time step
 during those years.  This can be confirmed by the in-flow and inventory curves
 touching at those points.  Case 2 Pu inventory is similarly limited at about
 the 30 tonne level.  As expected, the case 4 withdrawals are also three times
-higher case 2 withdrawals.
+higher case 2 withdrawals exactly matching the time step duration ratio
+between the two cases.
 
 Throughout most of the shortage, the aggregate outflow of Pu from separated
 inventory is roughly the same in cases 2 and 4.  However, due to the longer
@@ -714,17 +718,27 @@ cases. Eventually the shortage in case 2 ends slightly before it does in case
 4. This effect feedback occurs because the reactors in question have a
 conversion ratio greater than 1.0.
 
+The striations visible in the monthly flows for case 1 in Figure
+\ref{fig:puinv} are a characteristic of the synchronization of reactor
+refueling caused by the shortage.  They are a sort of resonances of that the
+inventory level jumps between, and they gradually disappear as the refueling
+cycles become more staggered.
+
 \begin{figure*}[!h]
     \centering
     \includegraphics[width=1.0\textwidth]{exp2/puinv.eps}
     \caption[Separated Pu inventory and flow]{
+
         Separated Pu inventory and flows for all four cases.  In-flows for
-        cases 1 and 3 are omitted because they are very noisy and obscure
-        useful other information.  Larger time steps results in larger per
-        time step material flows. These larger flows mean more material is not
+        cases 1 and 3 are omitted because they are noisy and obscure other
+        useful information.  A larger time step results in larger per time
+        step material flows. These larger flows mean more material is not
         available for supplying to requesters.  This information lag causes
         more supply constraints than occur with smaller time steps -
-        illustrating the \emph{inventory drawdown effect}.
+        illustrating the \emph{inventory drawdown effect}. Another result of
+        this effect is the larger standing Pu inventory during the shortage
+        with larger time steps that can be seen in case 4 than in case 2.
+
     }
     \label{fig:puinv}
 \end{figure*}
