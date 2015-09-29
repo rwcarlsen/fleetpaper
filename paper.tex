@@ -63,7 +63,7 @@ the scenarios.  When under supply-constraint pressure, the four cases exhibit
 noticably different behavior.  Otherwise, they generally behaved very
 similarly.  Fleet-based modeling is more efficient in supply-constrained
 environments at the expense of losing insight on issues such as realistically
-sub-optimal fuel distribution and challenges in reactor refueling cycle
+suboptimal fuel distribution and challenges in reactor refueling cycle
 staggering.  Finer-grained time steps also enable more efficient material use
 in supply-constrained environments.  Large simulations with fleet-based
 reactors run much more quickly than their individual reactor counterparts.
@@ -418,44 +418,53 @@ cases are publicly available for download and use \cite{Carlsen2015}.
 \subsection{Modeling Effects}
 
 There are various low level phenomena that have potential to affect the larger
-outcome of simulations with respect to facility modeling decisions. Several
-effects are described below that result from fundamental differences between
-these two modeling paradigms.
+outcome of simulations with respect to facility and time step modeling
+decisions. Several effects are described below that arise from these
+different modeling choices.
 
 One difference between the fleet and individual facility modeling is the
 \emph{quantized shutdown effect}.  If a fleet-based reactor modeling 3-batch
-cores is short a half batch of fuel it will produce $\frac{5}{6}\cdot C$ of
-power for that time step where $C$ is the power capacity of a single reactor
-of the fleet (e.g. 1000 MWe).  If an individually modeled reactor is short a
-half batch of fuel, then it will produce no power that time step.  Time step
-duration can also have this effect.  For both fleet and individual reactor
-modeling, power goes offline in full time step increments.  For example, if a
-3-batch fleet based reactor is short $\frac{1}{2}$ batch of fuel with a 3
-month time step, then it will produce $\frac{5}{6} \cdot 3 \text{mo} \cdot C $
-of energy.  In contrast, a monthly time step might allow the same reactor to
-produce $[\frac{5}{6} \cdot 1 \text{mo} + 2 \text{mo}] \cdot C $ of energy if
-the fuel shortage actually ended after only 1 month.  Quantifying this effect
-directly is difficult.  One way of observing it is to compare fleet reactor
-scenarios with that have different time step durations (i.e. cases 2 and 4).
-Because the fleet reactors have perfect fuel sharing (described below) and no
-outage noise, differences observed will likely be due to quantized shutdown.
+cores is short one half batch of fuel, it will produce $\frac{2.5}{3}\cdot C$
+of power for that time step where $C$ is the power capacity of a single
+reactor of the fleet (e.g. 1000 MWe).  If an individually modeled reactor is
+short a half batch of fuel, then it will produce no power ($0 \cdot C$) that
+time step.  Time step duration can also have this effect.  For both fleet and
+individual reactor modeling, power goes offline in full time step increments.
+For example, if a 3-batch fleet based reactor is short $\frac{1}{2}$ batch of
+fuel with a 3 month time step, then it will produce $\frac{2.5}{3} \cdot 3
+\text{mo} \cdot C $ of energy.  In contrast, a monthly time step might allow
+the same reactor to produce $[\frac{5}{6} \cdot 1 \text{mo} + 1 \cdot 2
+\text{mo}] \cdot C $ of energy if the fuel shortage actually ended after only
+1 month.  Quantifying this effect directly is difficult.  One way of observing
+it is to compare fleet reactor scenarios that have different time step
+durations (i.e. cases 2 and 4).  Because the fleet reactors have perfect fuel
+sharing (described below) and no outage noise, differences observed will
+likely be due to quantized shutdown.
 
 Individually modeled reactors each have their own refueling cycles.  Depending
 on how the refueling cycles and outages are staggered, power production can
 vary significantly.  For example, if all reactors refuel at the same time,
-then all reactors would be offline at the same time.  This is referred to as
-the \emph{cycle staggering effect} and does not occur in fleet-based reactor
+then all reactors are offline at the same time.  This is referred to as the
+\emph{cycle staggering effect} and does not occur in fleet-based reactor
 models.  An example of poor cycle staggering is shown in Figure
-\ref{fig:sync-cycle}.  Poor staggering causes spikes of material supply and
-demand that can lead to suboptimal resource utilization.  A fuel fabrication
-facility might receive requests for new batches for every reactor all at once.
-The reactors draw out inventory from the fuel fabrication facility together in
-a large quantity of orders.  If the fabrication facility does not have enough
-on hand, some number of reactors will need to wait until enough fuel can be
-pumped through fabrication.  Avoiding such constraints would require the
-fabrication facility to maintain suboptimally large on-hand inventories as a
-contingency.  This effect can be naturally observed as the fluctuations in the
-difference between deployed power capacity and generated power.
+\ref{fig:sync-cycle}.  This effect can be naturally observed as the
+fluctuations in the difference between deployed power capacity and generated
+power.
+
+Poor reactor cycle staggering can also cause spikes of material supply and
+demand that can lead to suboptimal resource utilization.  Consider a fuel
+fabrication facility that receives requests for new batches for every reactor
+all at once.  The reactors draw out inventory from the fuel fabrication
+facility together in a large quantity of orders.  If the fabrication facility
+does not have enough material on hand, some number of reactors will need to
+wait until enough fuel can be pumped through fabrication.  Avoiding such
+constraints would require the fabrication facility to maintain suboptimally
+large on-hand inventories as a contingency.  Even with infinite material
+availability, poor staggering can result in supply constraints caused by
+finite facility throughput. Even if the fuel fabrication facility above has
+infinite material supply that it can keep on hand, it might not be able to
+fabricate fuel for all reactor requests all at once even though it has
+sufficient capacity if they request fuel uniformly over time.
 
 \begin{figure}[h]
     \centering
