@@ -725,7 +725,7 @@ this effect.  The black dots in the figure represent impulse flows of
 available Pu out of the fuel fab and into fast reactors.  Blue lines represent
 the flows into Pu inventory available for making fuel. The in flows are not
 shown for the individual reactor cases because they are somewhat messy and
-obscure other information in the plots. The colored curves show Pu inventory
+obscure other information in the plots. The other colored curves show Pu inventory
 available for making fast reactor fuel.  When the inventory curves meet and
 force down the out-flows, fuel shortages occur.  While this is most clear for
 cases 2 and 4, the individual reactor scenarios (cases 1 and 3) also have many
@@ -734,7 +734,7 @@ inventory point - indicating that all available inventory is being
 transferred.
 
 Quarterly time steps have less frequent but larger impulse material flows.
-These larger flows, however, do not compensate for the larger withdrawals
+The larger in-flows, however, do not compensate for the larger withdrawals
 because facilities do not know about incoming inventory when they resolve
 their outflow for a particular time step.  This information lag effectively
 requires the floating Pu inventory to be maintained at a higher level during
@@ -785,18 +785,18 @@ cycles become more staggered.
 \end{figure*}
 
 Figure \ref{fig:puinv-compare} shows the same inventory curves from Figure
-\ref{fig:puinv} superimposed. Counter-intuitively, lower separated plutonium
+\ref{fig:puinv} superimposed. Perhaps counter-intuitively, lower separated plutonium
 inventory during the shortage generally indicates fewer unfueled reactors.
 Lower inventory levels mean available Pu is being utilized more efficiently
 rather than sitting idle.  Cases 3 and 4 with their longer time steps show
 higher inventories indicating a more severe shortage.  Post shortage, they
 also fall a bit behind on building up Pu stocks due to the delayed
 contributions of more unfueled reactors to the separated Pu pool.  The
-reactors in these scenarios request fresh fuel only when they need it. While
+reactors in all the scenarios request fresh fuel only when they need it. While
 this is an unrealistic behavior for real-world facilities, it is closer to a
 globally optimum fuel management strategy.  Keeping on-hand fresh fuel batches
 would also have the same effect of increasing idling plutonium quantities and
-making the fuel shortage worse overall.
+would make the fuel shortage worse overall.
 
 \begin{figure*}[!h]
     \centering
@@ -815,9 +815,9 @@ making the fuel shortage worse overall.
 Also notable is that different modeling choices (e.g. time step duration,
 facility discretization, etc.) may have varying levels of significance
 depending on the scenario/context they are operating in.  As shown in Figure
-\ref{fig:puinv-compare} Before the fuel shortage begins, differences between
+\ref{fig:puinv-compare} before the fuel shortage begins, differences between
 each of the four cases are relatively minor.  However, after the shortage
-begins around year 100, separated Pu inventories vary much more significantly
+begins near year 100, separated Pu inventories vary much more significantly
 between the different cases.
 
 \section{Conclusion}
@@ -826,40 +826,40 @@ Different modeling choices can have a significant impact on the outcome of a
 simulation.  With discrete reactor modeling many factors must be considered in
 order to ensure the integrity of conclusions.  Individual reactor outage
 modeling can be very useful for certain analyses, but it can reduce result
-quality if things such as cycle staggering are handled appropriately.  The
-fleet and discreet modeling done here is itself multi-dimensional.  If
-individual outages are not of interest, reactor power could be lowered and the
-outage reduced to zero duration making the capacity factor part of the
-reactor's power capacity.  The cycle staggering effects present when modeling
-reactors individually can provide valuable insight not possible with the
-fleet-based reactor modeling.  Starting reactors following shortage induced
-outages should not follow the natural pacing of fuel availability, otherwise
-refueling cycles become unsatisfactorily synchronized.
+quality if things such as cycle staggering are not handled appropriately.  The
+fleet and discreet modeling done here is itself multi-dimensional. If fuel
+sharing is of interest, but cycle staggering is not, individual reactors can
+be used with the power capacity lowered and the outage reduced to zero
+duration making the capacity factor included in the reactor's power capacity.
+Modeling reactors individually can provide valuable insight not possible with
+the fleet-based reactor modeling.  For example, bringing reactors back online
+following shortage-induced outages should not follow the natural pacing of
+fuel availability, otherwise refueling cycles become unsatisfactorily
+synchronized.
 
 Increasing the time steps increases facilities' standing inventory requirement
-for avoiding supply constraints.  Facilities that have unconstrained supply
-and very large inventory buffers, are not affected by the time step in this
-way.  Facilities can provide no more inventory than they can hold on a single
-time step.  So increasing time step duration for a facility with unconstrained
-supply generally means higher standing inventories are required in order to
-achieve equal throughput. Even when facilities do not have individual
+for avoiding supply constraints.  Facilities can provide no more inventory
+than they can hold on a single time step.  So increasing time step duration
+for a facility with unconstrained supply generally means higher standing
+inventories are required in order to achieve equal throughput. Facilities that
+have unconstrained supply and very large inventory buffers, are not affected
+meaningfully by the time step. Even when facilities do not have individual
 inventory or throughput limits, the time step can still have a significant
 effect. In recycle loops there is a constraint on how fast material is
 introduced through the loop (i.e. the discharge rate of spent fuel from
-reactors).  The \emph{inventory drawdown effect} can reduce the aggregate
+reactors).  The \emph{inventory drawdown effect} can impact the aggregate
 throughput of the recycling loop.
 
 The impact of modeling assumptions depends heavily on the metrics of interest.
-For example, someone interested in fuel-shortage driven reactor outages could
+For example, someone interested in fuel-shortage driven reactor outages would
 observe a factor of four span among the four cases shown in the detail
-comparison.  However, someone more interested in the overall transition speed
-would not see as significant a discrepancy.
-
-In an unconstrained supply setting, varying the time step duration or
-discretization of facility modeling have a relatively minor impact on the
-overall simulation results.  Differences become more significant in material
-constrained regimes.  Robustness in constrained regimes is especially useful
-in the context of sensitivity and optimization analysis.
+comparison.  However, someone more interested in the overall transition
+mechanics would not see as significant a discrepancy.  In an unconstrained
+supply setting, varying the time step duration or discretization of facility
+modeling have a relatively minor impact on the overall simulation results.
+Differences become more significant in material constrained regimes.
+Robustness in constrained regimes is especially useful in the context of
+sensitivity and optimization analysis.
 
 \section{Acknowledgements}
 
