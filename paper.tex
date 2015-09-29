@@ -481,7 +481,7 @@ sufficient capacity if they request fuel uniformly over time.
 
 Another difference between fleet-based and individual facility modeling
 involves fuel sharing.  Power production by a group of individual reactors for
-a fixed amount of fuel shortage may vary depending on how the existing fuel is
+a fixed amount of fuel shortage may vary depending on how available fuel is
 distributed.  This is illustrated in Figure \ref{fig:fuel-sharing}.  A system
 being short 3 batches might mean that one reactor has no batches and isn't
 operating or that 3 reactors are each missing a single batch.  This is
@@ -520,15 +520,14 @@ this effect is the simultaneity of incoming and outgoing material flows on a
 given time step.  Within a particular time step facilities do not know about
 incoming material when they make commitments for outgoing material.  For
 longer time steps, larger incoming quanta of material are not available for
-making offers. In general longer time steps and individual reactor modeling
-create a need for larger floating inventory buffers in order to avoid material
-shortages.  Another way to think about this effect is that a single material
-object can only move between a single pair of facilities per time step. Larger
-time steps result in longer minimum bounds on time to traverse paths between
-facilities. Although direct measures of this effect are difficult, some of its
-consequences can be quantified by comparing scenarios with different time step
-durations (e.g. cases 2 and 4) such as higher standing inventories during
-shortages.  
+making offers. In general longer time steps create a need for larger floating
+inventory buffers in order to avoid material shortages.  Another aspect of
+this effect is that a single material object can only move between a single
+pair of facilities per time step. Larger time steps result in longer minimum
+bounds on time to traverse paths between facilities. Although direct measures
+of this effect are difficult, some of its consequences (e.g. higher standing
+inventories during shortages) can be quantified by comparing scenarios with
+different time step durations (e.g. cases 2 and 4).
 
 There are also performance differences between the two modeling paradigms.  A
 single 200 year simulation with several hundred fleet-based reactors takes
@@ -537,7 +536,10 @@ using individual reactor facilities takes about 20 seconds.  This order of
 magnitude difference is an important tradeoff to keep in mind when doing fuel
 cycle analysis in general, particularly when considering optimization or
 sensitivity studies where running hundreds of thousands of simulations may be
-desirable.
+desirable.  The time step duration has less impact on performance because the
+amount of work being done in the simulation is the same; in the monthly time
+step cases most facilities (i.e. all reactors) are only perform actions every
+refueling cycle rather than every time step.
 
 \section{Results}
 
