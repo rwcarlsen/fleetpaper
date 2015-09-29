@@ -544,23 +544,22 @@ refueling cycle rather than every time step.
 \section{Results}
 
 All results data, analysis tools and instructions are publicly available for
-download at \url{http://dx.doi.org/10.6084/m9.figshare.1546775}
+download and use at \url{http://dx.doi.org/10.6084/m9.figshare.1546775}
 \cite{Carlsen2015}.
 
 \subsection{Power Production}
 
-Figure \ref{fig:power} shows an overall view of the generated
-power over time for each of the four cases.  Figure
-\ref{fig:power-rel} normalizes the Figure
-\ref{fig:power} curves to the expected exponential power curve
-magnifying some interesting differences between the four cases.  For the first
-100 years, the four cases behave somewhat similarly, although the individually
-modeled reactors in cases 1 and 3 actually go online and offline for refueling
+Figure \ref{fig:power} shows an overall view of the generated power over time
+for each of the four cases.  Figure \ref{fig:power-rel} normalizes the Figure
+\ref{fig:power} curves to the expected exponential power curve magnifying some
+interesting differences between the four cases.  For the first 100 years, the
+four cases behave somewhat similarly, although the individually modeled
+reactors in cases 1 and 3 actually go offline and back online for refueling
 causing more variance.  Around year 100, a fuel shortage begins and more
 significant differences between the four cases become apparent. This fuel
-shortage lasts until about year 140. The power generated in Case 4 is lower
-than in case 2 during the fuel shortage years. This is primarily due to the
-\emph{quantized shutdown effect}.  The longer 3-month time step in case 4
+shortage lasts until about year 140. The power generated in Case 4 is slightly
+lower than in case 2 during the fuel shortage years. This is primarily due to
+the \emph{quantized shutdown effect}.  The longer 3-month time step in case 4
 results in reactor capacity going offline longer than necessary.
 
 During the initial 100 years, cases 1 and 3 have larger variance in power
@@ -589,8 +588,8 @@ staggering visible by the end of the 200 years.
         Generated power for all four cases.  A fuel shortage occurs from about
         year 100 to about year 140.  In cases 1 and 3 with individual reactor
         modeling, refueling cycles become much more synchronized during and
-        after the fuel shortage resuting in large power fluctuations (the
-        \emph{cycle staggering effect}).
+        after the fuel shortage resuting in large power fluctuations - an artifact of the
+        \emph{cycle staggering effect}.
     }
     \label{fig:power}
 \end{figure*}
@@ -602,13 +601,13 @@ staggering visible by the end of the 200 years.
         Generated power is normalized to the expected 1\% exponential growth
         curve for all four cases.  A fuel shortage occurs from about year 100
         to about year 140.  The \emph{cycle staggering effect} can be seen as
-        divergence from 1.0 and is especially visible in cases 1 and 3 where
+        excessive divergence above and below $1.0$ in cases 1 and 3 where
         the shortage increases cycle synchronization significantly. The
         \emph{quantized shutdown effect} can also be seen in the discrepency
         between quarterly and monthly time steps for fleet reactor modeling
         (cases 2 and 4) during the shortage; a longer time step causes more
         reactor outage than necessary. The consistent jumping up and down for
-        the fleet reactor cases is due to the mis-alignment of reactors going
+        the fleet reactor cases (even pre-shortage) is due to the mis-alignment of reactors going
         offline (multiples of 12 months) and the build period (21 months).
     }
     \label{fig:power-rel}
@@ -616,10 +615,10 @@ staggering visible by the end of the 200 years.
 
 \subsection{Fuel Shortage}
 
-Figure \ref{fig:unfueled} shows the fuel shortage more explicitly
-for each of the four cases. The individual reactor modeling cases result in
-more cumulative outage than corresponding fleet-based cases. The quarterly
-time step of cases 3 and 4 make the outage significantly more severe. Cases 1
+Figure \ref{fig:unfueled} shows the fuel shortage more explicitly for each of
+the four cases. The individual reactor modeling cases result in more
+cumulative outage than corresponding fleet-based cases. The quarterly time
+step of cases 3 and 4 also make the outage significantly more severe. Cases 1
 and 3 exhibit approximately twice as much offline power as their corresponding
 fleet based simulations in cases 2 and 4.  The monthly time step simulations
 also have roughly twice as much offline power as their corresponding quarterly
@@ -642,23 +641,21 @@ Quantifying imperfect fuel sharing is a bit difficult, but Figure
 \ref{fig:badshare} gives one way to approximate the \emph{fuel
 sharing effect}.  Fleet reactor modeling by design exhibits perfect fuel
 sharing by design (zero inefficiency) and so is not included in this figure.
-Every batch that is given to a reactor that ends up not being able to start it
+Every batch that is given to a reactor that ends up not being able to start its
 cycle at the scheduled time (due to fuel shortage) adds one to this cumulative
 for each time step the cycle start is delayed.
 
 One useful over-estimate of the fuel sharing inefficiency is to assume every
-one of these batches could have been given to a reactor enabling it to
+one of the "wasted" batches could have been given to a reactor enabling it to
 operate.  Multiplying each of these cumulative batches by reactor capacity
 (i.e. 450 MWe) provides a way to compare fuel sharing inefficiency with the
-overall fuel outage.  Correcting for capacity factor in is appropriate these
-cases because the outage is many reactor cycle lengths in duration. This
-results in a cumulative offline power caused by poor fuel sharing of roughly
-1,600 $\text{GWe} \cdot \text{months}$ and 5,400 $\text{GWe} \cdot
-\text{months}$ for cases 1 and 3 respectively.  These approximations are a
-significant portion of the difference between individual and fleet cases in
-Figure \ref{fig:unfueled} suggesting that most of the discrepency
-in cumulative outage between fleet and individual modeling is caused by
-inefficient fuel sharing in the individual reactor cases.
+overall fuel outage.  This results in a cumulative offline power caused by
+poor fuel sharing of roughly 2,000 $\text{GWe} \cdot \text{months}$ and 6,600
+$\text{GWe} \cdot \text{months}$ for cases 1 and 3 respectively.  These
+approximations are a significant portion of the difference between individual
+and fleet cases in Figure \ref{fig:unfueled} suggesting that most of the
+discrepency in cumulative outage between fleet and individual modeling is
+caused by inefficient fuel sharing in the individual reactor cases.
 
 The poor fuel sharing exhibited in the individual reactor cases would not
 occur if there were no new reactors being built during the shortage.
@@ -666,8 +663,8 @@ Previously operating reactors only ever need one batch - receiving only a
 single batch allows them to operate.  Newly constructed reactors need multiple
 batches in order to begin operation, and if they receive less than a full core
 they cannot operate.  The real world doesn't necessarily optimize for fuel
-sharing efficiency very cleanly. There are other factors that can affect fuel
-sharing outcomes.  A few include:
+sharing efficiency very cleanly. There are many factors that can affect
+real-world fuel sharing outcomes.  A few include:
 
 \begin{enumerate}
 
@@ -687,11 +684,11 @@ Having multiple assemblies per batch (item 1 above) will further degrade fuel
 sharing efficiency.  Even reactors that are short only one batch could
 potentially receive some fuel and still be unable to operate.  In order to
 maintain optimal sharing, fresh fuel now needs to be sent in all-or-nothing
-multi-assembly quanta with preference for reactors that need fewer assemblies.
-Spare fresh fuel inventory (item 2 above) will have the global effect
-increasing total outage severity; on average more batches of fresh fuel will
-be sitting unused.  However, it can potentially reduce the frequency of
-outages for individual reactors in some cases.
+multi-assembly quanta with higher preference to reactors that need fewer
+assemblies.  Spare fresh fuel inventory (item 2 above) will have the global
+effect of increasing total outage severity; on average more batches of fresh
+fuel will be sitting unused.  However, it can potentially reduce the frequency
+of outages for individual reactors in some cases.
 
 If they were to ever occur, real world fuel shortages would likely not result
 in optimal fuel sharing. However, modeling these the causes of suboptimal fuel
