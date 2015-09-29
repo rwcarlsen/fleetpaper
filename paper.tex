@@ -56,18 +56,21 @@ different due to inconsistency in modeling decisions involving reprocessing
 strategies, refueling behavior, reactor end-of-life handling, etc.  This work
 attempts to identify and quantify the effects of a few different modeling
 choices that may sometimes be taken for granted in the fuel cycle modeling
-domain.  Four scenarios were compared using combinations of either fleet-based
+domain.  Four scenarios are compared using combinations of either fleet-based
 or individual reactors with either monthly or quarterly (3-month) time steps.
-When under supply-constraint pressure, the four cases exhibit noticably
-different behavior.  Otherwise, they generally behaved very similarly.
-Fleet-based modeling is more efficient in supply-constrained environments at
-the expense of losing insight on issues such as realistic sub-optimal fuel
-distribution and challenges in reactor refueling cycle staggering.
-Finer-grained time steps also enable more efficient material use in
-supply-constrained environments.  Large simulations with fleet-based reactors
-run much more quickly than their individual reactor counterparts.
+The Cyclus fuel cycle simulator is used as a level playing field to compare
+the scenarios.  When under supply-constraint pressure, the four cases exhibit
+noticably different behavior.  Otherwise, they generally behaved very
+similarly.  Fleet-based modeling is more efficient in supply-constrained
+environments at the expense of losing insight on issues such as realistically
+sub-optimal fuel distribution and challenges in reactor refueling cycle
+staggering.  Finer-grained time steps also enable more efficient material use
+in supply-constrained environments.  Large simulations with fleet-based
+reactors run much more quickly than their individual reactor counterparts.
 
 \end{abstract}
+
+\pagebreak
 
 \section{Introduction}
 
@@ -112,11 +115,11 @@ others.  In fleet-based modeling:
 
 \begin{itemize}
 
-    \item groups of facilities (usually all facilities of a given type) are
+    \item Groups of facilities (usually all facilities of a given type) are
         treated as a single, aggregate entity.
 
-    \item resource flows are often (approximately) continuous (limited by time
-        step discretization)
+    \item Resource flows are often (approximately) continuous (limited by time
+        step discretization).
 
 \end{itemize}
 
@@ -132,8 +135,8 @@ of a single time step can have significant impact on the dynamics of a
 simulation.  The time step duration can affect the magnitude of individual
 material transfers between facilities and correspondingly affects the noise
 level in facility material inventories and flows.  It can also act as a
-minimum bound for outage durations. The effects of the time step duration will
-also be investigated together with fleet vs facility modeling.
+minimum bound for outage durations. The effects of the time step duration are
+also investigated together with fleet vs facility modeling.
 
 Questions of interest include:
 
@@ -171,14 +174,14 @@ real-world effects such as competition, reactor cycle staggering, and
 individual reactor outages. 
 
 Cyclus was designed to operate natively in unix/linux type environments with
-flexible and scriptable usage and input file format.  Cyclus holds its diverse
-generated data into a powerful open-source database format.  In addition to
-information about material flows and facility deployments, Cyclus' single-file
-database contains version information about the archetypes used in a
-simulation, the simulation input file, version of Cyclus used to run the
-simulation, and the installed versions of Cyclus dependencies. This and other
-features of Cyclus lend themselves well to automation, research provenance and
-reproducibility, and large-scale computing.
+flexible and scriptable usage and input file format.  Cyclus stores its
+diverse generated data in a powerful open-source database format.  In addition
+to information about material flows and facility deployments, Cyclus'
+single-file database contains the simulation input file, version information
+about the archetypes used in a simulation, the version of Cyclus used to run
+the simulation, and the installed versions of Cyclus dependencies. This and
+other features of Cyclus lend themselves well to automation, research
+provenance and reproducibility, and large-scale computing.
 
 \section{Methodology}
 
@@ -281,7 +284,7 @@ reactor is publicy available for download and use \cite{Carlsen2015}.
 
 \subsection{Scenario Description}
 
-The scenario used is a transition from a the current once-through light water
+The scenario used approximates a transition from a the current once-through light water
 reactor (LWR) fleet to a full sodium fast reactor (SFR) fuel cycle known as
 EG-23 in the DOE's Advanced Nuclear Fuel Cycle Options report
 \cite{wigeland_nuclear_2014}. Scenario and transition details were patterned
@@ -295,10 +298,11 @@ deployment and no more thermal reactors are built.  LWR spent fuel separations
 begins in year 15 with 2000 MTHM/yr capacity and increases to 3000 MTHM/yr in
 year 25.  Fast reactor spent fuel separations and fuel fabrication have
 infinite capacity.  All spent fuel is stored/cooled for 7 years before it is
-available for separations. Figure \ref{fig:flow} shows the material flow
+available for separation. Figure \ref{fig:flow} shows the material flow
 relationships between the facilities.  Compositions used for the simulations
-were simple, containing primarily $^{238}U$, $^{235}U$, $^{239}Pu$,
-$^{241}Am$, and small quantities of a few lanthanides.
+were simple containing primarily $^{238}U$, $^{235}U$, $^{239}Pu$, $^{241}Am$,
+and small quantities of a few lanthanides.  Full composition details can be
+found in the Cyclus input files used \cite{Carlsen2015}.
 
 \begin{figure}[!h]
     \centering
@@ -307,14 +311,14 @@ $^{241}Am$, and small quantities of a few lanthanides.
     \label{fig:flow}
 \end{figure}
 
-Cyclus version ?.? (TODO:~update~version) was used for this analysis.
-Facility models used were the standard ones provided with Cyclus in the
-Cycamore library (also version ?.?).  A custom storage facility was used
-because Cycamore does not yet provide one.  The standard cycamore reactor was
-used for both reactor types (LWR and SFR) in cases 1 and 3, and the custom
-fleet-based reactor described earlier also used in cases 2 and 4.
-Additional parameters for the reactor types are shown in Table
-\ref{tab:reactors}.
+A pre-release of Cyclus version 1.4 was used for this analysis.  Archetypes
+used were the standard ones provided with Cyclus in the included Cycamore
+library - also a pre-release of version 1.4.  A custom storage facility was
+used because Cycamore did not yet provide one.  The standard cycamore reactor
+was used for both LWR and SRF reactor types in cases 1 and 3.  Correspondingly
+the custom fleet-based reactor described earlier was used for both reactor
+types in cases 2 and 4.  Additional configuration for the reactor types are
+shown in Table \ref{tab:reactors}.
 
 \vspace{2mm}
 
@@ -322,7 +326,7 @@ Additional parameters for the reactor types are shown in Table
     \centering
     \begin{tabular}{ |r | c c | }
         \hline                       
-            & LWR & FR \\
+            & LWR & SFR \\
         \hline                       
         Lifetime (yr)         & 80 & 80 \\
         Cycle length (months) & 18 & 14 \\
@@ -331,19 +335,20 @@ Additional parameters for the reactor types are shown in Table
         \hline                       
     \end{tabular}
     \captionsetup{justification=centering}
-    \caption[Reactor facility parameters]{Reactor facility parameters. The cycle length includes the refueling outage.}
+    \caption[Reactor facility parameters]{Reactor facility parameters. Cycle length includes the refueling outage.}
     \label{tab:reactors}
 \end{table}
 
 The described scenario is used as closely as possible in each of the four
-cases.  However, a few other small case-dependent changes to the scenario
-relating to reactor configuration are necessary.  For the cases using
-quarterly time steps with individual reactors, cycle and outage times must be
-adjusted to be a multiple of 3 months.  In order to make the comparison more
-fair, the cases with monthly time steps are also adjusted to have identical
-cycle and outage times.  The invariants preserved with respect to reactor
-behavior are shown in Table \ref{tab:invar}.  Table \ref{tab:reactors} shows
-the computed/selected configuration for both reactor types for all four cases.
+cases.  A few other small case-dependent changes to the scenario relating to
+reactor configuration are necessary.  For the cases using quarterly time steps
+with individual reactors, cycle and outage times must be adjusted to be a
+multiple of 3 months.  In order to make the comparison more fair, the cases
+with monthly time steps are also adjusted to have identical cycle and outage
+times.  The invariants preserved with respect to reactor behavior between all
+four cases are shown in Table \ref{tab:invar}.  Table \ref{tab:reactors} shows
+the computed/selected configuration for both LWR and SFR reactor types for all
+four cases.
 
 \begin{table}
     \centering
