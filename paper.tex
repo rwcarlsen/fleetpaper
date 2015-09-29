@@ -297,7 +297,7 @@ fuel with infinite capacity. In year 35, fast reactors become available for
 deployment and no more thermal reactors are built.  LWR spent fuel separations
 begins in year 15 with 2000 MTHM/yr capacity and increases to 3000 MTHM/yr in
 year 25.  Fast reactor spent fuel separations and fuel fabrication have
-infinite capacity.  All spent fuel is stored/cooled for 7 years before it is
+infinite capacity.  All spent fuel is stored/cooled for 7 years before it becomes
 available for separation. Figure \ref{fig:flow} shows the material flow
 relationships between the facilities.  Compositions used for the simulations
 were simple containing primarily $^{238}U$, $^{235}U$, $^{239}Pu$, $^{241}Am$,
@@ -317,7 +317,7 @@ library - also a pre-release of version 1.4.  A custom storage facility was
 used because Cycamore did not yet provide one.  The standard cycamore reactor
 was used for both LWR and SRF reactor types in cases 1 and 3.  Correspondingly
 the custom fleet-based reactor described earlier was used for both reactor
-types in cases 2 and 4.  Additional configuration for the reactor types are
+types in cases 2 and 4.  Additional configuration for the reactor types is
 shown in Table \ref{tab:reactors}.
 
 \vspace{2mm}
@@ -340,7 +340,7 @@ shown in Table \ref{tab:reactors}.
 \end{table}
 
 The described scenario is used as closely as possible in each of the four
-cases.  A few other small case-dependent changes to the scenario relating to
+cases.  However, a few small case-dependent changes to the scenarios relating to
 reactor configuration are necessary.  For the cases using quarterly time steps
 with individual reactors, cycle and outage times must be adjusted to be a
 multiple of 3 months.  In order to make the comparison more fair, the cases
@@ -398,20 +398,22 @@ four cases.
 \end{table*}
 
 In each of the four cases, the initial 100 LWRs are modified to have a zero
-length refueling outage with an explicit 900 MWe power capacity.  This was
-done to avoid having all the initial LWRs in the individual reactor cases
-refuel at the same time.  The parameters for each case were also selected to
-keep capacity factors for individual reactors very roughly around 90\%.
+length refueling outage with an explicit 900 MWe power capacity.  Because the
+individual reactor model doesn't have any way to start a reactor mid-cycle,
+this was done to avoid having all initial LWRs refuel at the same time.  The
+parameters for each case were also selected to keep capacity factors for
+individual reactors very roughly around 90\%.
 
-A longer 21-month deployment period is used because it provides better natural
-staggering for the reactor refueling cycles. The same deployment schedule is
-used for all four cases; power capacity is built along a curve starting at
-100GWe in year zero following the 1\% exponential growth curve.  This
-particular deployment schedule causes significant fuel shortages providing
-interesting features to investigate and compare.
+Instead of annual deployments, a longer 21-month deployment period is used
+because it provides better natural staggering for the reactor refueling
+cycles. The same deployment schedule is used for all four cases; power
+capacity is built along a curve starting at 100GWe in year zero following the
+1\% exponential growth curve.  This particular deployment schedule is chosen
+because it causes significant fuel shortages providing interesting features to
+investigate and compare.
 
-The input files and other assets used in the analysis for each of the four
-cases are publicly available for download \cite{Carlsen2015}.
+All input files and other assets used in the analysis for each of the four
+cases are publicly available for download and use \cite{Carlsen2015}.
 
 \subsection{Modeling Effects}
 

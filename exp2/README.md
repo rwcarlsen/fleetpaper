@@ -151,7 +151,9 @@ A description of all the important files in this directory follows.  For each
 of the four cases, there are:
 
 * ``case[num].xml``: This is a cyclus input file with a templated place-holder
-  for the actual deployments that are filled in .
+  for the actual deployments that are filled in.  This contains all simulation
+  details (except reactor deployment schedule) including compositions,
+  facility throughputs, etc.
 
 * ``scen-case[num].json``: This is a scenario file that describes the power
   growth, deployment frequency, and other relevant parameters for cloudlus to
