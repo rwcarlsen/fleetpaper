@@ -191,14 +191,18 @@ provenance and reproducibility, and large-scale computing.
 A single fuel cycle transition scenario is used with a few modeling variations
 resulting in four different cases:
 
-\begin{itemize}
+\begin{enumerate}
 
-    \item \emph{Case 1}: Monthly time steps with individual reactor modeling
-    \item \emph{Case 2}: Monthly time steps with fleet reactor modeling
-    \item \emph{Case 3}: Quarterly (3-month) time steps with individual reactor modeling
-    \item \emph{Case 4}: Quarterly (3-month) time steps with fleet reactor modeling
+    \item \emph{Case MI}: Monthly time steps with individual reactor modeling
+    \item \emph{Case MF}: Monthly time steps with fleet reactor modeling
+    \item \emph{Case QI}: Quarterly (3-month) time steps with individual reactor modeling
+    \item \emph{Case QF}: Quarterly (3-month) time steps with fleet reactor modeling
 
-\end{itemize}
+\end{enumerate}
+
+The case labels consist of two letters each: "M" for monthly time steps, "Q"
+for quarterly time steps, "I" for individual reactors, and "F" for fleet
+reactors.
 
 Conducting this analysis involved developing some additional capability
 in/around Cyclus.  Three primary pieces to the methodology are:
@@ -318,9 +322,9 @@ A pre-release of Cyclus version 1.4 was used for this analysis.  Archetypes
 used were the standard ones provided with Cyclus in the included Cycamore
 library - also a pre-release of version 1.4.  A custom storage facility was
 used because Cycamore did not yet provide one.  The standard cycamore reactor
-was used for both LWR and SRF reactor types in cases 1 and 3.  Correspondingly
+was used for both LWR and SRF reactor types in cases MI and QI.  Correspondingly
 the custom fleet-based reactor described earlier was used for both reactor
-types in cases 2 and 4.  Additional configuration for the reactor types is
+types in cases MF and QF.  Additional configuration for the reactor types is
 shown in Table \ref{tab:reactors}.
 
 \vspace{2mm}
@@ -384,7 +388,7 @@ four cases.
     \begin{tabular}{ |r | c c | c c | }
         \hline                       
                                           & \multicolumn{2}{c |}{LWR}       & \multicolumn{2}{c |}{SFR} \\
-                                          & Cases 1,3 & Cases 2,4 (fleet) & Cases 1,3 & Cases 2,4 (fleet)  \\
+                                          & Cases MI,QI & Cases MF,QF (fleet) & Cases MI,QI & Cases MF,QF (fleet)  \\
         \hline                       
         Cycle length (months)             & 15        & 18                & 12        & 15 \\
         Refueling outage (months)         & 3         & 0                 & 3         & 0 \\
@@ -440,7 +444,7 @@ the same reactor to produce $[\frac{5}{6} \cdot 1 \text{mo} + 1 \cdot 2
 \text{mo}] \cdot C $ of energy if the fuel shortage actually ended after only
 1 month.  Quantifying this effect directly is difficult.  One way of observing
 it is to compare fleet reactor scenarios that have different time step
-durations (i.e. cases 2 and 4).  Because the fleet reactors have perfect fuel
+durations (i.e. cases MF and QF).  Because the fleet reactors have perfect fuel
 sharing (described below) and no outage noise, differences observed will
 likely be due to quantized shutdown.
 
@@ -530,7 +534,7 @@ pair of facilities per time step. Larger time steps result in longer minimum
 bounds on time to traverse paths between facilities. Although direct measures
 of this effect are difficult, some of its consequences (e.g. higher standing
 inventories during shortages) can be quantified by comparing scenarios with
-different time step durations (e.g. cases 2 and 4).
+different time step durations (e.g. cases MF and QF).
 
 There are also performance differences between the two modeling paradigms.  A
 single 200 year simulation with several hundred fleet-based reactors takes
@@ -557,16 +561,16 @@ for each of the four cases.  Figure \ref{fig:power-rel} normalizes the Figure
 \ref{fig:power} curves to the expected exponential power curve magnifying some
 interesting differences between the four cases.  For the first 100 years, the
 four cases behave somewhat similarly, although the individually modeled
-reactors in cases 1 and 3 actually go offline and back online for refueling
+reactors in cases MI and QI actually go offline and back online for refueling
 causing more variance.  Around year 100, a fuel shortage begins and more
 significant differences between the four cases become apparent. This fuel
-shortage lasts until about year 140. The power generated in Case 4 is slightly
-lower than in case 2 during the fuel shortage years. This is primarily due to
-the \emph{quantized shutdown effect}.  The longer 3-month time step in case 4
+shortage lasts until about year 140. The power generated in case QF is slightly
+lower than in case MF during the fuel shortage years. This is primarily due to
+the \emph{quantized shutdown effect}.  The longer 3-month time step in case QF 
 results in reactor capacity going offline longer than necessary.
 
-During the initial 100 years, cases 1 and 3 have larger variance in power
-output than cases 2 and 4.  This is caused by minor refueling cycle
+During the initial 100 years, cases MI and QI have larger variance in power
+output than cases MF and QF.  This is caused by minor refueling cycle
 synchronization.  The \emph{cycle staggering effect} becomes much more visible
 during and after the fuel shortage as evidenced by the larger swings in power
 generation from time step to time step.  Initially, the reactor cycles are
@@ -589,7 +593,7 @@ staggering visible by the end of the 200 years.
     \includegraphics[width=0.8\textwidth]{exp2/power.eps}
     \caption[Generated power]{
         Generated power for all four cases.  A fuel shortage occurs from about
-        year 100 to about year 140.  In cases 1 and 3 with individual reactor
+        year 100 to about year 140.  In cases MI and QI with individual reactor
         modeling, refueling cycles become much more synchronized during and
         after the fuel shortage resuting in large power fluctuations - an artifact of the
         \emph{cycle staggering effect}.
@@ -604,11 +608,11 @@ staggering visible by the end of the 200 years.
         Generated power is normalized to the expected 1\% exponential growth
         curve for all four cases.  A fuel shortage occurs from about year 100
         to about year 140.  The \emph{cycle staggering effect} can be seen as
-        excessive divergence above and below $1.0$ in cases 1 and 3 where
+        excessive divergence above and below $1.0$ in cases MI and QI where
         the shortage increases cycle synchronization significantly. The
         \emph{quantized shutdown effect} can also be seen in the discrepency
         between quarterly and monthly time steps for fleet reactor modeling
-        (cases 2 and 4) during the shortage; a longer time step causes more
+        (cases MF and QF) during the shortage; a longer time step causes more
         reactor outage than necessary. The consistent jumping up and down for
         the fleet reactor cases (even pre-shortage) is due to the mis-alignment of reactors going
         offline (multiples of 12 months) and the build period (21 months).
@@ -621,9 +625,9 @@ staggering visible by the end of the 200 years.
 Figure \ref{fig:unfueled} shows the fuel shortage more explicitly for each of
 the four cases. The individual reactor modeling cases result in more
 cumulative outage than corresponding fleet-based cases. The quarterly time
-step of cases 3 and 4 also make the outage significantly more severe. Cases 1
-and 3 exhibit approximately twice as much offline power as their corresponding
-fleet based simulations in cases 2 and 4.  The monthly time step simulations
+step of cases QI and QF also make the outage significantly more severe. Cases MI
+and QI exhibit approximately twice as much offline power as their corresponding
+fleet based simulations in cases MF and QF.  The monthly time step simulations
 also have roughly twice as much offline power as their corresponding quarterly
 cases.
 
@@ -654,7 +658,7 @@ operate.  Multiplying each of these cumulative batches by reactor capacity
 (i.e. 450 MWe) provides a way to compare fuel sharing inefficiency with the
 overall fuel outage.  This results in a cumulative offline power caused by
 poor fuel sharing of roughly 2,000 $\text{GWe} \cdot \text{months}$ and 6,600
-$\text{GWe} \cdot \text{months}$ for cases 1 and 3 respectively.  These
+$\text{GWe} \cdot \text{months}$ for cases MI and QI respectively.  These
 approximations are a significant portion of the difference between individual
 and fleet cases in Figure \ref{fig:unfueled} suggesting that most of the
 discrepency in cumulative outage between fleet and individual modeling is
@@ -696,7 +700,7 @@ of outages for individual reactors in some cases.
 If they were to ever occur, real world fuel shortages would likely not result
 in optimal fuel sharing. However, modeling these the causes of suboptimal fuel
 sharing is probably best accomplished with a more direct, intentional approach
-rather than as a modeling artifact as seen here in cases 1 and 3.  One way to
+rather than as a modeling artifact as seen here in cases MI and QI.  One way to
 alleviate the poor fuel sharing is to modify the individual reactor model to
 lower the preference value for requests for fresh fuel depending on how many
 assemblies it needs to have a full core.  The more assemblies it needs, the
@@ -713,7 +717,7 @@ fuel to reactors that need less to operate.
         by the number of time steps that reactor had to delay the start of its
         next cycle (due to fuel shortage).  Fleet reactors have perfect fuel
         sharing by design and so are not included here. The large difference
-        between cases 1 and 3 is mostly due to the \emph{inventory drawdown
+        between cases MI and QI is mostly due to the \emph{inventory drawdown
         effect}. 
     }
     \label{fig:badshare}
@@ -731,7 +735,7 @@ shown for the individual reactor cases because they are somewhat messy and
 obscure other information in the plots. The other colored curves show Pu inventory
 available for making fast reactor fuel.  When the inventory curves meet and
 force down the out-flows, fuel shortages occur.  While this is most clear for
-cases 2 and 4, the individual reactor scenarios (cases 1 and 3) also have many
+cases MF and QF, the individual reactor scenarios (cases MI and QI) also have many
 points during the shortage where the outflow point lies exactly on top of the
 inventory point - indicating that all available inventory is being
 transferred.
@@ -741,46 +745,48 @@ The larger in-flows, however, do not compensate for the larger withdrawals
 because facilities do not know about incoming inventory when they resolve
 their outflow for a particular time step.  This information lag effectively
 requires the floating Pu inventory to be maintained at a higher level during
-the shortage.  This can be clearly seen in the case 4 plot which has a higher
-standing inventory than case 2 during the fuel shortage years.  The case 4 Pu
+the shortage.  This can be clearly seen in the case QF plot which has a higher
+standing inventory than case MF during the fuel shortage years.  The case QF Pu
 inventory is unable to drop below approximately 100 tonnes, which indicates
 out-flows to be roughly equal to the Pu flow into inventory each time step
 during those years.  This can be confirmed by the in-flow and inventory curves
-touching at those points.  Case 2 Pu inventory is similarly limited at about
-the 30 tonne level.  As expected, the case 4 withdrawals are also three times
-higher case 2 withdrawals exactly matching the time step duration ratio
+touching at those points.  Case MF Pu inventory is similarly limited at about
+the 30 tonne level.  As expected, the case QF withdrawals are also three times
+higher case MF withdrawals exactly matching the time step duration ratio
 between the two cases.
 
 Throughout most of the shortage, the aggregate outflow of Pu from separated
-inventory is roughly the same in cases 2 and 4.  However, due to the longer
-time steps in case 4, the shortage starts slightly sooner because Pu inventory
+inventory is roughly the same in cases MF and QF.  However, due to the longer
+time steps in case QF, the shortage starts slightly sooner because Pu inventory
 must be maintained at a higher limit as described above.  The small difference
 in outage start time has feed-back effects.  Not only are extra reactors
 offline, but those extra reactors are also discharging less aggregate spent
 fuel for recycling.  This farther increases the discrepency between the two
-cases. Eventually the shortage in case 2 ends slightly before it does in case
-4. This effect feedback occurs because the reactors in question have a
+cases. Eventually the shortage in case MF ends slightly before it does in case
+QF. This effect feedback occurs because the reactors in question have a
 conversion ratio greater than 1.0.
 
-The striations visible in the monthly flows for case 1 in Figure
+The striations visible in the monthly flows for case MI in Figure
 \ref{fig:puinv} are a characteristic of the synchronization of reactor
-refueling caused by the shortage.  They are a sort of resonances of that the
-inventory level jumps between, and they gradually disappear as the refueling
-cycles become more staggered.
+refueling caused by the shortage.  They begin at the end of the fuel shortage
+window when many reactors come online together and are resonances that the
+inventory level jumps between.  These resonances gradually disappear as the
+simulation progresses farther in time beyond the shortage and refueling cycles
+become more staggered.
 
 \begin{figure*}[!h]
     \centering
     \includegraphics[width=1.0\textwidth]{exp2/puinv.eps}
     \caption[Separated Pu inventory and flow]{
         Separated Pu inventory and flows for all four cases.  In-flows for
-        cases 1 and 3 are omitted because they are noisy and obscure other
+        cases MI and QI are omitted because they are noisy and obscure other
         useful information.  A larger time step results in larger per time
         step material flows. These larger flows mean more material is not
         available for supplying to requesters.  This information lag causes
         more supply constraints than occur with smaller time steps -
         illustrating the \emph{inventory drawdown effect}. Another result of
         this effect is the larger standing Pu inventory during the shortage
-        with larger time steps that can be seen in case 4 than in case 2.
+        with larger time steps that can be seen in case QF than in case MF.
     }
     \label{fig:puinv}
 \end{figure*}
@@ -789,7 +795,7 @@ Figure \ref{fig:puinv-compare} shows the same inventory curves from Figure
 \ref{fig:puinv} superimposed. Perhaps counter-intuitively, lower separated plutonium
 inventory during the shortage generally indicates fewer unfueled reactors.
 Lower inventory levels mean available Pu is being utilized more efficiently
-rather than sitting idle.  Cases 3 and 4 with their longer time steps show
+rather than sitting idle.  Cases QI and QF with their longer time steps show
 higher inventories indicating a more severe shortage.  Post shortage, they
 also fall a bit behind on building up Pu stocks due to the delayed
 contributions of more unfueled reactors to the separated Pu pool.  The

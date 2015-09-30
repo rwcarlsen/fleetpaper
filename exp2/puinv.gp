@@ -17,7 +17,7 @@ set lmargin at screen 0.20
 set rmargin at screen 0.53
 set tmargin at screen 0.86
 set bmargin at screen 0.51
-set title "Monthly Time Steps\n\nCase 1" offset 0,-.8
+set title "Monthly Time Steps\n\nCase MI" offset 0,-.8
 plot \
   "puinv.dat" u ($1/12):($2/1000) w p lc 1 pt 1 ps 0.5 title "Inventory", \
   "puflow.dat" u ($1/12):($2/1000) w p lc 8 pt 5 ps .15 title "Monthly outflow", \
@@ -30,7 +30,7 @@ set lmargin at screen 0.57
 set rmargin at screen 0.90
 set tmargin at screen 0.86
 set bmargin at screen 0.51
-set title "Quarterly Time Steps\n\nCase 3"
+set title "Quarterly Time Steps\n\nCase QI"
 plot \
   "puinv.dat" every 3 u ($1/12):($4/1000) w p lc 2 pt 6 ps 0.4 title "Inventory", \
   "puflow.dat" u ($1/12):($4/1000) w p lc 8 pt 5 ps .15 title "Quarterly outflow", \
@@ -47,7 +47,7 @@ set lmargin at screen 0.20
 set rmargin at screen 0.53
 set tmargin at screen 0.45
 set bmargin at screen 0.11
-set title "Case 2"
+set title "Case MF"
 plot \
   "puinv.dat" u ($1/12):($3/1000) w l lc 7 lw 4 title "Inventory", \
   "puflow.dat" u ($1/12):($3/1000) w p lc 8 pt 5 ps .15 title "Monthly outflow", \
@@ -63,7 +63,7 @@ set lmargin at screen 0.57
 set rmargin at screen 0.90
 set tmargin at screen 0.45
 set bmargin at screen 0.11
-set title "Case 4"
+set title "Case QF"
 plot \
   "puinv.dat" u ($1/12):($5/1000) w l lc 4 lw 4 title "Inventory", \
   "puflow.dat" u ($1/12):($5/1000) w p lc 8 pt 5 ps .15 title "Quarterly outflow", \
