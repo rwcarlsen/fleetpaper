@@ -590,7 +590,7 @@ staggering visible by the end of the 200 years.
 
 \begin{figure*}[!h]
     \centering
-    \includegraphics[width=0.8\textwidth]{exp2/power.eps}
+    \includegraphics[width=1.0\textwidth]{exp2/power.eps}
     \caption[Generated power]{
         Generated power for all four cases.  A fuel shortage occurs from about
         year 100 to about year 140.  In cases MI and QI with individual reactor
@@ -603,7 +603,7 @@ staggering visible by the end of the 200 years.
 
 \begin{figure*}[!h]
     \centering
-    \includegraphics[width=0.8\textwidth]{exp2/power-rel.eps}
+    \includegraphics[width=1.0\textwidth]{exp2/power-rel.eps}
     \caption[Normalized power]{
         Generated power is normalized to the expected 1\% exponential growth
         curve for all four cases.  A fuel shortage occurs from about year 100
@@ -730,10 +730,10 @@ Figures \ref{fig:unfueled} and \ref{fig:badshare} are primarily caused by the
 \emph{inventory drawdown effect}.  Figure \ref{fig:puinv} helps to visualize
 this effect.  The black dots in the figure represent impulse flows of
 available Pu out of the fuel fab and into fast reactors.  Blue lines represent
-the flows into Pu inventory available for making fuel. The in flows are not
+the flows into Pu inventory available for making fuel. The in-flows are not
 shown for the individual reactor cases because they are somewhat messy and
 obscure other information in the plots. The other colored curves show Pu inventory
-available for making fast reactor fuel.  When the inventory curves meet and
+available for fabricating fast reactor fuel.  When the inventory curves meet and
 force down the out-flows, fuel shortages occur.  While this is most clear for
 cases MF and QF, the individual reactor scenarios (cases MI and QI) also have many
 points during the shortage where the outflow point lies exactly on top of the
@@ -763,16 +763,29 @@ in outage start time has feed-back effects.  Not only are extra reactors
 offline, but those extra reactors are also discharging less aggregate spent
 fuel for recycling.  This farther increases the discrepency between the two
 cases. Eventually the shortage in case MF ends slightly before it does in case
-QF. This effect feedback occurs because the reactors in question have a
+QF. This feedback effect occurs because the reactors in question have a
 conversion ratio greater than 1.0.
 
-The striations visible in the monthly flows for case MI in Figure
+The horizontal striations visible in the monthly flows for case MI in Figure
 \ref{fig:puinv} are a characteristic of the synchronization of reactor
 refueling caused by the shortage.  They begin at the end of the fuel shortage
 window when many reactors come online together and are resonances that the
 inventory level jumps between.  These resonances gradually disappear as the
 simulation progresses farther in time beyond the shortage and refueling cycles
 become more staggered.
+
+The in-flows shown for cases MF and QF show a periodic pulsing that begins
+during the shortage in about year 120.  This pusling actually has nothing to
+do with the shortage and is caused by the retirement of fast reactors.  The
+first fast reactors are deployed in year 35 and have an 80 year lifetime.
+When they retire, they discharge an entire core's worth of fuel rather than a
+single batch.  After a 7-year cooling period, the first discharged full cores
+begin to make it through the recycle loop in year 122.  Another interesting
+feature visible in all four cases in Figure \ref{fig:puinv} is the minority
+fraction of out-flow points that are higher than the bulk majority. These
+higher out-flows occur once every 21 months when new reactors are built. The
+new reactors require a full core of fresh fuel rather than the single batch
+needed when just refueling.  
 
 \begin{figure*}[!h]
     \centering
@@ -807,7 +820,7 @@ would make the fuel shortage worse overall.
 
 \begin{figure*}[!h]
     \centering
-    \includegraphics[width=0.8\textwidth]{exp2/puinv-compare.eps}
+    \includegraphics[width=1.0\textwidth]{exp2/puinv-compare.eps}
     \caption{
         Separated Pu inventories for all four cases.  Differences in modeling
         choices are not particularly significant until about year 100 when
