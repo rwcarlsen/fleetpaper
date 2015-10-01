@@ -847,28 +847,33 @@ simulation.  With discrete reactor modeling many factors must be considered in
 order to ensure the integrity of conclusions.  Individual reactor outage
 modeling can be very useful for certain analyses, but it can reduce result
 quality if things such as cycle staggering are not handled appropriately.  The
-fleet and discreet modeling done here is itself multi-dimensional. If fuel
-sharing is of interest, but cycle staggering is not, individual reactors can
-be used with the power capacity lowered and the outage reduced to zero
-duration making the capacity factor included in the reactor's power capacity.
+fleet and discreet models used here are just two points in a multi-dimensional
+spectrum of modeling choices. If fuel sharing is of interest, but cycle
+staggering is not, individual reactors can be used with the power capacity
+lowered and the outage reduced to zero duration making the capacity factor
+included in the reactor's power capacity.
+
 Modeling reactors individually can provide valuable insight not possible with
 the fleet-based reactor modeling.  For example, bringing reactors back online
-following shortage-induced outages should not follow the natural pacing of
-fuel availability, otherwise refueling cycles become unsatisfactorily
-synchronized.
+following shortage-induced outages should not necessarily follow the natural
+pacing of fuel availability, otherwise refueling cycles become
+unsatisfactorily synchronized.  If individual reactor modeling fidelity is not
+required, then performance benefits in both simulation run time and data
+analysis may suggest a fleet-based modeling approach.
 
-Increasing the time steps increases facilities' standing inventory requirement
-for avoiding supply constraints.  Facilities can provide no more inventory
-than they can hold on a single time step.  So increasing time step duration
-for a facility with unconstrained supply generally means higher standing
-inventories are required in order to achieve equal throughput. Facilities that
-have unconstrained supply and very large inventory buffers, are not affected
-meaningfully by the time step. Even when facilities do not have individual
-inventory or throughput limits, the time step can still have a significant
-effect. In recycle loops there is a constraint on how fast material is
-introduced through the loop (i.e. the discharge rate of spent fuel from
-reactors).  The \emph{inventory drawdown effect} can impact the aggregate
-throughput of the recycling loop.
+Increasing time step duration increases facilities' standing inventory
+requirement during supply constrained periods.  Facilities can provide no more
+inventory than they can hold on a single time step.  So increasing time step
+duration for a facility with unconstrained supply generally means higher
+standing inventories are required in order to achieve equal throughput.
+Facilities with large inventory buffer that are unconstrained are not affected
+significantly by the time step duration when operating in isolation.  However,
+even when facilities do not have individual inventory or throughput limits,
+the time step can still have a significant effect. In recycle loops there is a
+constraint on how fast material is introduced through the loop (i.e. the
+discharge rate of spent fuel from reactors).  The \emph{inventory drawdown
+effect} can impact the aggregate throughput of the recycling loop by affecting
+minimum bounds on idling material quantities.
 
 The impact of modeling assumptions depends heavily on the metrics of interest.
 For example, someone interested in fuel-shortage driven reactor outages would
@@ -882,6 +887,9 @@ Robustness in constrained regimes is especially useful in the context of
 sensitivity and optimization analysis.
 
 \section{Acknowledgements}
+
+TODO: thank ross maybe for vision-sourced inspiration about modeling effects
+TODO: thank neup and add neup logo
 
 \pagebreak
 
