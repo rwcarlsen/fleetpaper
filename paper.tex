@@ -444,7 +444,7 @@ the same reactor to produce $[\frac{5}{6} \cdot 1 \text{mo} + 1 \cdot 2
 1 month.  Quantifying this effect directly is difficult.  One way of observing
 it is to compare fleet reactor scenarios that have different time step
 durations (i.e. cases MF and QF).  Because the fleet reactors have perfect fuel
-sharing (described below) and no outage noise, differences observed will
+sharing (described below) and no noise from refueling outages, differences observed will
 likely be due to quantized shutdown.
 
 Individually modeled reactors each have their own refueling cycles.  Depending
@@ -455,7 +455,9 @@ then all reactors are offline at the same time.  This is referred to as the
 models.  An example of poor cycle staggering is shown in Figure
 \ref{fig:sync-cycle}.  This effect can be naturally observed as the
 fluctuations in the difference between deployed power capacity and generated
-power.
+power.  The figure shows power jumping above and below the installed net
+capacity (includes capacity factor) from time step to time step depending on
+how many reactors are online/offline together.
 
 Poor reactor cycle staggering can also cause spikes of material supply and
 demand that can lead to suboptimal resource utilization.  Consider a fuel
@@ -463,7 +465,7 @@ fabrication facility that receives requests for new batches for every reactor
 all at once.  The reactors draw out inventory from the fuel fabrication
 facility together in a large quantity of orders.  If the fabrication facility
 does not have enough material on hand, some number of reactors will need to
-wait until enough fuel can be pumped through fabrication.  Avoiding such
+wait until enough fuel can be fabricated.  Avoiding such
 constraints would require the fabrication facility to maintain suboptimally
 large on-hand inventories as a contingency.  Even with infinite material
 availability, poor staggering can result in supply constraints caused by
@@ -480,7 +482,7 @@ sufficient capacity if they request fuel uniformly over time.
         length (including outage) of 18 months.  So all reactors deployed
         every 3rd year refuel together.  All initial 100 LWRs start out with
         their cycles synced as well.  While it may look like separate curves,
-        this plot shows only a single time series.
+        generated power curve (purple) represents only a single time series with many discontinuities.
     }
     \label{fig:sync-cycle}
 \end{figure}
