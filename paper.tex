@@ -50,26 +50,27 @@ TODO: adjust figure fonts to meet NT guidlines
 
 \begin{abstract}
 
-Due to the diversity of fuel cycle simulators' modeling assumptions direct
+Due to the diversity of fuel cycle simulator modeling assumptions, direct
 comparison and benchmarking can be difficult.  In 2012 the Organisation for
 Economic Co-operation and Development (OECD) completed a benchmark study that
 is perhaps one of the most complete published comparisons performed.  Despite
 this, however, various results from the simulators were often significantly
 different due to inconsistency in modeling decisions involving reprocessing
 strategies, refueling behavior, reactor end-of-life handling, etc.  This work
-attempts to identify and quantify the effects of a few different modeling
-choices that may sometimes be taken for granted in the fuel cycle modeling
-domain.  Four scenarios are compared using combinations of either fleet-based
-or individual reactors with either monthly or quarterly (3-month) time steps.
-The Cyclus fuel cycle simulator is used as a level playing field to compare
-the scenarios.  When under supply-constraint pressure, the four cases exhibit
-noticably different behavior.  Otherwise, they generally behaved very
-similarly.  Fleet-based modeling is more efficient in supply-constrained
-environments at the expense of losing insight on issues such as realistically
-suboptimal fuel distribution and challenges in reactor refueling cycle
-staggering.  Finer-grained time steps also enable more efficient material use
-in supply-constrained environments.  Large simulations with fleet-based
-reactors run much more quickly than their individual reactor counterparts.
+attempts to identify and quantify the effects of selected modeling choices
+that may sometimes be taken for granted in the fuel cycle modeling domain.
+Four scenarios are compared using combinations of either fleet-based or
+individual reactors with either monthly or quarterly (3-month) time steps.
+The Cyclus fuel cycle simulator's plug-in facility cability along with its
+market-like dynamic material routing allow it to be used as a level playing
+field for comparing the scenarios.  When under supply-constraint pressure, the
+four cases exhibit noticably different behavior.  Fleet-based modeling is more
+efficient in supply-constrained environments at the expense of losing insight
+on issues such as realistically suboptimal fuel distribution and challenges in
+reactor refueling cycle staggering.  Finer-grained time steps also enable more
+efficient material use in supply-constrained environments.  Large simulations
+with fleet-based reactors run much more quickly than their individual reactor
+counterparts.
 
 \end{abstract}
 
@@ -77,20 +78,19 @@ reactors run much more quickly than their individual reactor counterparts.
 
 \section{Introduction}
 
-Due to the diversity of fuel cycle simulators' modeling assumptions direct
-comparison and benchmarking can be difficult.  In 2012 the Organisation for
+The diversity of assumptions embedded within various fuel cycle simulators pose challenges for direct
+comparison and benchmarking.  In 2012 the Organisation for
 Economic Co-operation and Development (OECD) completed a benchmark study
 \cite{oecd2012benchmark} that is perhaps one of the most complete published
 comparisons performed.  Despite this, however, various results from the
 different simulators were often significantly different due to inconsistent
 modeling decisions involving reprocessing strategies, refueling behavior,
 reactor end-of-life handling, etc.  This work attempts to identify and
-quantify the effects of a few different modeling choices that may sometimes be
-taken for granted in the fuel cycle modeling domain: facility modeling
+quantify the effects of selected modeling choices relative to facility modeling
 discretization (i.e. individual facilities vs. aggregate fleets) and time step
 duration.  A better understanding of how these affect fuel cycle dynamics can
 allow for making more deliberate decisions with respect to tradeoffs such as
-performance vs. realism.
+computational investment vs. realism.
 
 \subsection{Motivation and Background}
 
@@ -101,7 +101,7 @@ over time due to "flows" between them.  The flows are determined by equations
 that are a function of the state of the system (i.e. the system's stocks).  A
 constructed system is then solved in discrete or continuous time depending on
 the limitations of the software and constraints imposed by the model.  In
-system dynamics simulators, the number of stocks and potential flows between
+system dynamics based simulators, the number of stocks and potential flows between
 them is generally a static property of the modeled system, making it somewhat
 difficult to swap different reactor models in and out of the same scenario
 without wiring them into the simulator manually.
@@ -110,10 +110,10 @@ System dynamics based fuel cycle simulators generally use a collection of
 stocks to represent the state of groups of like-facilities commonly referred
 to as "fleets".  As the simulation steps through time, the levels of stocks
 (e.g. reactor fresh fuel inventory, repository waste inventories, etc.) are
-adjusted according to the calculated flow values.  Simulators that model
+adjusted according to the calculated flow values.  Fuel cycle simulators that model
 facility fleets built on a system dynamics foundation include VISION
 \cite{jacobson_verifiable_2010}, DANESS \cite{van_den_durpel_daness_2009},
-DYMOND (predecessor to DANESS), and ORION \cite{gregg_orion_2012} among
+DYMOND, and ORION \cite{gregg_orion_2012} among
 others.  In fleet-based modeling:
 
 \begin{itemize}
@@ -128,8 +128,8 @@ others.  In fleet-based modeling:
 
 This work investigates in detail some differences between fleet vs. individual
 reactor modeling.  The difference between these two modeling styles in terms
-of their affects on output of fuel cycle simulators in general is currently
-unknown. This analysis is designed to provide both quantitative and
+of their affects on output of fuel cycle simulators in general is not well
+known. This analysis is designed to provide both quantitative and
 qualitative insight about how fleet-based continuous flow models differ from
 individual facility discrete flow models.
 
@@ -138,7 +138,8 @@ of a single time step can have significant impact on the dynamics of a
 simulation.  The time step duration can affect the magnitude of individual
 material transfers between facilities and correspondingly affects the noise
 level in facility material inventories and flows.  It can also act as a
-minimum bound for outage durations. The effects of the time step duration are
+minimum bound for outage durations and is a minimum bound in general for state
+changes within the entire system. The effects of the time step duration are
 also investigated together with fleet vs facility modeling.
 
 Questions of interest include:
@@ -161,24 +162,24 @@ One of the major motivations for the development of the Cyclus fuel cycle
 simulator \cite{cyclus_2015} was creating a simulation environment that is
 more expressive than more traditional fuel cycle simulators.  Cyclus was
 designed with a plugin-style architecture that allows different models for
-facility types, known as \emph{archetypes} to be swapped in and out trivially.
+facility types, known as \emph{archetypes}, to be swapped in and out easily.
 
 As a Cyclus simulation walks through each time step, facilities engage in a
 market-like dynamic resource exchange (DRE).  They broadcast requests for
-material and suppliers respond with bids. Requesters then express preferences
-between all their bids, and the DRE then creates a network flow problem that
-is optimized to resolve which transactions actually occur.  The plugin
-architecture combined with the DRE creates a powerful and flexible environment
-for the natural comparison of different modeling paradigms.  Cyclus'
-agent-based architecture in concert with its DRE has the ability to model
-fleet-based facilities.  Additionally, however, Cyclus can model facilities
-individually with discrete flows enabling the investigation of interesting
-real-world effects such as competition, reactor cycle staggering, and
-individual reactor outages. 
+material and potential supplying facilities respond with bids. The requesting facilities then
+express preferences between all their bids, and the DRE then generates a network
+flow problem that is optimized to resolve which transactions actually occur.
+The plugin architecture combined with the DRE creates a powerful and flexible
+environment for the natural comparison of different modeling paradigms.
+Cyclus' module plug-in based architecture in concert with its DRE has the ability to
+model fleet-based facilities.  Additionally, however, Cyclus can model
+facilities individually with discrete flows enabling the investigation of
+interesting real-world effects such as competition, reactor cycle staggering,
+and individual reactor outages. 
 
 Cyclus was designed to operate natively in unix/linux type environments with
 flexible and scriptable usage and input file format.  Cyclus stores its
-diverse generated data in a powerful open-source database format.  In addition
+comprehensive output data in a powerful open-source database format.  In addition
 to information about material flows and facility deployments, Cyclus'
 single-file database contains the simulation input file, version information
 about the archetypes used in a simulation, the version of Cyclus used to run
@@ -223,16 +224,16 @@ include a fleet-based reactor model, one was necessarily developed. A
 simulation scenario was created that is roughly based on prior and ongoing
 work in the Department of Energy (DOE) fuel cycle options campaign.  A few
 phenomena related to the different modeling choices in each of the four cases
-are identified and used as a basis for comparison.  Each of these things is
+are identified and used as a basis for comparison.  These are
 described in more detail in the following sections.
 
 \subsection{Fleet Reactor Implementation}
 
-A fleet reactor facility was created for Cyclus.  The flexibility of Cyclus
-makes it relatively straight forward to create plug-in archetypes that
-live anywhere along the spectrum from individual, discrete facilities to
+A fleet reactor archetype was created for Cyclus.  The flexibility of Cyclus
+makes it relatively straight forward to create plug-in archetypes to model
+anywhere along the spectrum from individual, discrete facilities to
 continuous flow fleet facilities.  In order to contrast well with individual,
-single-facility granularity modeling, the fleet model created here falls more
+single-facility granularity modeling, the fleet archetype created here falls more
 toward the aggregate, continuous flow side of the spectrum.  
 
 The fleet reactor, although a single entity modeling many reactors, is
@@ -261,9 +262,8 @@ important characteristics described below:
         refueling time) in time steps, $N_{r}$ is the number of reactors in
         the fleet, $C_{inv}$ is the total amount of fuel in all reactor cores
         (kg), and $C_{cap}$ is the total fuel capacity for all reactor cores
-        (kg).  The last fractional term accounts for any amount of
-        underfueling that may be occuring resulting in lower fuel burning
-        rates due to unfueled reactors.
+        (kg).  The last fractional term accounts for lower fuel burning rates
+        due to unfueled reactors.
 
     \item Refueling occurs continuously with as much fresh fuel as is
         available up to the total amount to fill all reactor cores in the
@@ -276,14 +276,14 @@ important characteristics described below:
         capacity in the fleet.
 
     \item When a reactor in the fleet is retired, a full core of material is
-        discharged - even if there is some fraction the fleet with unfueled
+        discharged - even if there is some fraction of the fleet with unfueled
         cores.
         
 \end{itemize}
 
 One characteristic of this fleet reactor implementation is that it has perfect
 fuel sharing and perfect cycle staggering among the individual reactors it
-models.  The first discharge of spent fuel from fleets begins immediately on
+models.  The first discharge of spent fuel begins immediately on
 the first time step of operation rather than after a complete refueling cycle.
 Fuel shortages also only cause proportional loss of capacity rather than
 whole-reactor quantized shutdown.  The full implementation of the fleet-based
@@ -320,7 +320,7 @@ found in the Cyclus input files used \cite{Carlsen2015}.
 
 A pre-release of Cyclus version 1.4 was used for this analysis.  Archetypes
 used were the standard ones provided with Cyclus in the included Cycamore
-library - also a pre-release of version 1.4.  A custom storage facility was
+library - also a pre-release of version 1.4.  A custom storage archetype was
 used because Cycamore did not yet provide one.  The standard cycamore reactor
 was used for both LWR and SRF reactor types in cases MI and QI.  Correspondingly
 the custom fleet-based reactor described earlier was used for both reactor
@@ -425,7 +425,7 @@ cases are publicly available for download and use \cite{Carlsen2015}.
 \subsection{Modeling Effects}
 
 There are various low level phenomena that have potential to affect the larger
-outcome of simulations with respect to facility and time step modeling
+outcome of simulations with respect to facility discretization and time step modeling
 decisions. Several effects are described below that arise from these
 different modeling choices.
 
