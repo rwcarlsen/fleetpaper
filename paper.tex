@@ -291,21 +291,20 @@ reactor is publicy available for download and use \cite{Carlsen2015}.
 
 \subsection{Scenario Description}
 
-The scenario used approximates a transition from a the current once-through light water
-reactor (LWR) fleet to a full sodium fast reactor (SFR) fuel cycle known as
-EG-23 in the DOE's Advanced Nuclear Fuel Cycle Options report
+The scenario modeled approximates a transition from a the current once-through light water
+reactor (LWR) fleet to a full sodium fast reactor (SFR) fuel cycle within evaluation group 23 (EG-23)
+in the DOE's Advanced Nuclear Fuel Cycle Options report
 \cite{wigeland_nuclear_2014}. Scenario and transition details were patterned
 after ongoing work by the DOE in their Fuel Cycle Options campaign.
 
 The scenario starts with 100 LWRs and follows an exponential curve with a 1\%
 annual growth rate for 200 years.  The decommissioning of the initial 100
-reactors is staggered over years 15 to 55.  Enrichment feeds LWRs with fresh
-fuel with infinite capacity. In year 35, fast reactors become available for
+reactors is staggered over years 15 to 55.  Fresh fuel for LWRs is provided directly from enrichment with infinite supply and throughput. In year 35, fast reactors become available for
 deployment and no more thermal reactors are built.  LWR spent fuel separations
 begins in year 15 with 2000 MTHM/yr capacity and increases to 3000 MTHM/yr in
 year 25.  Fast reactor spent fuel separations and fuel fabrication have
 infinite capacity.  All spent fuel is stored/cooled for 7 years before it becomes
-available for separation. Figure \ref{fig:flow} shows the material flow
+available for separation: 5 years for cooling and an additional 2 years to approximate non-instantaneous separations and fabrication times. Figure \ref{fig:flow} shows the material flow
 relationships between the facilities.  Compositions used for the simulations
 were simple containing primarily $^{238}U$, $^{235}U$, $^{239}Pu$, $^{241}Am$,
 and small quantities of a few lanthanides.  Full composition details can be
@@ -321,9 +320,9 @@ found in the Cyclus input files used \cite{Carlsen2015}.
 A pre-release of Cyclus version 1.4 was used for this analysis.  Archetypes
 used were the standard ones provided with Cyclus in the included Cycamore
 library - also a pre-release of version 1.4.  A custom storage archetype was
-used because Cycamore did not yet provide one.  The standard cycamore reactor
-was used for both LWR and SRF reactor types in cases MI and QI.  Correspondingly
-the custom fleet-based reactor described earlier was used for both reactor
+used because Cycamore did not yet provide one.  The standard cycamore reactor archetype
+was used for both LWR and SFR reactor types in cases MI and QI.  Correspondingly
+the custom fleet-based reactor archetype described earlier was used for both reactor
 types in cases MF and QF.  Additional configuration for the reactor types is
 shown in Table \ref{tab:reactors}.
 
@@ -350,10 +349,10 @@ The described scenario is used as closely as possible in each of the four
 cases.  However, a few small case-dependent changes to the scenarios relating to
 reactor configuration are necessary.  For the cases using quarterly time steps
 with individual reactors, cycle and outage times must be adjusted to be a
-multiple of 3 months.  In order to make the comparison more fair, the cases
+multiple of 3 months.  In order to make the comparison more valid, the cases
 with monthly time steps are also adjusted to have identical cycle and outage
 times.  The invariants preserved with respect to reactor behavior between all
-four cases are shown in Table \ref{tab:invar}.  Table \ref{tab:reactors} shows
+four cases are shown in Table \ref{tab:invar}.  Table \ref{tab:reactor-detail} shows
 the computed/selected configuration for both LWR and SFR reactor types for all
 four cases.
 
@@ -401,11 +400,11 @@ four cases.
         Reactor configuration for each of the four simulation cases.
     }
 
-    \label{tab:reactors}
+    \label{tab:reactor-detail}
 \end{table*}
 
 In each of the four cases, the initial 100 LWRs are modified to have a zero
-length refueling outage with an explicit 900 MWe power capacity.  Because the
+length refueling outage with an explicit 900 MWe net power output capacity.  Because the
 individual reactor model doesn't have any way to start a reactor mid-cycle,
 this was done to avoid having all initial LWRs refuel at the same time.  The
 parameters for each case were also selected to keep capacity factors for
