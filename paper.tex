@@ -550,9 +550,9 @@ refueling cycle rather than every time step.
 
 \section{Results}
 
-All results data, analysis tools and instructions are publicly available for
-download and use at \url{http://dx.doi.org/10.6084/m9.figshare.1546775}
-\cite{Carlsen2015}.
+All results data, analysis tools, and related instructions are publicly
+available for download and use at
+\url{http://dx.doi.org/10.6084/m9.figshare.1546775} \cite{Carlsen2015}.
 
 \subsection{Power Production}
 
@@ -654,12 +654,12 @@ for each time step the cycle start is delayed.
 
 One useful over-estimate of the fuel sharing inefficiency is to assume every
 one of the "wasted" batches could have been given to a reactor enabling it to
-operate.  Multiplying each of these cumulative batches by reactor capacity
+operate.  Multiplying each of these cumulative batches by the fast reactor power capacity
 (i.e. 450 MWe) provides a way to compare fuel sharing inefficiency with the
-overall fuel outage.  This results in a cumulative offline power caused by
+overall fuel outage.  This results in a cumulative energy deficit caused by
 poor fuel sharing of roughly 2,000 $\text{GWe} \cdot \text{months}$ and 6,600
 $\text{GWe} \cdot \text{months}$ for cases MI and QI respectively.  These
-approximations are a significant portion of the difference between individual
+approximations account for a significant portion of the difference between individual
 and fleet cases in Figure \ref{fig:unfueled} suggesting that most of the
 discrepency in cumulative outage between fleet and individual modeling is
 caused by inefficient fuel sharing in the individual reactor cases.
@@ -693,7 +693,7 @@ potentially receive some fuel and still be unable to operate.  In order to
 maintain optimal sharing, fresh fuel now needs to be sent in all-or-nothing
 multi-assembly quanta with higher preference to reactors that need fewer
 assemblies.  Spare fresh fuel inventory (item 2 above) will have the global
-effect of increasing total outage severity; on average more batches of fresh
+effect of increasing total shortage severity; on average more batches of fresh
 fuel will be sitting unused.  However, it can potentially reduce the frequency
 of outages for individual reactors in some cases.
 
@@ -702,10 +702,10 @@ in optimal fuel sharing. However, modeling these the causes of suboptimal fuel
 sharing is probably best accomplished with a more direct, intentional approach
 rather than as a modeling artifact as seen here in cases MI and QI.  One way to
 alleviate the poor fuel sharing is to modify the individual reactor model to
-lower the preference value for requests for fresh fuel depending on how many
+adjust the preference value on requests for fresh fuel depending on how many
 assemblies it needs to have a full core.  The more assemblies it needs, the
 lower it will set its request preference.  This will have the effect of
-allowing the resource exchange resolution in Cyclus to globally prefer sending
+allowing the DRE in Cyclus to prefer sending
 fuel to reactors that need less to operate.
 
 \begin{figure}[!h]
@@ -715,8 +715,8 @@ fuel to reactors that need less to operate.
         Fuel sharing inefficiency approximated by the cumulative number of
         fuel batches given to each reactor on each refueling period multiplied
         by the number of time steps that reactor had to delay the start of its
-        next cycle (due to fuel shortage).  Fleet reactors have perfect fuel
-        sharing by design and so are not included here. The large difference
+        next cycle (due to fuel shortage).  Fleet reactors implicitly have perfect fuel
+        sharing and so are not included here. The large difference
         between cases MI and QI is mostly due to the \emph{inventory drawdown
         effect}. 
     }
@@ -729,7 +729,7 @@ The large differences seen between monthly and quarterly time step cases in
 Figures \ref{fig:unfueled} and \ref{fig:badshare} are primarily caused by the
 \emph{inventory drawdown effect}.  Figure \ref{fig:puinv} helps to visualize
 this effect.  The black dots in the figure represent impulse flows of
-available Pu out of the fuel fab and into fast reactors.  Blue lines represent
+available Pu from fuel fabrication and into fast reactors.  Blue lines represent
 the flows into Pu inventory available for making fuel. The in-flows are not
 shown for the individual reactor cases because they are somewhat messy and
 obscure other information in the plots. The other colored curves show Pu inventory
@@ -745,14 +745,14 @@ The larger in-flows, however, do not compensate for the larger withdrawals
 because facilities do not know about incoming inventory when they resolve
 their outflow for a particular time step.  This information lag effectively
 requires the floating Pu inventory to be maintained at a higher level during
-the shortage.  This can be clearly seen in the case QF plot which has a higher
+the shortage.  This can be clearly seen in the Figure \ref{fig:puinv} case QF plot which has a higher
 standing inventory than case MF during the fuel shortage years.  The case QF Pu
 inventory is unable to drop below approximately 100 tonnes, which indicates
 out-flows to be roughly equal to the Pu flow into inventory each time step
 during those years.  This can be confirmed by the in-flow and inventory curves
 touching at those points.  Case MF Pu inventory is similarly limited at about
 the 30 tonne level.  As expected, the case QF withdrawals are also three times
-higher case MF withdrawals exactly matching the time step duration ratio
+higher than the case MF withdrawals, exactly matching the time step duration ratio
 between the two cases.
 
 Throughout most of the shortage, the aggregate outflow of Pu from separated
