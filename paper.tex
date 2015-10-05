@@ -761,9 +761,9 @@ time steps in case QF, the shortage starts slightly sooner because Pu inventory
 must be maintained at a higher limit as described above.  The small difference
 in outage start time has feed-back effects.  Not only are extra reactors
 offline, but those extra reactors are also discharging less aggregate spent
-fuel for recycling.  This farther increases the discrepency between the two
+fuel for recycling.  This increases the discrepency between the two
 cases. Eventually the shortage in case MF ends slightly before it does in case
-QF. This feedback effect occurs because the reactors in question have a
+QF. This feedback effect occurs because the reactors have a
 conversion ratio greater than 1.0.
 
 The horizontal striations visible in the monthly flows for case MI in Figure
@@ -783,7 +783,7 @@ single batch.  After a 7-year cooling period, the first discharged full cores
 begin to make it through the recycle loop in year 122.  Another interesting
 feature visible in all four cases in Figure \ref{fig:puinv} is the minority
 fraction of out-flow points that are higher than the bulk majority. These
-higher out-flows occur once every 21 months when new reactors are built. The
+higher out-flows occur once every 21 months when new reactors are built because
 new reactors require a full core of fresh fuel rather than the single batch
 needed when just refueling.  
 
@@ -793,11 +793,11 @@ needed when just refueling.
     \caption[Separated Pu inventory and flow]{
         Separated Pu inventory and flows for all four cases.  In-flows for
         cases MI and QI are omitted because they are noisy and obscure other
-        useful information.  A larger time step results in larger per time
+        useful information.  When out-flows meet inventory, fuel shortages are taking place. A larger time step results in larger per time
         step material flows. These larger flows mean more material is not
         available for supplying to requesters.  This information lag causes
         more supply constraints than occur with smaller time steps -
-        illustrating the \emph{inventory drawdown effect}. Another result of
+        illustrating the \emph{inventory drawdown effect}. Another consequence of
         this effect is the larger standing Pu inventory during the shortage
         with larger time steps that can be seen in case QF than in case MF.
     }
@@ -809,8 +809,8 @@ Figure \ref{fig:puinv-compare} shows the same inventory curves from Figure
 inventory during the shortage generally indicates fewer unfueled reactors.
 Lower inventory levels mean available Pu is being utilized more efficiently
 rather than sitting idle.  Cases QI and QF with their longer time steps show
-higher inventories indicating a more severe shortage.  Post shortage, they
-also fall a bit behind on building up Pu stocks due to the delayed
+higher inventories indicating a more severe shortage.  Post shortage, cases QI and QF
+also fall a bit behind with respect to building up Pu stocks due to the delayed
 contributions of more unfueled reactors to the separated Pu pool.  The
 reactors in all the scenarios request fresh fuel only when they need it. While
 this is an unrealistic behavior for real-world facilities, it is closer to a
@@ -825,9 +825,9 @@ would make the fuel shortage worse overall.
         Separated Pu inventories for all four cases.  Differences in modeling
         choices are not particularly significant until about year 100 when
         fuel shortages begin.  These differences gradually decay away starting
-        in year 140 after the fuel shortages have ebbed.  Higher aggregate Pu
-        inventory  during the shortage is correlated with a longer during and
-        post shortage recovery period.
+        in year 140 after fuel shortages have ebbed.  Higher aggregate Pu
+        inventory  during the shortage is correlated with both a longer shortage and
+        a longer post-shortage recovery period.
     }
     \label{fig:puinv-compare}
 \end{figure*}
@@ -847,11 +847,11 @@ simulation.  With discrete reactor modeling many factors must be considered in
 order to ensure the integrity of conclusions.  Individual reactor outage
 modeling can be very useful for certain analyses, but it can reduce result
 quality if things such as cycle staggering are not handled appropriately.  The
-fleet and discreet models used here are just two points in a multi-dimensional
-spectrum of modeling choices. If fuel sharing is of interest, but cycle
-staggering is not, individual reactors can be used with the power capacity
-lowered and the outage reduced to zero duration making the capacity factor
-included in the reactor's power capacity.
+fleet and discrete models used here are just two points in a multi-dimensional
+spectrum of modeling choices. For example, if fuel sharing is of interest but cycle
+staggering is not, individual reactors could be used with the power capacity
+lowered and the outage reduced to zero duration, including the capacity factor
+in the reactor's power capacity.
 
 Modeling reactors individually can provide valuable insight not possible with
 the fleet-based reactor modeling.  For example, bringing reactors back online
@@ -869,10 +869,8 @@ standing inventories are required in order to achieve equal throughput.
 Facilities with large inventory buffer that are unconstrained are not affected
 significantly by the time step duration when operating in isolation.  However,
 even when facilities do not have individual inventory or throughput limits,
-the time step can still have a significant effect. In recycle loops there is a
-constraint on how fast material is introduced through the loop (i.e. the
-discharge rate of spent fuel from reactors).  The \emph{inventory drawdown
-effect} can impact the aggregate throughput of the recycling loop by affecting
+the time step can still have a significant effect. The \emph{inventory drawdown
+effect} can impact the aggregate throughput of supply-constrained recycle loops by affecting
 minimum bounds on idling material quantities.
 
 The impact of modeling assumptions depends heavily on the metrics of interest.
