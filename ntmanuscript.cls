@@ -151,6 +151,8 @@
 %%%%%%%%%%% CHANGE TABLE/FIGURE STYLE %%%%%%%%%%%
 \renewcommand{\figurename}{Fig.}
 \renewcommand{\tablename}{TABLE}
+\renewcommand{\thetable}{\Roman{table}}
+\renewcommand{\theequation}{\arabic{equation}}
 
 \setlength{\abovecaptionskip}{0.25\baselineskip}
 \setlength{\belowcaptionskip}{0.25\baselineskip}
