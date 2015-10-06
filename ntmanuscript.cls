@@ -79,36 +79,54 @@
 
 
 %%%%%%%%%%% ABSTRACT %%%%%%%%%%%
-\renewenvironment{abstract}{
-  \pagebreak[4]
-  \noindent\textbf{Abstract}\ignorespaces\par%
-  %\end{@twocolumnfalse}
-  %\titleline{\color{gray!50!white}\titlerule[10pt]}\medskip}%
-}
+\newcommand{\myabstract}[1]{\def\@myabstract{#1}}
 
+\newcommand{\makeabstract}{
+    \newpage
+    \begin{center}
+        {\sffamily\LARGE\@title\par} 
+        \@author
+    \end{center}
+
+    \vspace{1em}
+    {\LARGE \noindent\textbf{Abstract}}\ignorespaces\par%
+
+    %\end{@twocolumnfalse}
+    %\titleline{\color{gray!50!white}\titlerule[10pt]}\medskip}%
+
+    \@myabstract
+
+    \vspace{1em}
+    \textbf{Keywords}: \@keywords
+    \pagebreak
+
+    \pagestyle{plain}
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+}
 
 %%%%%%%%%%% SECTIONING %%%%%%%%%%%
 \renewcommand\section{\@startsection%
-        {section}{1}{\z@}%              %name, level, indent
-        {-\baselineskip}%               %beforeskip
-        {.75\baselineskip}%             %afterskip
-        {\reset@font\bf\MakeUppercase}% %bold, uppercase
+    {section}{1}{\z@}%              %name, level, indent
+    {-\baselineskip}%               %beforeskip
+    {.75\baselineskip}%             %afterskip
+    {\reset@font\bf\MakeUppercase}% %bold, uppercase
 }
 \renewcommand{\thesection}{\@Roman\c@section} 
 
 \renewcommand\subsection{\@startsection%
-        {subsection}{2}{\z@}%           %name, level, indent
-        {-\baselineskip}%               %beforeskip
-        {.75\baselineskip}%             %afterskip
-        {\reset@font\bf}%               %bold
+    {subsection}{2}{\z@}%           %name, level, indent
+    {-\baselineskip}%               %beforeskip
+    {.75\baselineskip}%             %afterskip
+    {\reset@font\bf}%               %bold
 }
 \renewcommand{\thesubsection}{\thesection.\@Alph\c@subsection}
 
 \renewcommand\subsubsection{\@startsection
-        {subsubsection}{3}{\z@}%        %name, level, indent
-        {-.75\baselineskip}%            %beforeskip
-        {.5\baselineskip}%              %afterskip
-        {\reset@font\emph}%             %italic
+    {subsubsection}{3}{\z@}%        %name, level, indent
+    {-.75\baselineskip}%            %beforeskip
+    {.5\baselineskip}%              %afterskip
+    {\reset@font\emph}%             %italic
 }
 \renewcommand{\thesubsubsection}{\thesubsection.\@roman\c@subsubsection}
 
@@ -196,5 +214,7 @@
 
 \AtBeginDocument{
   \maketitle
+  \makeabstract
 }
+
 

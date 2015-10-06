@@ -2,7 +2,6 @@
 
 %%%%%% acronyms %%%%%%
 \usepackage[acronym,toc]{glossaries}
-\newacronym{MIT}{MIT}{the Massachusetts Institute of Technology}
 \newacronym{UW}{UW}{University of Wisconsin}
 %\newacronym{<++>}{<++>}{<++>}
 \makeglossaries
@@ -12,7 +11,7 @@
 \newwatermark[allpages,color=black!5,angle=45,scale=6,xpos=-40,ypos=40]{DRAFT}
 
 %%%%%%%% cover info %%%%%%%%%%%%%%%
-\title{Facility and Time Step Discretization Effects in Fuel Cycle Simulation}
+\title{Challenging Fuel Cycle Modeling Assumptions: Facility and Time Step Discretization Effects}
 \author{Robert~W.~Carlsen, Paul~P.H.~Wilson}
 
 \institute{University of Wisconsin - Madison, Department of Nuclear Engineering and Engineering Physics, Madison, WI 53706}
@@ -21,7 +20,7 @@
 \submitteremail{rwcarlsen@gmail.com}
 
 % No more than three keywords, though each can be a phrase
-\keywords{nuclear fuel cycle, simulation, TODO:third}
+\keywords{Nuclear Fuel Cycle, Simulation, \Cyclus}
 
 %%%%%%%%% includes and commands %%%%%%%%%%
 
@@ -40,16 +39,7 @@
 \newcommand{\Cycamore}{\textsc{Cycamore}\xspace}%
 \date{}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{document}
-
-TODO: add table titles
-TODO: adjust figure fonts to meet NT guidlines
-
-\newpage
-
-\begin{abstract}
-
+\myabstract{
 Due to the diversity of fuel cycle simulator modeling assumptions, direct
 comparison and benchmarking can be difficult.  In 2012 the Organisation for
 Economic Co-operation and Development (OECD) completed a benchmark study that
@@ -71,12 +61,15 @@ reactor refueling cycle staggering.  Finer-grained time steps also enable more
 efficient material use in supply-constrained environments.  Large simulations
 with fleet-based reactors run much more quickly than their individual reactor
 counterparts.
+}
 
-\end{abstract}
-
-\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
 
 \section{Introduction}
+
+TODO: add table titles
+TODO: adjust figure fonts to meet NT guidlines
 
 The diversity of assumptions embedded within various fuel cycle simulators pose challenges for direct
 comparison and benchmarking.  In 2012 the Organisation for
@@ -156,7 +149,7 @@ Questions of interest include:
 
 \end{itemize}
 
-\subsection{CYCLUS}
+\subsection{\Cyclus}
 
 One of the major motivations for the development of the Cyclus fuel cycle
 simulator \cite{cyclus_2015} was creating a simulation environment that is
