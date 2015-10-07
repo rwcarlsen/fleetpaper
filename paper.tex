@@ -110,10 +110,12 @@ others.  In fleet-based modeling:
 \begin{itemize}
 
     \item Groups of facilities (usually all facilities of a given type) are
-        treated as a single, aggregate entity.
+        treated as a single, aggregate entity. Therefore, all facilities experience
+        identical operational histories.
 
-    \item Resource flows are often (approximately) continuous (limited by time
-        step discretization).
+    \item Resource flows are modeled as continuous, within the limitations of time
+        step discretization.  Therefore, material is acquired and discharge in
+        uniform amounts at every time step.
 
 \end{itemize}
 
