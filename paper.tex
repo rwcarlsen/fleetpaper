@@ -236,35 +236,47 @@ important characteristics described below:
 
 \begin{itemize}
 
-    \item Reactor capacity is deployed and retired in single reactor units
-        (e.g. 1 GWe LWRs).
+    \item Reactor capacity is deployed and retired in increments of single
+      reactor units, each with capable of producing power $P_r$ (e.g. 1 GWe
+      LWRs).  $N_{r}$ reactors are deployed at any time capable of producing
+      $P_r \cdot N_r$ power.
+
+    \item In the event of fuel shortages, the number of reactors that can
+      operate is modeled as
+
+      \begin{equation}
+        N_{o} = N_{r} \cdot \frac{C_{inv}}{C_{cap}},
+        \label{eqn:operating-reactors}
+      \end{equation}
+
+       where $C_{inv}$ is the total amount of fuel in all reactor cores (kg),
+       and $C_{cap}$ is the total fuel capacity for all reactor cores (kg).
 
     \item Material is discharged from the fleet's reactor cores continuously
         (every time step) according to the following equation:
 
         \begin{equation}
             D =
-            \frac{B}{L} \cdot N_{r} \cdot \frac{C_{inv}}{C_{cap}}
+            \frac{B}{L} \cdot N_{o} =  \frac{B}{L} \cdot N_{r}\cdot \frac{C_{inv}}{C_{cap}}
             \label{eqn:fleet-discharge}
         \end{equation}
 
         $D$ is the discharge rate (kg per time step), $B$ is the batch size
         (kg) for a single reactor's batch, $L$ is the cycle length (including
-        refueling time) in time steps, $N_{r}$ is the number of reactors in
-        the fleet, $C_{inv}$ is the total amount of fuel in all reactor cores
-        (kg), and $C_{cap}$ is the total fuel capacity for all reactor cores
-        (kg).  The last fractional term accounts for lower fuel burning rates
-        due to unfueled reactors.
+        refueling time) in time steps.  In the event of fuel shortages, the
+        discharge rate is reduced because some reactors are not operating.
 
     \item Refueling occurs continuously with as much fresh fuel as is
         available up to the total amount to fill all reactor cores in the
         fleet.  No extra fuel is kept on-hand - it is all ordered
         just-in-time.
 
-    \item Generated power is computed similarly to core discharge rates by
-        multiplying the total fleet power capacity by the same last fractional
-        term of Equation \ref{eqn:fleet-discharge} to account for unfueled
-        capacity in the fleet.
+    \item Generated power at any timestep, $P_G$, is based on the number of
+      operating reactors:
+
+      \begin{equation}
+        P_{G} = P_r \cdot N_o = P_r \cdot N_r \cdot \frac{C_{inv}}{C_{cap}}
+      \end{equation}
 
     \item When a reactor in the fleet is retired, a full core of material is
         discharged - even if there is some fraction of the fleet with unfueled
