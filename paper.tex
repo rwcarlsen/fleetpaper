@@ -446,12 +446,19 @@ reactor of the fleet (\emph{e.g.}~1000~MWe).  If an individually modeled reactor
 short a half batch of fuel, then it will produce no power ($0 \cdot P_r$) that
 time step.  Time step duration can amplify this effect.  For both fleet and
 individual reactor modeling, power goes offline in full time step increments.
-For example, if a 3-batch fleet based reactor is short $\frac{1}{2}$ batch of
-fuel with a 3 month time step, then it will produce $\frac{2.5}{3} \cdot 3
-\text{mo} \cdot P_r$ of energy.  In contrast, a monthly time step might allow
-the same reactor to produce $[\frac{2.5}{3} \cdot 1 \text{mo} + 1 \cdot 2
-\text{mo}] \cdot P_r $ of energy if the fuel shortage actually ended after only
-1 month.  Quantifying this effect directly is difficult.  One way of observing
+Consider an example of a 3-batch reactor with a fuel shortage of $\frac{1}{2}$ batch of
+fuel that would be resolve in 1 month.  Depending on the modeling choice, each reactor
+would produce the following amounts of energy over a 3 month period:
+
+\begin{itemize}
+  \item case \emph{QF}: $\frac{2.5}{3} \cdot 3 \text{mo} \cdot P_r = 2.5P_r$
+  \item case \emph{MF}: $[\frac{2.5}{3} \cdot 1 \text{mo} + 1 \cdot 2
+    \text{mo}] \cdot P_r = 2.83P_r$
+  \item case \emph{QI}: $0 \cdot 3 \text{mo} \cdot P_r = 0$
+  \item case \emph{MI}: $[0\cdot 1 \text{mo} + 1 \cdot 2\text{mo}] \cdot P_r = 2 P_r$
+\end{itemize}
+
+Quantifying this effect directly is difficult.  One way of observing
 it is to compare fleet reactor scenarios that have different time step
 durations (i.e. cases MF and QF).  Because the fleet reactors have perfect fuel
 sharing (described below) and no noise from refueling outages, differences observed will
