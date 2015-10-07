@@ -347,7 +347,7 @@ shown in Table \ref{tab:reactors} (cycle length includes the refueling outage).
             & LWR & SFR \\
         \hline                       
         Lifetime (yr)         & 80 & 80 \\
-        Cycle length (months) & 18 & 14 \\
+        Cycle length (months) & 18 & 14 \\  %% why list this SFR cycle length if it's never used?
         Batch size (kg)       & 29565 & 7490 \\
         Batches per core      & 3 & 5 \\
         \hline                       
@@ -358,8 +358,8 @@ shown in Table \ref{tab:reactors} (cycle length includes the refueling outage).
 
 The described scenario is used as closely as possible in each of the four
 cases.  However, a few small case-dependent changes to the scenarios relating to
-reactor configuration are necessary.  For the cases using quarterly time steps
-with individual reactors, cycle and outage times must be adjusted to be a
+reactor configuration are necessary.  For case \emph{QI}, 
+cycle and outage times must be adjusted to be a
 multiple of 3 months.  In order to make the comparison more valid, the cases
 with monthly time steps are also adjusted to have identical cycle and outage
 times.  The invariants preserved with respect to reactor behavior between all
