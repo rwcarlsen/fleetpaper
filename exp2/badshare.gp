@@ -4,7 +4,7 @@ set terminal epscairo
 
 set key top center Left reverse
 set xlabel "Year"
-set ylabel "Cumulative Fuel Given to\nOffline Reactors (batch*mo)\n"
+set ylabel "Cumulative Fuel Given to\nUnder-fueled Reactors (batch*mo)\n"
 set title "Imperfect Fuel Sharing"
 
 plot \
