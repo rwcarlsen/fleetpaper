@@ -526,6 +526,13 @@ approximation.
     N_{wasted}(t) = \sum\limits_{r \in R_t} \left(H[t-S_{sched}(t,r)] \cdot [1-O(t,r)]  \sum\limits_{t'=F_{prev}(t,r)}^{t} N_b(t',r) \right)
     \label{eq:badshare}
 \end{equation}
+%% What is the value of this function during a normal refueling outage,
+%% immediately before S_(sched)(t)?  It seems you need another Heavyside
+%% function to drop this back down to an expected value of 0 again.
+%%
+%%          ___________________
+%%          |                 |
+%%  ________|                 |_____________
 
 where $R_t$ is the set of all reactors, $H$ is the Heaviside function,
 $S_{sched}(t,r)$ is the original scheduled startup time of reactor $r$ after
