@@ -110,16 +110,18 @@ others.  In fleet-based modeling:
 \begin{itemize}
 
     \item Groups of facilities (usually all facilities of a given type) are
-        treated as a single, aggregate entity.
+        treated as a single, aggregate entity. Therefore, all facilities experience
+        a single, identical history.
 
-    \item Resource flows are often (approximately) continuous (limited by time
-        step discretization).
+    \item Resource flows are modeled as continuous, within the limitations of time
+        step discretization.  Therefore, material is acquired and discharged in
+        uniform amounts at every time step.
 
 \end{itemize}
 
 This work investigates in detail some differences between fleet vs. individual
 reactor modeling.  The difference between these two modeling styles in terms
-of their affects on output of fuel cycle simulators in general is not well
+of their effects on output of fuel cycle simulators in general is not well
 known. This analysis is designed to provide both quantitative and
 qualitative insight about how fleet-based continuous flow models differ from
 individual facility discrete flow models.
@@ -185,16 +187,12 @@ resulting in four different cases:
 
 \begin{enumerate}
 
-    \item \emph{Case MI}: Monthly time steps with individual reactor modeling
-    \item \emph{Case MF}: Monthly time steps with fleet reactor modeling
-    \item \emph{Case QI}: Quarterly (3-month) time steps with individual reactor modeling
-    \item \emph{Case QF}: Quarterly (3-month) time steps with fleet reactor modeling
+    \item \emph{Case MI}: \underline{M}onthly time steps with \underline{I}ndividual reactor modeling
+    \item \emph{Case MF}: \underline{M}onthly time steps with \underline{F}leet reactor modeling
+    \item \emph{Case QI}: \underline{Q}uarterly (3-month) time steps with \underline{I}ndividual reactor modeling
+    \item \emph{Case QF}: \underline{Q}uarterly (3-month) time steps with \underline{F}leet reactor modeling
 
 \end{enumerate}
-
-The case labels consist of two letters each: "M" for monthly time steps, "Q"
-for quarterly time steps, "I" for individual reactors, and "F" for fleet
-reactors.
 
 Conducting this analysis involved developing some additional capability
 in/around Cyclus.  Three primary pieces to the methodology are:
@@ -220,12 +218,14 @@ described in more detail in the following sections.
 
 \subsection{Fleet Reactor Implementation}
 
-A fleet reactor archetype was created for Cyclus.  The flexibility of Cyclus
-makes it relatively straight forward to create plug-in archetypes to model
+A fleet reactor archetype was created for Cyclus.  Although the modeling of
+individual, discrete facilities was a motivation for Cyclus, its flexibility
+makes it relatively straightforward to create plug-in archetypes to model
 anywhere along the spectrum from individual, discrete facilities to
-continuous flow fleet facilities.  In order to contrast well with individual,
-single-facility granularity modeling, the fleet archetype created here falls more
-toward the aggregate, continuous flow side of the spectrum.  
+continuous flow fleet facilities.  In order to contrast well with the individual,
+single-facility granularity modeling that is part of the standard Cyclus archetypes, 
+a fleet archetype was created for this work with aggregate facilitiy behavior and
+continuous flow.
 
 The fleet reactor, although a single entity modeling many reactors, is
 actually designed to look like many individual reactors to the cyclus
@@ -236,35 +236,47 @@ important characteristics described below:
 
 \begin{itemize}
 
-    \item Reactor capacity is deployed and retired in single reactor units
-        (e.g. 1 GWe LWRs).
+    \item Reactor capacity is deployed and retired in increments of single
+      reactor units, each capable of producing power $P_r$ (e.g. 1 GWe
+      LWRs).  $N_{r}$ reactors are deployed at any time capable of producing
+      up to $P_r \cdot N_r$ power.
+
+    \item In the event of fuel shortages, the number of reactors that can
+      operate is modeled as
+
+      \begin{equation}
+        N_{o} = N_{r} \cdot \frac{C_{inv}}{C_{cap}},
+        \label{eqn:operating-reactors}
+      \end{equation}
+
+       where $C_{inv}$ is the total amount of fuel in all reactor cores (kg),
+       and $C_{cap}$ is the total fuel capacity for all reactor cores (kg).
 
     \item Material is discharged from the fleet's reactor cores continuously
         (every time step) according to the following equation:
 
         \begin{equation}
             D =
-            \frac{B}{L} \cdot N_{r} \cdot \frac{C_{inv}}{C_{cap}}
+            \frac{B}{L} \cdot N_{o} =  \frac{B}{L} \cdot N_{r}\cdot \frac{C_{inv}}{C_{cap}}
             \label{eqn:fleet-discharge}
         \end{equation}
 
         $D$ is the discharge rate (kg per time step), $B$ is the batch size
         (kg) for a single reactor's batch, $L$ is the cycle length (including
-        refueling time) in time steps, $N_{r}$ is the number of reactors in
-        the fleet, $C_{inv}$ is the total amount of fuel in all reactor cores
-        (kg), and $C_{cap}$ is the total fuel capacity for all reactor cores
-        (kg).  The last fractional term accounts for lower fuel burning rates
-        due to unfueled reactors.
+        refueling time) in time steps.  In the event of fuel shortages, the
+        discharge rate is reduced because some reactors are not operating.
 
     \item Refueling occurs continuously with as much fresh fuel as is
         available up to the total amount to fill all reactor cores in the
         fleet.  No extra fuel is kept on-hand - it is all ordered
         just-in-time.
 
-    \item Generated power is computed similarly to core discharge rates by
-        multiplying the total fleet power capacity by the same last fractional
-        term of Equation \ref{eqn:fleet-discharge} to account for unfueled
-        capacity in the fleet.
+    \item Generated power at any timestep, $P_G$, is based on the number of
+      operating reactors:
+
+      \begin{equation}
+        P_{G} = P_r \cdot N_o = P_r \cdot N_r \cdot \frac{C_{inv}}{C_{cap}}
+      \end{equation}
 
     \item When a reactor in the fleet is retired, a full core of material is
         discharged - even if there is some fraction of the fleet with unfueled
@@ -282,11 +294,16 @@ reactor is publicy available for download and use \cite{Carlsen2015}.
 
 \subsection{Scenario Description}
 
-The scenario modeled approximates a transition from a the current once-through light water
+The chosen scenario approximates a transition from a the current once-through light water
 reactor (LWR) fleet to a full sodium fast reactor (SFR) fuel cycle within evaluation group 23 (EG-23)
 in the DOE's Advanced Nuclear Fuel Cycle Options report
 \cite{wigeland_nuclear_2014}. Scenario and transition details were patterned
 after ongoing work by the DOE in their Fuel Cycle Options campaign.
+%% Not sure if we should make such an explicit reference to the ongoing FCO
+%% transition work until they publish something. On one hand, it reveals
+%% things they are secretive about. On the other hand, we should give them due
+%% credit.
+
 
 The scenario starts with 100 LWRs and follows an exponential curve with a 1\%
 annual growth rate for 200 years.  The decommissioning of the initial 100
@@ -305,13 +322,16 @@ found in the Cyclus input files used \cite{Carlsen2015}.
     \centering
     \includegraphics[width=0.47\textwidth]{exp2/flow.eps}
     \caption[Material flow paths]{Potential material flow paths between facility types.}
+    %% consider a Cyclist-derived visualization here?
     \label{fig:flow}
 \end{figure}
 
-A pre-release of Cyclus version 1.4 was used for this analysis.  Archetypes
-used were the standard ones provided with Cyclus in the included Cycamore
+%% is it worth waiting until the 1.4 release?  Citing an ambiguous pre-release makes
+%% this a little harder to reproduce.
+A pre-release of Cyclus version 1.4 was used for this analysis, with the
+standard archetypes provided with Cyclus in the included Cycamore
 library - also a pre-release of version 1.4.  A custom storage archetype was
-used because Cycamore did not yet provide one.  The standard cycamore reactor archetype
+developed because Cycamore did not yet provide one.  The standard Cycamore reactor archetype
 was used for both LWR and SFR reactor types in cases MI and QI.  Correspondingly
 the custom fleet-based reactor archetype described earlier was used for both reactor
 types in cases MF and QF.  Additional configuration for the reactor types is
@@ -327,7 +347,7 @@ shown in Table \ref{tab:reactors} (cycle length includes the refueling outage).
             & LWR & SFR \\
         \hline                       
         Lifetime (yr)         & 80 & 80 \\
-        Cycle length (months) & 18 & 14 \\
+        Cycle length (months) & 18 & 15 \\
         Batch size (kg)       & 29565 & 7490 \\
         Batches per core      & 3 & 5 \\
         \hline                       
@@ -338,11 +358,8 @@ shown in Table \ref{tab:reactors} (cycle length includes the refueling outage).
 
 The described scenario is used as closely as possible in each of the four
 cases.  However, a few small case-dependent changes to the scenarios relating to
-reactor configuration are necessary.  For the cases using quarterly time steps
-with individual reactors, cycle and outage times must be adjusted to be a
-multiple of 3 months.  In order to make the comparison more valid, the cases
-with monthly time steps are also adjusted to have identical cycle and outage
-times.  The invariants preserved with respect to reactor behavior between all
+reactor configuration are necessary.
+The invariants preserved with respect to reactor behavior between all
 four cases are shown in Table \ref{tab:invar}.  Table \ref{tab:reactor-detail} shows
 the computed/selected configuration for both LWR and SFR reactor types for all
 four cases.
@@ -372,7 +389,7 @@ four cases.
 \begin{table*}
     \centering
     \captionsetup{justification=centering}
-    \caption{Reactor Parameters by Case}
+    \caption{Selected Reactor Parameters by Case}
     \begin{tabular}{ |r | c c | c c | }
         \hline                       
                                           & \multicolumn{2}{c |}{LWR}       & \multicolumn{2}{c |}{SFR} \\
@@ -380,7 +397,7 @@ four cases.
         \hline                       
         Cycle length (months)             & 15        & 18                & 12        & 15 \\
         Refueling outage (months)         & 3         & 0                 & 3         & 0 \\
-        Batch size ($\text{kg} \cdot \text{HM}$) & 29,565    & 29,565            & 8,025     & 40,125 \\
+        Batch size ($\text{kg} \cdot \text{HM}$) & 29,565    & 29,565            & 8,025     & 8,025 \\
         Power capacity (MWe)              & 1,080     & 900               & 450       & 360 \\
         \hline                       
     \end{tabular}
@@ -392,7 +409,9 @@ length refueling outage with an explicit 900 MWe net power output capacity.  Bec
 individual reactor model doesn't have any way to start a reactor mid-cycle,
 this was done to avoid having all initial LWRs refuel at the same time.  The
 parameters for each case were also selected to keep capacity factors for
-individual reactors very roughly around 90\%.
+individual reactors very roughly around 90\%, although they are actually 
+closer to 80\% due to integer variable constraints on the case MI and QI
+reactor configuration.
 
 Instead of annual deployments, a longer 21-month deployment period is used
 because it provides better natural staggering for the reactor refueling
@@ -415,18 +434,25 @@ these effects are described in detail below.
 
 One difference between the fleet and individual facility modeling is the
 \emph{quantized shutdown effect}.  If a fleet-based reactor modeling 3-batch
-cores is short one half batch of fuel, it will produce $\frac{2.5}{3}\cdot C$
-of power for that time step where $C$ is the power capacity of a single
-reactor of the fleet (e.g. 1000 MWe).  If an individually modeled reactor is
-short a half batch of fuel, then it will produce no power ($0 \cdot C$) that
-time step.  Time step duration can also have this effect.  For both fleet and
+cores is short one half batch of fuel, it will produce $\frac{2.5}{3}\cdot P_r$
+of power for that time step where $P_r$ is the power capacity of a single
+reactor of the fleet (\emph{e.g.}~1000~MWe).  If an individually modeled reactor is
+short one half batch of fuel, then it will produce no power ($0 \cdot P_r$) that
+time step.  Time step duration can amplify this effect.  For both fleet and
 individual reactor modeling, power goes offline in full time step increments.
-For example, if a 3-batch fleet based reactor is short $\frac{1}{2}$ batch of
-fuel with a 3 month time step, then it will produce $\frac{2.5}{3} \cdot 3
-\text{mo} \cdot C $ of energy.  In contrast, a monthly time step might allow
-the same reactor to produce $[\frac{5}{6} \cdot 1 \text{mo} + 1 \cdot 2
-\text{mo}] \cdot C $ of energy if the fuel shortage actually ended after only
-1 month.  Quantifying this effect directly is difficult.  One way of observing
+Consider an example of a 3-batch reactor with a fuel shortage of $\frac{1}{2}$ batch of
+fuel that would be resolve in 1 month.  Depending on the modeling choice, each reactor
+would produce the following amounts of energy over a 3 month period:
+
+\begin{itemize}
+  \item case \emph{QF}: $\frac{2.5}{3} \cdot 3 \text{ mo} \cdot P_r = 2.5P_r$
+  \item case \emph{MF}: $[\frac{2.5}{3} \cdot 1 \text{ mo} + 1 \cdot 2
+    \text{mo}] \cdot P_r = 2.83P_r$
+  \item case \emph{QI}: $0 \cdot 3 \text{ mo} \cdot P_r = 0$
+  \item case \emph{MI}: $[0\cdot 1 \text{ mo} + 1 \cdot 2\text{mo}] \cdot P_r = 2 P_r$
+\end{itemize}
+
+Quantifying this effect directly is difficult.  One way of observing
 it is to compare fleet reactor scenarios that have different time step
 durations (i.e. cases MF and QF).  Because the fleet reactors have perfect fuel
 sharing (described below) and no noise from refueling outages, differences observed will
@@ -494,6 +520,13 @@ approximation.
     N_{wasted}(t) = \sum\limits_{r \in R_t} \left(H[t-S_{sched}(t,r)] \cdot [1-O(t,r)]  \sum\limits_{t'=F_{prev}(t,r)}^{t} N_b(t',r) \right)
     \label{eq:badshare}
 \end{equation}
+%% What is the value of this function during a normal refueling outage,
+%% immediately before S_(sched)(t)?  It seems you need another Heavyside
+%% function to drop this back down to an expected value of 0 again.
+%%
+%%          ___________________
+%%          |                 |
+%%  ________|                 |_____________
 
 where $R_t$ is the set of all reactors, $H$ is the Heaviside function,
 $S_{sched}(t,r)$ is the original scheduled startup time of reactor $r$ after
@@ -580,8 +613,10 @@ where reactors retire (not just during the shortage), new deployments are made
 to replace them in addition to new deployments made to address power demand
 growth.  Because the initial reactors retire in waves somewhat close together,
 there are corresponding waves of deployment, and these waves are echoed every
-80 years (the reactor lifetime).  These waves of deployment cause waves in
-recycled fuel availability that cause many of the reactors offline during the
+80 years (the reactor lifetime).  These waves of deployment cause surges in
+recycled fuel availability when they begin to discharge their fuel
+%% these need to be LWR waves, right, or they'd just make things worse?
+that cause many of the reactors offline during the
 shortage to receive fuel and come online together.  The net effect is that the
 fuel shortage degrades reactor cycle stagering overall.  As the simulation
 continues, however, new reactors continue to be deployed and reactors with
@@ -667,11 +702,18 @@ corresponding quarterly cases.
 Quantifying imperfect fuel sharing is a bit difficult, but Figure
 \ref{fig:badshare} provides one way to see the \emph{fuel sharing effect}
 showing wasted batch-months computed using Equation \ref{eq:badshare}.  Fleet
-reactor modeling by design exhibits perfect fuel sharing by design (zero
+reactor modeling, by design, exhibits perfect fuel sharing (zero
 inefficiency) and so is not included in this figure.  Every batch that is
 given to a reactor that ends up not being able to start its cycle at the
 scheduled time (due to fuel shortage) adds one to this cumulative for each
 time step the cycle start is delayed.
+
+%% What about a different measure of fuel sharing effect?  Perfect sharing
+%% in a fleet reactor results in N_o reactors operating.  For individual
+%% reactors, that would mean floor(N_o) reactors.  Can't we measure the
+%% actual number of reactors that are operating, N_actual, and accumulate
+%% floor(N_o) - N_actual as a measure of the effect of fuel sharing?  Would
+%% this be substantially different?
 
 One useful over-estimate of the fuel sharing inefficiency is to assume every
 one of the "wasted" batches could have been given to a reactor enabling it to
