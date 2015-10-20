@@ -14,5 +14,5 @@ set key top center
 
 plot \
   "puinv.dat" u ($1/12):($2/1000) w p lc 1 pt 1 title "Inventory", \
-  "puflow.dat" u ($1/12):($2/1000) w p lc 8 pt 5 ps .15 title "Monthly outflow", \
+  "puflow.dat" u ($1/12):($2/1000) w p lc 8 pt 5 ps .30 title "Monthly outflow", \
 

@@ -13,6 +13,6 @@ set xlabel "Year"
 
 plot \
   "puinv.dat" u ($1/12):($3/1000) w l lc 7 lw 4 title "Inventory", \
-  "puflow.dat" u ($1/12):($3/1000) w p lc 8 pt 5 ps .15 title "Monthly outflow", \
-  "puflowin.dat" u ($1/12):($3/1000) w l lc rgb "blue" title "Monthly inflow", \
+  "puflow.dat" u ($1/12):($3/1000) w p lc 8 pt 5 ps .30 title "Monthly outflow", \
+  "puflowin.dat" u ($1/12):($3/1000) w l lc rgb "blue" lw 3 title "Monthly inflow", \
 
