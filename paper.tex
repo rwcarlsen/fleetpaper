@@ -767,7 +767,7 @@ The larger in-flows, however, do not compensate for the larger withdrawals
 because facilities do not know about incoming inventory when they resolve
 their outflow for a particular time step.  This information lag effectively
 requires the floating Pu inventory to be maintained at a higher level during
-the shortage.  This can be clearly seen in the Figure \ref{fig:puinv} case QF plot which has a higher
+the shortage.  This can be clearly seen in Figures \ref{fig:puinv} and \ref{fig:puinv-compare} where case QF has a higher
 standing inventory than case MF during the fuel shortage years.  The case QF Pu
 inventory is unable to drop below approximately 100 tonnes, which indicates
 out-flows to be roughly equal to the Pu flow into inventory each time step
@@ -826,6 +826,24 @@ needed when just refueling.
     \label{fig:puinv}
 \end{figure*}
 
+\begin{figure*}[!h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{exp2/puinv-MI.eps}
+    \caption[Separated Pu inventory and flow: Case MI Zoom]{
+        TODO
+    }
+    \label{fig:puinv-MI}
+\end{figure*}
+
+\begin{figure*}[!h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{exp2/puinv-MF.eps}
+    \caption[Separated Pu inventory and flow: Case MF Zoom]{
+        TODO
+    }
+    \label{fig:puinv-MF}
+\end{figure*}
+
 Figure \ref{fig:puinv-compare} shows the same inventory curves from Figure
 \ref{fig:puinv} superimposed. Perhaps counter-intuitively, lower separated plutonium
 inventory during the shortage generally indicates fewer unfueled reactors.
@@ -852,6 +870,15 @@ would make the fuel shortage worse overall.
         a longer post-shortage recovery period.
     }
     \label{fig:puinv-compare}
+\end{figure*}
+
+\begin{figure*}[!h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{exp2/puinv-compare-zoom.eps}
+    \caption{
+        TODO
+    }
+    \label{fig:puinv-compare-zoom}
 \end{figure*}
 
 Also notable is that different modeling choices (e.g. time step duration,

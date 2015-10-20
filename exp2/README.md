@@ -4,10 +4,10 @@ Provenance, Data Generation, and Analysis
 
 There are 4 simulation cases run and analyzed in this paper. They are:
 
-* Case 1: individually modeled reactors with monthly time steps
-* Case 2: fleet modeled reactors with monthly time steps
-* Case 3: individually modeled reactors with quarterly time steps
-* Case 4: fleet modeled reactors with quarterly time steps
+* Case 1 (MI): individually modeled reactors with monthly time steps
+* Case 2 (MF): fleet modeled reactors with monthly time steps
+* Case 3 (QI): individually modeled reactors with quarterly time steps
+* Case 4 (QF): fleet modeled reactors with quarterly time steps
 
 Reproducibility
 ----------------

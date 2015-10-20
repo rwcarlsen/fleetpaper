@@ -4,7 +4,7 @@ latexopt   = -halt-on-error -file-line-error
 latexclass = style.cls
 latexstyle = ntmanuscript.cls
 
-figs = exp2/sync-cycle.eps exp2/power.eps exp2/power-rel.eps exp2/unfueled.eps exp2/badshare.eps exp2/puinv.eps exp2/fuel-sharing.pdf exp2/flow.eps exp2/puinv-compare.eps
+figs = exp2/sync-cycle.eps exp2/power.eps exp2/power-rel.eps exp2/unfueled.eps exp2/badshare.eps exp2/puinv.eps exp2/fuel-sharing.pdf exp2/flow.eps exp2/puinv-compare.eps exp2/puinv-MI.eps exp2/puinv-MF.eps exp2/puinv-compare-zoom.eps
 
 all: all-via-pdf
 
@@ -67,6 +67,15 @@ exp2/puinv.eps: exp2/puinv.gp exp2/puinv.dat exp2/puflowin.dat exp2/puflow.dat
 
 exp2/puinv-compare.eps: exp2/puinv-compare.gp exp2/puinv.dat
 	bash -c "cd exp2; gnuplot puinv-compare.gp"
+
+exp2/puinv-compare-zoom.eps: exp2/puinv-compare-zoom.gp exp2/puinv.dat
+	bash -c "cd exp2; gnuplot puinv-compare-zoom.gp"
+
+exp2/puinv-MI.eps: exp2/puinv-MI.gp exp2/puinv.dat
+	bash -c "cd exp2; gnuplot puinv-MI.gp"
+
+exp2/puinv-MF.eps: exp2/puinv-MF.gp exp2/puinv.dat
+	bash -c "cd exp2; gnuplot puinv-MF.gp"
 
 exp2/badshare.eps: exp2/badshare.gp exp2/badshare.dat
 	bash -c "cd exp2; gnuplot badshare.gp"
