@@ -466,8 +466,7 @@ sufficient capacity if they request fuel uniformly over time.
         In this scenario, reactors are deployed annualy with a refueling cycle
         length (including outage) of 18 months.  So all reactors deployed
         every 3rd year refuel together.  All initial 100 LWRs start out with
-        their cycles synced as well.  While it may look like separate curves,
-        generated power curve (purple) represents only a single time series with many discontinuities.
+        their cycles synced as well.
     }
     \label{fig:sync-cycle}
 \end{figure}
@@ -785,19 +784,20 @@ in outage start time has feed-back effects.  Not only are extra reactors
 offline, but those extra reactors are also discharging less aggregate spent
 fuel for recycling.  This increases the discrepency between the two
 cases. Eventually the shortage in case MF ends slightly before it does in case
-QF. This feedback effect occurs because the reactors have a
+QF (shown most clearly in Figure \ref{fig:puinv-compare-zoom}). This feedback effect occurs because the reactors have a
 conversion ratio greater than 1.0.
 
 The horizontal striations visible in the monthly flows for case MI in Figure
 \ref{fig:puinv} are a characteristic of the synchronization of reactor
-refueling caused by the shortage.  They begin at the end of the fuel shortage
-window when many reactors come online together and are resonances that the
+refueling caused by the shortage.  A close-up view of these can be seen in
+Figure \ref{fig:puinv-MI}. They begin at the end of the fuel shortage window
+when many reactors come online together in groups and are resonances that the
 inventory level jumps between.  These resonances gradually disappear as the
 simulation progresses farther in time beyond the shortage and refueling cycles
 become more staggered.
 
 The in-flows shown for cases MF and QF show a periodic pulsing that begins
-during the shortage in about year 120.  This pusling actually has nothing to
+during the shortage in about year 120 and is shown in greater detail in Figure \ref{fig:puinv-MF}. This pulsing actually has nothing to
 do with the shortage and is caused by the retirement of fast reactors.  The
 first fast reactors are deployed in year 35 and have an 80 year lifetime.
 When they retire, they discharge an entire core's worth of fuel rather than a
@@ -830,7 +830,14 @@ needed when just refueling.
     \centering
     \includegraphics[width=1.0\textwidth]{exp2/puinv-MI.eps}
     \caption[Separated Pu inventory and flow: Case MI Zoom]{
-        TODO
+        Separated Pu inventory and flows for case MI.  At locations where the
+        outflow dots lie on/near the inventory level, fuel shortages are
+        taking place.  This begins around year 105 and continues until about
+        year 140 where Pu withdrawals become lower than standing inventory.
+        The horizontal bands in out-flows starting around year 140 are caused
+        by many previously offline reactors coming online together in groups.
+        These fuel inventory level resonances gradually disappear as the
+        simulation progresses.
     }
     \label{fig:puinv-MI}
 \end{figure*}
@@ -839,24 +846,31 @@ needed when just refueling.
     \centering
     \includegraphics[width=1.0\textwidth]{exp2/puinv-MF.eps}
     \caption[Separated Pu inventory and flow: Case MF Zoom]{
-        TODO
+        Separated Pu inventory and flows for case MF.  At locations where the
+        outflow dots meet the inventory level, fuel shortages are taking
+        place.  This begins around year 105 and continues until about year 140
+        where Pu withdrawals become lower than standing inventory.  The
+        periodic pulsing that begins just after year 120 is caused by the
+        first fast reactor retirements; the first fast reactors deployed starting in
+        year 35 retire annually after their 80 year lifetime and discharge an entire core's
+        worth of fuel rather than the usual single batch for refueling.
     }
     \label{fig:puinv-MF}
 \end{figure*}
 
 Figure \ref{fig:puinv-compare} shows the same inventory curves from Figure
-\ref{fig:puinv} superimposed. Perhaps counter-intuitively, lower separated plutonium
-inventory during the shortage generally indicates fewer unfueled reactors.
-Lower inventory levels mean available Pu is being utilized more efficiently
-rather than sitting idle.  Cases QI and QF with their longer time steps show
-higher inventories indicating a more severe shortage.  Post shortage, cases QI and QF
-also fall a bit behind with respect to building up Pu stocks due to the delayed
-contributions of more unfueled reactors to the separated Pu pool.  The
-reactors in all the scenarios request fresh fuel only when they need it. While
-this is an unrealistic behavior for real-world facilities, it is closer to a
-globally optimum fuel management strategy.  Keeping on-hand fresh fuel batches
-would also have the same effect of increasing idling plutonium quantities and
-would make the fuel shortage worse overall.
+\ref{fig:puinv} superimposed. Perhaps counter-intuitively, lower separated
+plutonium inventory during the shortage generally indicates fewer unfueled
+reactors.  Lower inventory levels mean available Pu is being utilized more
+efficiently rather than sitting idle.  Cases QI and QF with their longer time
+steps show higher inventories indicating a more severe shortage.  Cases QI and
+QF take longer to recover from the shortage and fall a bit behind with respect
+to building up Pu stocks due to the delayed contributions of more unfueled
+reactors to the separated Pu pool.  This can be seen most clearly in Figure
+\ref{fig:puinv-compare-zoom}.  Cases MI and QF recover Pu inventory
+post-shortage at about the same time and rate - this is consistent with their
+approximately equivalent cumulative offline power capacity curves in Figure
+\ref{fig:unfueled}.
 
 \begin{figure*}[!h]
     \centering
@@ -865,9 +879,7 @@ would make the fuel shortage worse overall.
         Separated Pu inventories for all four cases.  Differences in modeling
         choices are not particularly significant until about year 100 when
         fuel shortages begin.  These differences gradually decay away starting
-        in year 140 after fuel shortages have ebbed.  Higher aggregate Pu
-        inventory  during the shortage is correlated with both a longer shortage and
-        a longer post-shortage recovery period.
+        in year 140 after fuel shortages have ebbed.
     }
     \label{fig:puinv-compare}
 \end{figure*}
@@ -876,10 +888,19 @@ would make the fuel shortage worse overall.
     \centering
     \includegraphics[width=1.0\textwidth]{exp2/puinv-compare-zoom.eps}
     \caption{
-        TODO
+        Separated Pu inventories for all four cases zoomed in on the fuel
+        shortage years.  Higher aggregate Pu inventory  during the shortage is
+        correlated with both a longer shortage and a slower post-shortage
+        recovery of Pu inventory.
     }
     \label{fig:puinv-compare-zoom}
 \end{figure*}
+
+The reactors in all the scenarios request fresh fuel only when they need it.
+While this is an unrealistic behavior for real-world facilities, it is closer
+to a globally optimum fuel management strategy.  Keeping on-hand fresh fuel
+batches would also have the same effect of increasing idling plutonium
+quantities and would make the fuel shortage worse overall.
 
 Also notable is that different modeling choices (e.g. time step duration,
 facility discretization, etc.) may have varying levels of significance
