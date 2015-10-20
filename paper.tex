@@ -51,10 +51,10 @@ attempts to identify and quantify the effects of selected modeling choices
 that may sometimes be taken for granted in the fuel cycle modeling domain.
 Four scenarios are compared using combinations of either fleet-based or
 individual reactors with either monthly or quarterly (3-month) time steps.
-The Cyclus fuel cycle simulator's plug-in facility cability along with its
+The Cyclus fuel cycle simulator's plug-in facility capability along with its
 market-like dynamic material routing allow it to be used as a level playing
 field for comparing the scenarios.  When under supply-constraint pressure, the
-four cases exhibit noticably different behavior.  Fleet-based modeling is more
+four cases exhibit noticeably different behavior.  Fleet-based modeling is more
 efficient in supply-constrained environments at the expense of losing insight
 on issues such as realistically suboptimal fuel distribution and challenges in
 reactor refueling cycle staggering.  Finer-grained time steps also enable more
@@ -80,7 +80,7 @@ reactor end-of-life handling, etc.  This work attempts to identify and
 quantify the effects of selected modeling choices relative to facility modeling
 discretization (i.e. individual facilities vs. aggregate fleets) and time step
 duration.  A better understanding of how these affect fuel cycle dynamics can
-allow for making more deliberate decisions with respect to tradeoffs such as
+allow for making more deliberate decisions with respect to trade-offs such as
 computational investment vs. realism.
 
 \subsection{Motivation and Background}
@@ -154,7 +154,7 @@ Questions of interest include:
 One of the major motivations for the development of the Cyclus fuel cycle
 simulator \cite{cyclus_2015} was creating a simulation environment that is
 more expressive than more traditional fuel cycle simulators.  Cyclus was
-designed with a plugin-style architecture that allows different models for
+designed with a plug-in style architecture that allows different models for
 facility types, known as \emph{archetypes}, to be swapped in and out easily.
 
 As a Cyclus simulation walks through each time step, facilities engage in a
@@ -162,7 +162,7 @@ market-like dynamic resource exchange (DRE).  They broadcast requests for
 material and potential supplying facilities respond with bids. The requesting facilities then
 express preferences between all their bids, and the DRE then generates a network
 flow problem that is optimized to resolve which transactions actually occur.
-The plugin architecture combined with the DRE creates a powerful and flexible
+The plug-in architecture combined with the DRE creates a powerful and flexible
 environment for the natural comparison of different modeling paradigms.
 Cyclus' module plug-in based architecture in concert with its DRE has the ability to
 model fleet-based facilities.  Additionally, however, Cyclus can model
@@ -170,7 +170,7 @@ facilities individually with discrete flows enabling the investigation of
 interesting real-world effects such as competition, reactor cycle staggering,
 and individual reactor outages. 
 
-Cyclus was designed to operate natively in unix/linux type environments with
+Cyclus was designed to operate natively in Unix/Linux type environments with
 flexible and scriptable usage and input file format.  Cyclus stores its
 comprehensive output data in a powerful open-source database format.  In addition
 to information about material flows and facility deployments, Cyclus'
@@ -224,12 +224,12 @@ makes it relatively straightforward to create plug-in archetypes to model
 anywhere along the spectrum from individual, discrete facilities to
 continuous flow fleet facilities.  In order to contrast well with the individual,
 single-facility granularity modeling that is part of the standard Cyclus archetypes, 
-a fleet archetype was created for this work with aggregate facilitiy behavior and
+a fleet archetype was created for this work with aggregate facility behavior and
 continuous flow.
 
 The fleet reactor, although a single entity modeling many reactors, is
-actually designed to look like many individual reactors to the cyclus
-simulator kernel. This "trick" allows other plugins for managing facility
+actually designed to look like many individual reactors to the Cyclus
+simulator kernel. This "trick" allows other plug-ins for managing facility
 deployments to transparently work with the fleet reactor without having to
 know anything about the fleet paradigm.  The fleet reactor has several
 important characteristics described below:
@@ -271,7 +271,7 @@ important characteristics described below:
         fleet.  No extra fuel is kept on-hand - it is all ordered
         just-in-time.
 
-    \item Generated power at any timestep, $P_G$, is based on the number of
+    \item Generated power at any time step, $P_G$, is based on the number of
       operating reactors:
 
       \begin{equation}
@@ -290,11 +290,11 @@ models.  The first discharge of spent fuel begins immediately on
 the first time step of operation rather than after a complete refueling cycle.
 Fuel shortages also only cause proportional loss of capacity rather than
 whole-reactor quantized shutdown.  The full implementation of the fleet-based
-reactor is publicy available for download and use \cite{Carlsen2015}.
+reactor is publicly available for download and use \cite{Carlsen2015}.
 
 \subsection{Scenario Description}
 
-The chosen scenario approximates a transition from a the current once-through light water
+The chosen scenario approximates a transition from the current once-through light water
 reactor (LWR) fleet to a full sodium fast reactor (SFR) fuel cycle within evaluation group 23 (EG-23)
 in the DOE's Advanced Nuclear Fuel Cycle Options report
 \cite{wigeland_nuclear_2014}. Scenario and transition details were patterned
@@ -416,7 +416,7 @@ reactor configuration.
 Instead of annual deployments, a longer 21-month deployment period is used
 because it provides better natural staggering for the reactor refueling
 cycles. The same deployment schedule is used for all four cases; power
-capacity is built along a curve starting at 100GWe in year zero following the
+capacity is built along a curve starting at 100 GWe in year zero following the
 1\% exponential growth curve.  This particular deployment schedule is chosen
 because it causes significant fuel shortages providing interesting features to
 investigate and compare.
@@ -489,7 +489,7 @@ sufficient capacity if they request fuel uniformly over time.
     \centering
     \includegraphics[width=1.0\columnwidth]{exp2/sync-cycle.eps}
     \caption[The cycle staggering effect]{
-        In this scenario, reactors are deployed annualy with a refueling cycle
+        In this scenario, reactors are deployed annually with a refueling cycle
         length (including outage) of 18 months.  So all reactors deployed
         every 3rd year refuel together.  All initial 100 LWRs start out with
         their cycles synced as well.
@@ -573,7 +573,7 @@ There are also performance differences between the two modeling paradigms.  A
 single 200 year simulation with several hundred fleet-based reactors takes
 about 2 seconds to run on a typical desktop machine where the same simulation
 using individual reactor facilities takes about 20 seconds.  This order of
-magnitude difference is an important tradeoff to keep in mind when doing fuel
+magnitude difference is an important trade-off to keep in mind when doing fuel
 cycle analysis in general, particularly when considering optimization or
 sensitivity studies where running thousands or millions of simulations may be
 desirable.  The time step duration has less impact on performance because the
@@ -618,9 +618,9 @@ recycled fuel availability when they begin to discharge their fuel
 %% these need to be LWR waves, right, or they'd just make things worse?
 that cause many of the reactors offline during the
 shortage to receive fuel and come online together.  The net effect is that the
-fuel shortage degrades reactor cycle stagering overall.  As the simulation
+fuel shortage degrades reactor cycle staggering overall.  As the simulation
 continues, however, new reactors continue to be deployed and reactors with
-synchornized cycles retire resulting in a gradual return to better
+synchronized cycles retire resulting in a gradual return to better
 staggering visible by the end of the 200 years.
 
 \begin{figure*}[!h]
@@ -630,7 +630,7 @@ staggering visible by the end of the 200 years.
         Generated power for all four cases.  A fuel shortage occurs from about
         year 100 to about year 140.  In cases MI and QI with individual reactor
         modeling, refueling cycles become much more synchronized during and
-        after the fuel shortage resuting in large power fluctuations - an artifact of the
+        after the fuel shortage resulting in large power fluctuations - an artifact of the
         \emph{cycle staggering effect}.
     }
     \label{fig:power}
@@ -645,7 +645,7 @@ staggering visible by the end of the 200 years.
         to about year 140.  The \emph{cycle staggering effect} can be seen as
         excessive divergence above and below $1.0$ in cases MI and QI where
         the shortage increases cycle synchronization significantly. The
-        \emph{quantized shutdown effect} can also be seen in the discrepency
+        \emph{quantized shutdown effect} can also be seen in the discrepancy
         between quarterly and monthly time steps for fleet reactor modeling
         (cases MF and QF) during the shortage; a longer time step causes more
         reactor outage than necessary. The consistent jumping up and down for
@@ -736,7 +736,7 @@ poor fuel sharing of roughly 2,000 $\text{GWe} \cdot \text{months}$ and 6,600
 $\text{GWe} \cdot \text{months}$ for cases MI and QI respectively.  These
 approximations account for a significant portion of the difference between individual
 and fleet cases in Figure \ref{fig:unfueled} suggesting that most of the
-discrepency in cumulative outage between fleet and individual modeling is
+discrepancy in cumulative outage between fleet and individual modeling is
 caused by inefficient fuel sharing in the individual reactor cases.
 
 The poor fuel sharing exhibited in the individual reactor cases would not
@@ -836,7 +836,7 @@ time steps in case QF, the shortage starts slightly sooner because Pu inventory
 must be maintained at a higher limit as described above.  The small difference
 in outage start time has feed-back effects.  Not only are extra reactors
 offline, but those extra reactors are also discharging less aggregate spent
-fuel for recycling.  This increases the discrepency between the two
+fuel for recycling.  This increases the discrepancy between the two
 cases. Eventually the shortage in case MF ends slightly before it does in case
 QF (shown most clearly in Figure \ref{fig:puinv-compare-zoom}). This feedback effect occurs because the reactors have a
 conversion ratio greater than 1.0.
@@ -1010,7 +1010,7 @@ sensitivity and optimization analysis.
 
 The value of realism in fuel cycle modeling is greatly be enhanced by an
 associated understanding of how outcomes are affected by added fidelity.
-Cyclus' flexibility for accomodating different modeling choices uniquely
+Cyclus' flexibility for accommodating different modeling choices uniquely
 enables many interesting comparisons.  Continued work in this direction has
 great potential to to improve the integrity of fuel cycle analysis generally.
 
