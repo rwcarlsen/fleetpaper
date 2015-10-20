@@ -111,10 +111,10 @@ others.  In fleet-based modeling:
 
     \item Groups of facilities (usually all facilities of a given type) are
         treated as a single, aggregate entity. Therefore, all facilities experience
-        identical operational histories.
+        a single, identical history.
 
     \item Resource flows are modeled as continuous, within the limitations of time
-        step discretization.  Therefore, material is acquired and discharge in
+        step discretization.  Therefore, material is acquired and discharged in
         uniform amounts at every time step.
 
 \end{itemize}
@@ -237,9 +237,9 @@ important characteristics described below:
 \begin{itemize}
 
     \item Reactor capacity is deployed and retired in increments of single
-      reactor units, each with capable of producing power $P_r$ (e.g. 1 GWe
+      reactor units, each capable of producing power $P_r$ (e.g. 1 GWe
       LWRs).  $N_{r}$ reactors are deployed at any time capable of producing
-      $P_r \cdot N_r$ power.
+      up to $P_r \cdot N_r$ power.
 
     \item In the event of fuel shortages, the number of reactors that can
       operate is modeled as
@@ -347,7 +347,7 @@ shown in Table \ref{tab:reactors} (cycle length includes the refueling outage).
             & LWR & SFR \\
         \hline                       
         Lifetime (yr)         & 80 & 80 \\
-        Cycle length (months) & 18 & 14 \\  %% why list this SFR cycle length if it's never used?
+        Cycle length (months) & 18 & 15 \\
         Batch size (kg)       & 29565 & 7490 \\
         Batches per core      & 3 & 5 \\
         \hline                       
@@ -358,16 +358,8 @@ shown in Table \ref{tab:reactors} (cycle length includes the refueling outage).
 
 The described scenario is used as closely as possible in each of the four
 cases.  However, a few small case-dependent changes to the scenarios relating to
-reactor configuration are necessary.  For case \emph{QI}, 
-cycle and outage times must be adjusted to be a
-multiple of 3 months. 
-%% this tweak is a distraction.  Why not simply declare the SFR cycle length &
-%% outage as 12/3 from the beginning.  Is this because the fuel recipes you
-%% are using assume the other parameters and you don't want to sweep that
-%% under the rug?
- In order to make the comparison more valid, the cases
-with monthly time steps are also adjusted to have identical cycle and outage
-times.  The invariants preserved with respect to reactor behavior between all
+reactor configuration are necessary.
+The invariants preserved with respect to reactor behavior between all
 four cases are shown in Table \ref{tab:invar}.  Table \ref{tab:reactor-detail} shows
 the computed/selected configuration for both LWR and SFR reactor types for all
 four cases.
@@ -397,7 +389,7 @@ four cases.
 \begin{table*}
     \centering
     \captionsetup{justification=centering}
-    \caption{Reactor Parameters by Case}
+    \caption{Selected Reactor Parameters by Case}
     \begin{tabular}{ |r | c c | c c | }
         \hline                       
                                           & \multicolumn{2}{c |}{LWR}       & \multicolumn{2}{c |}{SFR} \\
@@ -405,7 +397,7 @@ four cases.
         \hline                       
         Cycle length (months)             & 15        & 18                & 12        & 15 \\
         Refueling outage (months)         & 3         & 0                 & 3         & 0 \\
-        Batch size ($\text{kg} \cdot \text{HM}$) & 29,565    & 88,695            & 8,025     & 40,125 \\
+        Batch size ($\text{kg} \cdot \text{HM}$) & 29,565    & 29,565            & 8,025     & 8,025 \\
         Power capacity (MWe)              & 1,080     & 900               & 450       & 360 \\
         \hline                       
     \end{tabular}
@@ -417,7 +409,9 @@ length refueling outage with an explicit 900 MWe net power output capacity.  Bec
 individual reactor model doesn't have any way to start a reactor mid-cycle,
 this was done to avoid having all initial LWRs refuel at the same time.  The
 parameters for each case were also selected to keep capacity factors for
-individual reactors very roughly around 80\%.
+individual reactors very roughly around 90\%, although they are actually 
+closer to 80\% due to integer variable constraints on the case MI and QI
+reactor configuration.
 
 Instead of annual deployments, a longer 21-month deployment period is used
 because it provides better natural staggering for the reactor refueling
@@ -443,7 +437,7 @@ One difference between the fleet and individual facility modeling is the
 cores is short one half batch of fuel, it will produce $\frac{2.5}{3}\cdot P_r$
 of power for that time step where $P_r$ is the power capacity of a single
 reactor of the fleet (\emph{e.g.}~1000~MWe).  If an individually modeled reactor is
-short a half batch of fuel, then it will produce no power ($0 \cdot P_r$) that
+short one half batch of fuel, then it will produce no power ($0 \cdot P_r$) that
 time step.  Time step duration can amplify this effect.  For both fleet and
 individual reactor modeling, power goes offline in full time step increments.
 Consider an example of a 3-batch reactor with a fuel shortage of $\frac{1}{2}$ batch of
@@ -451,11 +445,11 @@ fuel that would be resolve in 1 month.  Depending on the modeling choice, each r
 would produce the following amounts of energy over a 3 month period:
 
 \begin{itemize}
-  \item case \emph{QF}: $\frac{2.5}{3} \cdot 3 \text{mo} \cdot P_r = 2.5P_r$
-  \item case \emph{MF}: $[\frac{2.5}{3} \cdot 1 \text{mo} + 1 \cdot 2
+  \item case \emph{QF}: $\frac{2.5}{3} \cdot 3 \text{ mo} \cdot P_r = 2.5P_r$
+  \item case \emph{MF}: $[\frac{2.5}{3} \cdot 1 \text{ mo} + 1 \cdot 2
     \text{mo}] \cdot P_r = 2.83P_r$
-  \item case \emph{QI}: $0 \cdot 3 \text{mo} \cdot P_r = 0$
-  \item case \emph{MI}: $[0\cdot 1 \text{mo} + 1 \cdot 2\text{mo}] \cdot P_r = 2 P_r$
+  \item case \emph{QI}: $0 \cdot 3 \text{ mo} \cdot P_r = 0$
+  \item case \emph{MI}: $[0\cdot 1 \text{ mo} + 1 \cdot 2\text{mo}] \cdot P_r = 2 P_r$
 \end{itemize}
 
 Quantifying this effect directly is difficult.  One way of observing
@@ -708,7 +702,7 @@ corresponding quarterly cases.
 Quantifying imperfect fuel sharing is a bit difficult, but Figure
 \ref{fig:badshare} provides one way to see the \emph{fuel sharing effect}
 showing wasted batch-months computed using Equation \ref{eq:badshare}.  Fleet
-reactor modeling, by design, exhibits perfect fuel sharing by design (zero
+reactor modeling, by design, exhibits perfect fuel sharing (zero
 inefficiency) and so is not included in this figure.  Every batch that is
 given to a reactor that ends up not being able to start its cycle at the
 scheduled time (due to fuel shortage) adds one to this cumulative for each
