@@ -708,12 +708,24 @@ given to a reactor that ends up not being able to start its cycle at the
 scheduled time (due to fuel shortage) adds one to this cumulative for each
 time step the cycle start is delayed.
 
+%% Paul Wilson says:
+%%
 %% What about a different measure of fuel sharing effect?  Perfect sharing
 %% in a fleet reactor results in N_o reactors operating.  For individual
 %% reactors, that would mean floor(N_o) reactors.  Can't we measure the
 %% actual number of reactors that are operating, N_actual, and accumulate
 %% floor(N_o) - N_actual as a measure of the effect of fuel sharing?  Would
 %% this be substantially different?
+%%
+%% rwcarlsen responds:
+%%
+%% This could be interesting, but it is quantifying the significance of the
+%% quantized shutdown effect discussed in the power production section of
+%% results and doesn't belong here with the fuel sharing discussion - which is
+%% only pseudo-related. Fuel sharing effects are when alternative sharing of
+%% fuel between individual reactors could have resulted in different
+%% online/offline capacity levels. These effects step on each other a tiny bit,
+%% but I think it still makes much more sense to discuss/treat them separately.
 
 One useful over-estimate of the fuel sharing inefficiency is to assume every
 one of the "wasted" batches could have been given to a reactor enabling it to
