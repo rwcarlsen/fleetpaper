@@ -517,7 +517,7 @@ needed one batch to operate.  Equation \ref{eq:badshare} describes such an
 approximation.
 
 \begin{equation}
-    N_{wasted}(t) = \sum\limits_{r \in R_t} \left(H[t-S_{sched}(t,r)] \cdot [1-O(t,r)]  \sum\limits_{t'=F_{prev}(t,r)}^{t} N_b(t',r) \right)
+    N_{wasted}(t) = \sum\limits_{r \in R_t} \left(H[t-(\tau(t,r) + \Delta\;t_{out})] \cdot [1-O(t,r)]  \sum\limits_{t'=F_{prev}(t,r)}^{t} N_b(t',r) \right)
     \label{eq:badshare}
 \end{equation}
 %% What is the value of this function during a normal refueling outage,
@@ -529,8 +529,8 @@ approximation.
 %%  ________|                 |_____________
 
 where $R_t$ is the set of all reactors, $H$ is the Heaviside function,
-$S_{sched}(t,r)$ is the original scheduled startup time of reactor $r$ after
-the most recent refueling outage that started before $t$, $F_{prev}(t,r)$ is
+$\tau(t,r)$ is the beginning of the most recent refueling outage of reactor $r$ before $t$,
+$\Delta\; t_{out}$ is the normal refueling outage duration, $F_{prev}(t,r)$ is
 the start of the most recent refueling outage for reactor $r$ before or on
 time $t$, $O(t,r)$ is 1 if reactor $r$ is producing power at time $t$ and zero
 otherwise, and $N_b(t,r)$ is the number of new fuel batches received by
@@ -666,15 +666,15 @@ fuel. Equation \ref{eq:shortage} shows how this is calculated for cases MI and
 QI.
 
 \begin{equation}
-    P_{outage}(t) = \sum\limits_{r \in R_t} C_r \cdot H[t-S_{sched}(t,r)] \cdot [1-O(t,r)]
+    P_{outage}(t) = \sum\limits_{r \in R_t} C_r \cdot H[t-(\tau(t,r) + \Delta\;t_{out})] \cdot [1-O(t,r)]
     \label{eq:shortage}
 \end{equation}
 
 where $R_t$ is the set of all reactors, $C_r$ is the power capacity of reactor
-$r$, $H$ is the Heaviside function, $S_{sched}(t,r)$ is the original scheduled
-startup time of reactor $r$ after the most recent refueling outage that
-started before $t$, and $O(t,r)$ is 1 if reactor $r$ is producing power at
-time $t$ and zero otherwise.
+$r$, $H$ is the Heaviside function, $\tau(t,r)$ is the beginning of the most
+recent refueling outage of reactor $r$ before $t$, $\Delta\; t_{out}$ is the
+normal refueling outage duration, and $O(t,r)$ is 1 if reactor $r$ is
+producing power at time $t$ and zero otherwise.
 
 Figure \ref{fig:unfueled} shows the fuel shortage more explicitly for each of
 the four cases with the case MI and QI results being the cumulative version of
