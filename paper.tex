@@ -348,7 +348,7 @@ shown in Table \ref{tab:reactors} (cycle length includes the refueling outage).
         \hline                       
         Lifetime (yr)         & 80 & 80 \\
         Cycle length (months) & 18 & 15 \\
-        Batch size (kg)       & 29565 & 7490 \\
+        Batch size (kg)       & 29565 & 8025 \\
         Batches per core      & 3 & 5 \\
         \hline                       
     \end{tabular}
@@ -357,12 +357,12 @@ shown in Table \ref{tab:reactors} (cycle length includes the refueling outage).
 \end{table}
 
 The described scenario is used as closely as possible in each of the four
-cases.  However, a few small case-dependent changes to the scenarios relating to
-reactor configuration are necessary.
-The invariants preserved with respect to reactor behavior between all
-four cases are shown in Table \ref{tab:invar}.  Table \ref{tab:reactor-detail} shows
-the computed/selected configuration for both LWR and SFR reactor types for all
-four cases.
+cases with appropriate adjustments for case-specific differences (e.g. monthly
+vs. quarterly time steps).  Invariants preserved with respect to reactor
+behavior between all four cases are shown in Table \ref{tab:invar}.  Table
+\ref{tab:reactor-detail} shows the computed/selected configuration for both
+LWR and SFR reactor types that was used in Cyclus input files for all four
+cases.
 
 \begin{table}
     \captionsetup{justification=centering}
@@ -1011,8 +1011,12 @@ sensitivity and optimization analysis.
 The value of realism in fuel cycle modeling is greatly be enhanced by an
 associated understanding of how outcomes are affected by added fidelity.
 Cyclus' flexibility for accommodating different modeling choices uniquely
-enables many interesting comparisons.  Continued work in this direction has
-great potential to to improve the integrity of fuel cycle analysis generally.
+enables many interesting comparisons.  Those in the field of fuel cycle
+analysis in general should be cognizant of how modeling choices are affecting
+results and conclusions through exercises like the one here.  Even if the
+outcome is that a particular modeling decision has little impact on results,
+work in this direction has great potential to improve the integrity of fuel
+cycle analysis generally.  
 
 \section{Acknowledgements}
 
