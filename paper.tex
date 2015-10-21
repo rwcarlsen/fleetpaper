@@ -314,7 +314,7 @@ year 25.  Fast reactor spent fuel separations and fuel fabrication have
 infinite capacity.  All spent fuel is stored/cooled for 7 years before it becomes
 available for separation: 5 years for cooling and an additional 2 years to approximate non-instantaneous separations and fabrication times. Figure \ref{fig:flow} shows the material flow
 relationships between the facilities.  Compositions used for the simulations
-were simple containing primarily $^{238}U$, $^{235}U$, $^{239}Pu$, $^{241}Am$,
+were simple containing $^{238}U$, $^{235}U$, $^{239}Pu$, $^{241}Am$,
 and small quantities of a few lanthanides.  Full composition details can be
 found in the Cyclus input files used \cite{Carlsen2015}.
 
@@ -666,11 +666,11 @@ fuel. Equation \ref{eq:shortage} shows how this is calculated for cases MI and
 QI.
 
 \begin{equation}
-    P_{outage}(t) = \sum\limits_{r \in R_t} C_r \cdot H[t-(\tau(t,r) + \Delta\;t_{out})] \cdot [1-O(t,r)]
+    P_{outage}(t) = \sum\limits_{r \in R_t} P_r \cdot H[t-(\tau(t,r) + \Delta\;t_{out})] \cdot [1-O(t,r)]
     \label{eq:shortage}
 \end{equation}
 
-where $R_t$ is the set of all reactors, $C_r$ is the power capacity of reactor
+where $R_t$ is the set of all reactors, $P_r$ is the power capacity of reactor
 $r$, $H$ is the Heaviside function, $\tau(t,r)$ is the beginning of the most
 recent refueling outage of reactor $r$ before $t$, $\Delta\; t_{out}$ is the
 normal refueling outage duration, and $O(t,r)$ is 1 if reactor $r$ is
