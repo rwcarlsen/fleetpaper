@@ -4,7 +4,7 @@ set terminal epscairo
 
 set key top left Left reverse
 set xlabel "Year"
-set ylabel "Cumulative Offline Power\n(GWe*month)"
+set ylabel "Cumulative Offline Power\n(GWe·month)"
 set title "Fuel Shortages"
 
 plot \

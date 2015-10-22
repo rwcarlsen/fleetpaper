@@ -43,24 +43,29 @@
 Due to the diversity of fuel cycle simulator modeling assumptions, direct
 comparison and benchmarking can be difficult.  In 2012 the Organisation for
 Economic Co-operation and Development (OECD) completed a benchmark study that
-is perhaps one of the most complete published comparisons performed.  Despite
-this, however, various results from the simulators were often significantly
-different due to inconsistency in modeling decisions involving reprocessing
-strategies, refueling behavior, reactor end-of-life handling, etc.  This work
-attempts to identify and quantify the effects of selected modeling choices
-that may sometimes be taken for granted in the fuel cycle modeling domain.
-Four scenarios are compared using combinations of either fleet-based or
-individual reactors with either monthly or quarterly (3-month) time steps.
-The Cyclus fuel cycle simulator's plug-in facility capability along with its
-market-like dynamic material routing allow it to be used as a level playing
-field for comparing the scenarios.  When under supply-constraint pressure, the
-four cases exhibit noticeably different behavior.  Fleet-based modeling is more
-efficient in supply-constrained environments at the expense of losing insight
-on issues such as realistically suboptimal fuel distribution and challenges in
-reactor refueling cycle staggering.  Finer-grained time steps also enable more
+is perhaps the most complete published comparisons performed.  Despite this,
+various results from the simulators were often significantly different due to
+inconsistency in modeling decisions involving reprocessing strategies,
+refueling behavior, reactor end-of-life handling, etc.  This work identifies
+and quantifies the effects of selected modeling choices that may sometimes be
+taken for granted in the fuel cycle modeling domain.  Four scenarios are
+compared using combinations of either fleet-based or individual reactors with
+either monthly or quarterly (3-month) time steps.  The scenarios approximate a
+transition from the current once-through light water reactor (LWR) fleet to a
+full sodium fast reactor (SFR) fuel cycle The Cyclus fuel cycle simulator's
+plug-in facility capability along with its market-like dynamic material
+routing allow it to be used as a level playing field for comparing the
+scenarios.  When under supply-constraint pressure, the four cases exhibit
+noticeably different behavior.  Fleet-based modeling is more efficient in
+supply-constrained environments at the expense of losing insight on issues
+such as realistically suboptimal fuel distribution and challenges in reactor
+refueling cycle staggering.  Finer-grained time steps also enable more
 efficient material use in supply-constrained environments.  Large simulations
 with fleet-based reactors run much more quickly than their individual reactor
-counterparts.
+counterparts.  Gaining a better understanding of how these and other modeling
+choices affect fuel cycle dynamics will enable making more deliberate
+decisions with respect to trade-offs such as computational investment vs.
+realism.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,7 +84,7 @@ modeling decisions involving reprocessing strategies, refueling behavior,
 reactor end-of-life handling, etc.  This work attempts to identify and
 quantify the effects of selected modeling choices relative to facility modeling
 discretization (i.e. individual facilities vs. aggregate fleets) and time step
-duration.  A better understanding of how these affect fuel cycle dynamics can
+duration.  A better understanding of how these affect fuel cycle dynamics will
 allow for making more deliberate decisions with respect to trade-offs such as
 computational investment vs. realism.
 
@@ -87,8 +92,8 @@ computational investment vs. realism.
 
 Traditionally, many fuel cycle simulators have used a system dynamics approach
 \cite{forrester_industrial_1961} to modeling. These simulators model several
-"stocks" representing isotopes or isotope groups that have levels that change
-over time due to "flows" between them.  The flows are determined by equations
+\emph{stocks} representing isotopes or isotope groups that have quantities that change
+over time due to \emph{flows} between them.  The flows are determined by equations
 that are a function of the state of the system (i.e. the system's stocks).  A
 constructed system is then solved in discrete or continuous time depending on
 the limitations of the software and constraints imposed by the model.  In
@@ -133,7 +138,7 @@ material transfers between facilities and correspondingly affects the noise
 level in facility material inventories and flows.  It can also act as a
 minimum bound for outage durations and is a minimum bound in general for state
 changes within the entire system. The effects of the time step duration are
-also investigated together with fleet vs facility modeling.
+also investigated together with fleet vs. facility modeling.
 
 Questions of interest include:
 
@@ -165,9 +170,9 @@ flow problem that is optimized to resolve which transactions actually occur.
 The plug-in architecture combined with the DRE creates a powerful and flexible
 environment for the natural comparison of different modeling paradigms.
 Cyclus' module plug-in based architecture in concert with its DRE has the ability to
-model fleet-based facilities.  Additionally, however, Cyclus can model
+model fleet-based facilities.  Additionally, Cyclus can model
 facilities individually with discrete flows enabling the investigation of
-interesting real-world effects such as competition, reactor cycle staggering,
+real-world effects such as competition, reactor cycle staggering,
 and individual reactor outages. 
 
 Cyclus was designed to operate natively in Unix/Linux type environments with
@@ -268,7 +273,7 @@ important characteristics described below:
 
     \item Refueling occurs continuously with as much fresh fuel as is
         available up to the total amount to fill all reactor cores in the
-        fleet.  No extra fuel is kept on-hand - it is all ordered
+        fleet.  No extra fuel is kept on-hand --- it is all ordered
         just-in-time.
 
     \item Generated power at any time step, $P_G$, is based on the number of
@@ -279,7 +284,7 @@ important characteristics described below:
       \end{equation}
 
     \item When a reactor in the fleet is retired, a full core of material is
-        discharged - even if there is some fraction of the fleet with unfueled
+        discharged --- even if there is some fraction of the fleet with unfueled
         cores.
         
 \end{itemize}
@@ -309,7 +314,7 @@ The scenario starts with 100 LWRs and follows an exponential curve with a 1\%
 annual growth rate for 200 years.  The decommissioning of the initial 100
 reactors is staggered over years 15 to 55.  Fresh fuel for LWRs is provided directly from enrichment with infinite supply and throughput. In year 35, fast reactors become available for
 deployment and no more thermal reactors are built.  LWR spent fuel separations
-begins in year 15 with 2000 MTHM/yr capacity and increases to 3000 MTHM/yr in
+begins in year 15 with 2,000 MTHM/yr capacity and increases to 3,000 MTHM/yr in
 year 25.  Fast reactor spent fuel separations and fuel fabrication have
 infinite capacity.  All spent fuel is stored/cooled for 7 years before it becomes
 available for separation: 5 years for cooling and an additional 2 years to approximate non-instantaneous separations and fabrication times. Figure \ref{fig:flow} shows the material flow
@@ -320,7 +325,7 @@ found in the Cyclus input files used \cite{Carlsen2015}.
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.47\textwidth]{exp2/flow.eps}
+    \includegraphics[keepaspectratio=true,width=0.45\textwidth,height=.9\textheight]{exp2/flow.eps}
     \caption[Material flow paths]{Potential material flow paths between facility types.}
     %% consider a Cyclist-derived visualization here?
     \label{fig:flow}
@@ -328,10 +333,10 @@ found in the Cyclus input files used \cite{Carlsen2015}.
 
 %% is it worth waiting until the 1.4 release?  Citing an ambiguous pre-release makes
 %% this a little harder to reproduce.
-A pre-release of Cyclus version 1.4 was used for this analysis, with the
-standard archetypes provided with Cyclus in the included Cycamore
-library - also a pre-release of version 1.4.  A custom storage archetype was
-developed because Cycamore did not yet provide one.  The standard Cycamore reactor archetype
+A pre-release of Cyclus version 1.4 was used for this analysis.  A standard library of facility plug-ins, Cycamore, is provided with Cyclus.
+Like Cyclus, a pre-release of Cycamore version 1.4 was used.  A custom storage facility archetype was
+developed because Cycamore did not yet provide one.  Code for the fleet reactor and
+storage archetypes is publicly available and can be downloaded \cite{Carlsen2015}. The standard Cycamore reactor archetype
 was used for both LWR and SFR reactor types in cases MI and QI.  Correspondingly
 the custom fleet-based reactor archetype described earlier was used for both reactor
 types in cases MF and QF.  Additional configuration for the reactor types is
@@ -393,7 +398,7 @@ cases.
     \begin{tabular}{ |r | c c | c c | }
         \hline                       
                                           & \multicolumn{2}{c |}{LWR}       & \multicolumn{2}{c |}{SFR} \\
-                                          & Cases MI,QI & Cases MF,QF (fleet) & Cases MI,QI & Cases MF,QF (fleet)  \\
+                                          & Cases MI, QI & Cases MF, QF & Cases MI, QI & Cases MF, QF  \\
         \hline                       
         Cycle length (months)             & 15        & 18                & 12        & 15 \\
         Refueling outage (months)         & 3         & 0                 & 3         & 0 \\
@@ -404,9 +409,9 @@ cases.
     \label{tab:reactor-detail}
 \end{table*}
 
-In each of the four cases, the initial 100 LWRs are modified to have a zero
-length refueling outage with an explicit 900 MWe net power output capacity.  Because the
-individual reactor model doesn't have any way to start a reactor mid-cycle,
+In each of the four cases, the initial 100 LWRs are modified to have a zero-length
+refueling outage with an explicit 900 MWe net power output capacity.  Because the
+individual reactor model does not have any way to start a reactor mid-cycle,
 this was done to avoid having all initial LWRs refuel at the same time.  The
 parameters for each case were also selected to keep capacity factors for
 individual reactors very roughly around 90\%, although they are actually 
@@ -426,7 +431,7 @@ cases are publicly available for download and use \cite{Carlsen2015}.
 
 \subsection{Modeling Effects}
 
-There are various low level phenomena that have potential to affect the larger
+There are various low-level phenomena that have potential to affect the larger
 outcome of simulations with respect to facility discretization and time step
 modeling decisions. Several effects arising from these different modeling
 choices are present in many fuel cycle simulators to varying degrees.  Some of
@@ -436,12 +441,12 @@ One difference between the fleet and individual facility modeling is the
 \emph{quantized shutdown effect}.  If a fleet-based reactor modeling 3-batch
 cores is short one half batch of fuel, it will produce $\frac{2.5}{3}\cdot P_r$
 of power for that time step where $P_r$ is the power capacity of a single
-reactor of the fleet (\emph{e.g.}~1000~MWe).  If an individually modeled reactor is
+reactor of the fleet (e.g.~1000~MWe).  If an individually modeled reactor is
 short one half batch of fuel, then it will produce no power ($0 \cdot P_r$) that
 time step.  Time step duration can amplify this effect.  For both fleet and
 individual reactor modeling, power goes offline in full time step increments.
 Consider an example of a 3-batch reactor with a fuel shortage of $\frac{1}{2}$ batch of
-fuel that would be resolve in 1 month.  Depending on the modeling choice, each reactor
+fuel that would be resolved in 1 month.  Depending on the modeling choice, each reactor
 would produce the following amounts of energy over a 3 month period:
 
 \begin{itemize}
@@ -449,7 +454,7 @@ would produce the following amounts of energy over a 3 month period:
   \item case \emph{MF}: $[\frac{2.5}{3} \cdot 1 \text{ mo} + 1 \cdot 2
     \text{mo}] \cdot P_r = 2.83P_r$
   \item case \emph{QI}: $0 \cdot 3 \text{ mo} \cdot P_r = 0$
-  \item case \emph{MI}: $[0\cdot 1 \text{ mo} + 1 \cdot 2\text{mo}] \cdot P_r = 2 P_r$
+  \item case \emph{MI}: $(0\cdot 1 \text{ mo} + 1 \cdot 2\text{ mo}) \cdot P_r = 2 P_r$
 \end{itemize}
 
 Quantifying this effect directly is difficult.  One way of observing
@@ -490,7 +495,7 @@ sufficient capacity if they request fuel uniformly over time.
     \includegraphics[width=1.0\columnwidth]{exp2/sync-cycle.eps}
     \caption[The cycle staggering effect]{
         In this scenario, reactors are deployed annually with a refueling cycle
-        length (including outage) of 18 months.  So all reactors deployed
+        length (including outage) of 18 months.  As a result, all reactors deployed
         every 3rd year refuel together.  All initial 100 LWRs start out with
         their cycles synced as well.
     }
@@ -501,10 +506,10 @@ Another difference between fleet-based and individual facility modeling
 involves fuel sharing.  Power production by a group of individual reactors for
 a fixed amount of fuel shortage may vary depending on how available fuel is
 distributed.  This is illustrated in Figure \ref{fig:fuel-sharing}.  A system
-being short 3 batches might mean that one reactor has no batches and isn't
+being short 3 batches might mean that one reactor has no batches and is not
 operating or that 3 reactors are each missing a single batch.  This is
 referred to as the \emph{fuel sharing effect}.  Fleet reactors, by design,
-have perfect fuel sharing - all fuel is distributed so that the minimum
+have perfect fuel sharing --- all fuel is distributed so that the minimum
 possible amount of capacity is offline during shortages. The most correct
 measure of fuel sharing inefficiency is the difference between the actual
 generated power and the maximum amount of power that could have been generated
@@ -528,6 +533,7 @@ approximation.
 %%          |                 |
 %%  ________|                 |_____________
 
+\noindent
 where $R_t$ is the set of all reactors, $H$ is the Heaviside function,
 $\tau(t,r)$ is the beginning of the most recent refueling outage of reactor $r$ before $t$,
 $\Delta\; t_{out}$ is the normal refueling outage duration, $F_{prev}(t,r)$ is
@@ -571,7 +577,7 @@ scenarios with different time step durations (e.g.  cases MF and QF).
 
 There are also performance differences between the two modeling paradigms.  A
 single 200 year simulation with several hundred fleet-based reactors takes
-about 2 seconds to run on a typical desktop machine where the same simulation
+about 2 seconds to run on a computer with an Intel Core(TM) i7-4770 3.40GHz CPU where the same simulation
 using individual reactor facilities takes about 20 seconds.  This order of
 magnitude difference is an important trade-off to keep in mind when doing fuel
 cycle analysis in general, particularly when considering optimization or
@@ -630,7 +636,7 @@ staggering visible by the end of the 200 years.
         Generated power for all four cases.  A fuel shortage occurs from about
         year 100 to about year 140.  In cases MI and QI with individual reactor
         modeling, refueling cycles become much more synchronized during and
-        after the fuel shortage resulting in large power fluctuations - an artifact of the
+        after the fuel shortage resulting in large power fluctuations --- an artifact of the
         \emph{cycle staggering effect}.
     }
     \label{fig:power}
@@ -649,7 +655,7 @@ staggering visible by the end of the 200 years.
         between quarterly and monthly time steps for fleet reactor modeling
         (cases MF and QF) during the shortage; a longer time step causes more
         reactor outage than necessary. The consistent jumping up and down for
-        the fleet reactor cases (even pre-shortage) is due to the mis-alignment of reactors going
+        the fleet reactor cases (even pre-shortage) is due to the misalignment of reactors going
         offline (multiples of 12 months) and the build period (21 months).
     }
     \label{fig:power-rel}
@@ -670,6 +676,7 @@ QI.
     \label{eq:shortage}
 \end{equation}
 
+\noindent
 where $R_t$ is the set of all reactors, $P_r$ is the power capacity of reactor
 $r$, $H$ is the Heaviside function, $\tau(t,r)$ is the beginning of the most
 recent refueling outage of reactor $r$ before $t$, $\Delta\; t_{out}$ is the
@@ -705,7 +712,7 @@ showing wasted batch-months computed using Equation \ref{eq:badshare}.  Fleet
 reactor modeling, by design, exhibits perfect fuel sharing (zero
 inefficiency) and so is not included in this figure.  Every batch that is
 given to a reactor that ends up not being able to start its cycle at the
-scheduled time (due to fuel shortage) adds one to this cumulative for each
+scheduled time (due to fuel shortage) adds one to this cumulative total for each
 time step the cycle start is delayed.
 
 %% Paul Wilson says:
@@ -727,7 +734,7 @@ time step the cycle start is delayed.
 %% online/offline capacity levels. These effects step on each other a tiny bit,
 %% but I think it still makes much more sense to discuss/treat them separately.
 
-One useful over-estimate of the fuel sharing inefficiency is to assume every
+One useful overestimate of the fuel sharing inefficiency is to assume every
 one of the "wasted" batches could have been given to a reactor enabling it to
 operate.  Multiplying each of these cumulative batches by the fast reactor power capacity
 (i.e. 450 MWe) provides a way to compare fuel sharing inefficiency with the
@@ -769,7 +776,7 @@ maintain optimal sharing, fresh fuel now needs to be sent in all-or-nothing
 multi-assembly quanta with higher preference to reactors that need fewer
 assemblies.  Spare fresh fuel inventory (item 2 above) will have the global
 effect of increasing total shortage severity; on average more batches of fresh
-fuel will be sitting unused.  However, it can potentially reduce the frequency
+fuel will be idling unused.  However, it can potentially reduce the frequency
 of outages for individual reactors in some cases.
 
 If they were to ever occur, real world fuel shortages would likely not result
@@ -812,7 +819,7 @@ available for fabricating fast reactor fuel.  When the inventory curves meet and
 force down the out-flows, fuel shortages occur.  While this is most clear for
 cases MF and QF, the individual reactor scenarios (cases MI and QI) also have many
 points during the shortage where the outflow point lies exactly on top of the
-inventory point - indicating that all available inventory is being
+inventory point --- indicating that all available inventory is being
 transferred.
 
 Quarterly time steps have less frequent but larger impulse material flows.
@@ -834,7 +841,7 @@ Throughout most of the shortage, the aggregate outflow of Pu from separated
 inventory is roughly the same in cases MF and QF.  However, due to the longer
 time steps in case QF, the shortage starts slightly sooner because Pu inventory
 must be maintained at a higher limit as described above.  The small difference
-in outage start time has feed-back effects.  Not only are extra reactors
+in outage start time has feedback effects.  Not only are extra reactors
 offline, but those extra reactors are also discharging less aggregate spent
 fuel for recycling.  This increases the discrepancy between the two
 cases. Eventually the shortage in case MF ends slightly before it does in case
@@ -846,7 +853,9 @@ The horizontal striations visible in the monthly flows for case MI in Figure
 refueling caused by the shortage.  A close-up view of these can be seen in
 Figure \ref{fig:puinv-MI}. They begin at the end of the fuel shortage window
 when many reactors come online together in groups and are resonances that the
-inventory level jumps between.  These resonances gradually disappear as the
+inventory level jumps between.  This artifact is associated with poor cycle staggering
+like that shown earlier in Figure \ref{fig:sync-cycle}.
+These resonances gradually disappear as the
 simulation progresses farther in time beyond the shortage and refueling cycles
 become more staggered.
 
@@ -884,7 +893,7 @@ needed when just refueling.
     \centering
     \includegraphics[width=1.0\textwidth]{exp2/puinv-MI.eps}
     \caption[Separated Pu inventory and flow: Case MI Zoom]{
-        Separated Pu inventory and flows for case MI.  At locations where the
+        Zoom view of separated Pu inventory and flows from Figure \ref{fig:puinv} for case MI.  At locations where the
         outflow dots lie on/near the inventory level, fuel shortages are
         taking place.  This begins around year 105 and continues until about
         year 140 where Pu withdrawals become lower than standing inventory.
@@ -900,7 +909,7 @@ needed when just refueling.
     \centering
     \includegraphics[width=1.0\textwidth]{exp2/puinv-MF.eps}
     \caption[Separated Pu inventory and flow: Case MF Zoom]{
-        Separated Pu inventory and flows for case MF.  At locations where the
+        Zoom view of separated Pu inventory and flows from Figure \ref{fig:puinv} for case MF.  At locations where the
         outflow dots meet the inventory level, fuel shortages are taking
         place.  This begins around year 105 and continues until about year 140
         where Pu withdrawals become lower than standing inventory.  The
@@ -922,7 +931,7 @@ QF take longer to recover from the shortage and fall a bit behind with respect
 to building up Pu stocks due to the delayed contributions of more unfueled
 reactors to the separated Pu pool.  This can be seen most clearly in Figure
 \ref{fig:puinv-compare-zoom}.  Cases MI and QF recover Pu inventory
-post-shortage at about the same time and rate - this is consistent with their
+post-shortage at about the same time and rate --- this is consistent with their
 approximately equivalent cumulative offline power capacity curves in Figure
 \ref{fig:unfueled}.
 
@@ -953,7 +962,7 @@ approximately equivalent cumulative offline power capacity curves in Figure
 The reactors in all the scenarios request fresh fuel only when they need it.
 While this is an unrealistic behavior for real-world facilities, it is closer
 to a globally optimum fuel management strategy.  Keeping on-hand fresh fuel
-batches would also have the same effect of increasing idling plutonium
+batches would also have the same effect of increasing idling Pu
 quantities and would make the fuel shortage worse overall.
 
 Also notable is that different modeling choices (e.g. time step duration,
