@@ -18,7 +18,7 @@ mkdir -p $olddir
 mkdir -p $newdir
 bash -c "cd $olddir &>/dev/null && git clone $PWD &>/dev/null && cd fleetpaper &>/dev/null && git checkout $oldref &>/dev/null"
 bash -c "cd $newdir &>/dev/null && git clone $PWD &>/dev/null && cd fleetpaper &>/dev/null && git checkout $newref &>/dev/null"
-latexdiff --flatten $olddir/fleetpaper/paper.tex $newdir/fleetpaper/paper.tex > diff.tex
+latexdiff --flatten --append-context2cmd="myabstract" $olddir/fleetpaper/paper.tex $newdir/fleetpaper/paper.tex > diff.tex
 pdflatex diff.tex &> /dev/null
 bibtex diff.aux &>/dev/null
 pdflatex diff.tex &> /dev/null
