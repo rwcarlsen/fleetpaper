@@ -45,27 +45,27 @@ comparison and benchmarking can be difficult.  In 2012 the Organisation for
 Economic Co-operation and Development (OECD) completed a benchmark study that
 is perhaps the most complete published comparison performed.  Despite this,
 various results from the simulators were often significantly different due to
-inconsistency in modeling decisions involving reprocessing strategies,
+inconsistencies in modeling decisions involving reprocessing strategies,
 refueling behavior, reactor end-of-life handling, etc.  This work identifies
 and quantifies the effects of selected modeling choices that may sometimes be
-taken for granted in the fuel cycle modeling domain.  Four scenarios are
-compared using combinations of either fleet-based or individually modeled reactors with
-either monthly or quarterly (3-month) time steps.  The scenarios approximate a
-transition from the current U.S. once-through light water reactor (LWR) fleet to a
-full sodium fast reactor (SFR) fuel cycle. The Cyclus fuel cycle simulator's
-plug-in facility capability along with its market-like dynamic material
-routing allow it to be used as a level playing field for comparing the
-scenarios.  When under supply-constraint pressure, the four cases exhibit
-noticeably different behavior.  Fleet-based modeling is more efficient in
-supply-constrained environments at the expense of losing insight on issues
-such as realistically suboptimal fuel distribution and challenges in reactor
-refueling cycle staggering.  Finer-grained time steps also enable more
-efficient material use in supply-constrained environments.  Large simulations
-with fleet-based reactors run much more quickly than their individual reactor
-counterparts.  Gaining a better understanding of how these and other modeling
-choices affect fuel cycle dynamics will enable making more deliberate
-decisions with respect to trade-offs such as computational investment vs.
-realism.
+taken for granted in the fuel cycle simulation domain.  Four scenarios are
+compared using combinations of either fleet-based or individually modeled
+reactors with either monthly or quarterly (3-month) time steps.  The scenarios
+approximate a transition from the current U.S. once-through light water
+reactor (LWR) fleet to a full sodium fast reactor (SFR) fuel cycle. The Cyclus
+fuel cycle simulator's plug-in facility capability along with its market-like
+dynamic material routing allow it to be used as a level playing field for
+comparing the scenarios.  When under supply-constraint pressure, the four
+cases exhibit noticeably different behavior.  Fleet-based modeling is more
+efficient in supply-constrained environments at the expense of losing insight
+on issues such as realistically suboptimal fuel distribution and challenges in
+reactor refueling cycle staggering.  Finer-grained time steps also enable more
+efficient material use in supply-constrained environments resulting in much lower
+standing inventories of separated Pu.  Large simulations with fleet-based
+reactors run much more quickly than their individual reactor counterparts.
+Gaining a better understanding of how these and other modeling choices affect
+fuel cycle dynamics will enable making more deliberate decisions with respect
+to trade-offs such as computational investment vs.  realism.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -88,7 +88,33 @@ duration.  A better understanding of how these affect fuel cycle dynamics will
 allow for making more deliberate decisions with respect to trade-offs such as
 computational investment vs. realism.
 
+This work identifies and quantifies the effects of selected modeling choices
+that may sometimes be taken for granted in the fuel cycle simulation domain.
+Four scenarios are compared using combinations of either fleet-based or
+individually modeled reactors with either monthly or quarterly (3-month) time
+steps.  Time step duration and the degree facility discretization are design
+decisions that are handled in a variety of unique ways among nuclear fuel
+cycle simulators, and a better understanding of their effects can serve to
+increase confidence in results and can help make inter-simulator comparisons
+more meaningful.  Reducing error and noise artifacts associated with modeling
+decisions will provide a more stable foundation for understanding the
+significance of external market, political, and social forces that often
+dominate the industry in the real world.
+
 \subsection{Motivation and Background}
+
+Informal comparison of results from the VISION and Cyclus simulators when
+running equivalent scenarios revealed some surprising discrepencies.  One of
+the most apparent was a large difference in separated Pu levels between the
+two simulators --- something that some in the DOE and nuclear community are
+very sensitive to.  For one particular scenario, the Cyclus results also
+showed no fuel shortages for reactors, while the VISION results indicated
+noticable shortages.  This observation prompted a closer investigation to
+determine if the differences were caused by mistakes in simulator input, bugs
+in the simulator(s), or differing modeling choices between the simulators.
+This investigation eventaully developed into this work which shows important
+effects of some modeling choices that are operative in many fuel cycle
+simulators.
 
 Traditionally, many fuel cycle simulators have used a system dynamics approach
 \cite{forrester_industrial_1961} to modeling. These simulators model several
@@ -461,7 +487,7 @@ Quantifying this effect directly is difficult.  One way of observing
 it is to compare fleet reactor scenarios that have different time step
 durations (i.e. cases MF and QF).  Because the fleet reactors have perfect fuel
 sharing (described below) and no noise from refueling outages, differences observed will
-likely be due to quantized shutdown.
+partly be due to quantized shutdown.
 
 Individually modeled reactors each have their own refueling cycles.  Depending
 on how the refueling cycles and outages are staggered, power production can
@@ -604,7 +630,7 @@ reactors in cases MI and QI actually go offline and back online for refueling
 causing more variance.  Around year 100, a fuel shortage begins and more
 significant differences between the four cases become apparent. This fuel
 shortage lasts until about year 140. The power generated in case QF is slightly
-lower than in case MF during the fuel shortage years. This is primarily due to
+lower than in case MF during the fuel shortage years. This is partly due to
 the \emph{quantized shutdown effect}.  The longer 3-month time step in case QF 
 results in reactor capacity going offline longer than necessary.
 
@@ -651,7 +677,7 @@ staggering visible by the end of the 200 years.
         to about year 140.  The \emph{cycle staggering effect} can be seen as
         excessive divergence above and below $1.0$ in cases MI and QI where
         the shortage increases cycle synchronization significantly. The
-        \emph{quantized shutdown effect} can also be seen in the discrepancy
+        \emph{quantized shutdown effect} causes part of the discrepancy
         between quarterly and monthly time steps for fleet reactor modeling
         (cases MF and QF) during the shortage; a longer time step causes more
         reactor outage than necessary. The consistent jumping up and down for
@@ -995,37 +1021,41 @@ required, then performance benefits in both simulation run time and data
 analysis may suggest a fleet-based modeling approach.
 
 Increasing time step duration increases facilities' standing inventory
-requirement during supply constrained periods.  Facilities can provide no more
-inventory than they can hold on a single time step.  So increasing time step
-duration for a facility with unconstrained supply generally means higher
-standing inventories are required in order to achieve equal throughput.
-Facilities with large inventory buffer that are unconstrained are not affected
-significantly by the time step duration when operating in isolation.  However,
-even when facilities do not have individual inventory or throughput limits,
-the time step can still have a significant effect. The \emph{inventory drawdown
-effect} can impact the aggregate throughput of supply-constrained recycle loops by affecting
-minimum bounds on idling material quantities.
+requirement during supply constrained periods.  Here we observe a factor of
+three difference between standing inventories of separated Pu for a large
+portion of the simulation --- something certain analyses are very sensitive
+to.  Facilities can provide no more inventory than they can hold on a single
+time step.  So increasing time step duration for a facility with unconstrained
+supply generally means higher standing inventories are required in order to
+achieve equal throughput.  Facilities with large inventory buffer that are
+unconstrained are not affected significantly by the time step duration when
+operating in isolation.  However, even when facilities do not have individual
+inventory or throughput limits, the time step can still have a significant
+effect. The \emph{inventory drawdown effect} can impact the aggregate
+throughput of supply-constrained recycle loops by affecting minimum bounds on
+idling material quantities.
 
 The impact of modeling assumptions depends heavily on the metrics of interest.
 For example, someone interested in fuel-shortage driven reactor outages would
-observe a factor of four span among the four cases shown in the detail
-comparison.  However, someone more interested in the overall transition
+observe a factor of four span among the four cases shown in this comparison
+exercise.  However, someone more interested in the overall transition
 mechanics would not see as significant a discrepancy.  In an unconstrained
 supply setting, varying the time step duration or discretization of facility
-modeling have a relatively minor impact on the overall simulation results.
+modeling has a smaller impact on the overall simulation results.
 Differences become more significant in material constrained regimes.
-Robustness in constrained regimes is especially useful in the context of
+Robustness in constrained regimes can be especially useful in the context of
 sensitivity and optimization analysis.
 
-The value of realism in fuel cycle modeling is greatly be enhanced by an
+The value of realism in fuel cycle modeling is greatly enhanced by an
 associated understanding of how outcomes are affected by added fidelity.
 Cyclus' flexibility for accommodating different modeling choices uniquely
 enables many interesting comparisons.  Those in the field of fuel cycle
 analysis in general should be cognizant of how modeling choices are affecting
 results and conclusions through exercises like the one here.  Even if the
 outcome is that a particular modeling decision has little impact on results,
-work in this direction has great potential to improve the integrity of fuel
-cycle analysis generally.  
+efforts to measure and document these impacts can provide confidence in the
+appropriateness of modeling choices, reducing the need to rely on intuition
+for cycle analysis work.
 
 \section{Acknowledgements}
 
