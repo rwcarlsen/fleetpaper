@@ -83,7 +83,7 @@ different simulators were often significantly different because of inconsistent
 modeling decisions involving reprocessing strategies, refueling behavior,
 reactor end-of-life handling, etc.  This work attempts to identify and
 quantify the effects of selected modeling choices relative to facility modeling
-discretization (i.e. individual facilities vs. aggregate fleets) and time step
+discretization (i.e., individual facilities vs. aggregate fleets) and time step
 duration.  A better understanding of how these affect fuel cycle dynamics will
 allow for making more deliberate decisions with respect to trade-offs such as
 computational investment vs. realism.
@@ -120,7 +120,7 @@ Traditionally, many fuel cycle simulators have used a system dynamics approach
 \cite{forrester_industrial_1961} to modeling. These simulators model several
 \emph{stocks} representing isotopes or isotope groups that have quantities that change
 over time because of \emph{flows} between them.  The flows are determined by equations
-that are a function of the state of the system (i.e. the system's stocks).  A
+that are a function of the state of the system (i.e., the system's stocks).  A
 constructed system is then solved in discrete or continuous time depending on
 the limitations of the software and constraints imposed by the model.  In
 system dynamics based simulators, the number of stocks and potential flows between
@@ -131,7 +131,7 @@ without wiring them into the simulator manually.
 System dynamics based fuel cycle simulators generally use a collection of
 stocks to represent the state of groups of like-facilities commonly referred
 to as "fleets".  As the simulation steps through time, the levels of stocks
-(e.g. reactor fresh fuel inventory, repository waste inventories, etc.) are
+(e.g., reactor fresh fuel inventory, repository waste inventories, etc.) are
 adjusted according to the calculated flow values.  Fuel cycle simulators that model
 facility fleets built on a system dynamics foundation include VISION
 \cite{jacobson_verifiable_2010}, DANESS \cite{van_den_durpel_daness_2009},
@@ -234,8 +234,8 @@ and facility discretization  --- four four different cases:
 
 %% response to technical comment 1.
 These four cases span a spectrum of fidelity with one end being more realistic
-(i.e. smaller time steps, individual facilities) and the other being more
-appropriate for scoping studies (i.e.  larger time steps, fleet facilities).
+(i.e., smaller time steps, individual facilities) and the other being more
+appropriate for scoping studies (i.e.,  larger time steps, fleet facilities).
 Conducting this analysis involved developing some additional capability
 in/around Cyclus.  Three primary pieces to the methodology are:
 
@@ -269,7 +269,7 @@ single-facility granularity modeling that is part of the standard Cyclus
 archetypes, a fleet archetype was created for this work with aggregate
 facility behavior and continuous flow.  Although it would certainly be
 interesting to compare many intermediate levels of facility discretization
-(e.g. 1-reactor groups, 10-reactor groups, single-fleet, etc.), such a
+(e.g., 1-reactor groups, 10-reactor groups, single-fleet, etc.), such a
 detailed analysis is beyond the scope of this work.
 % address technical comment 14
 
@@ -283,7 +283,7 @@ important characteristics described below:
 \begin{itemize}
 
     \item Reactor capacity is deployed and retired in increments of single
-      reactor units, each capable of producing power $P_r$ (e.g. 1 GWe
+      reactor units, each capable of producing power $P_r$ (e.g., 1 GWe
       LWRs).  $N_{r}$ reactors are deployed at any time capable of producing
       up to $P_r \cdot N_r$ power.
 
@@ -408,7 +408,7 @@ shown in Table \ref{tab:reactors} (cycle length includes the refueling outage).
 \end{table}
 
 The described scenario is used as closely as possible in each of the four
-cases with appropriate adjustments for case-specific differences (e.g. monthly
+cases with appropriate adjustments for case-specific differences (e.g., monthly
 vs. quarterly time steps).  Invariants preserved with respect to reactor
 behavior between all four cases are shown in Table \ref{tab:invar}.  Table
 \ref{tab:reactor-detail} shows the computed/selected configuration for both
@@ -460,7 +460,7 @@ zero-length refueling outage with an explicit 900 MWe net power output
 capacity.  Because the individual reactor model does not have any way to start
 a reactor mid-cycle, this is a modeling trick that was done to avoid having
 all initial LWRs refuel at the same time.  This adjustment serves to improve
-the realism associated with the effects being investigated (i.e. fleet-average
+the realism associated with the effects being investigated (i.e., fleet-average
 power generation) even though it is unrealistic in other ways.
 % response to technical comment 11
 
@@ -478,7 +478,7 @@ the 180-month LCM when using a 12-month build period providing a more even
 power generation profile.  The same deployment schedule is used for all four
 cases; power capacity is built along a curve starting at 100 GWe in year zero
 following the 1\% exponential growth curve.  Although many alternate
-deployment schedules exist that avoid SFR fuel shortages (e.g. a more gradual
+deployment schedules exist that avoid SFR fuel shortages (e.g., a more gradual
 shift toward SFRs), this particular schedule is deliberately chosen because it
 causes significant fuel shortages.  This is done in order to force the
 simulation and facility models into more extreme circumstances in order to
@@ -501,7 +501,7 @@ One difference between the fleet and individual facility modeling is the
 \emph{quantized shutdown effect}.  If a fleet-based reactor modeling 3-batch
 cores is short one half batch of fuel, it will produce $\frac{2.5}{3}\cdot P_r$
 of power for that time step where $P_r$ is the power capacity of a single
-reactor of the fleet (e.g.~1000~MWe).  If an individually modeled reactor is
+reactor of the fleet (e.g.,~1000~MWe).  If an individually modeled reactor is
 short one half batch of fuel, then it will produce no power ($0 \cdot P_r$) that
 time step.  Time step duration can amplify this effect.  For both fleet and
 individual reactor modeling, power goes offline in full time step increments.
@@ -519,7 +519,7 @@ would produce the following amounts of energy over a 3 month period:
 
 Quantifying this effect directly is difficult.  One way of observing
 it is to compare fleet reactor scenarios that have different time step
-durations (i.e. cases MF and QF).  Because the fleet reactors have perfect fuel
+durations (i.e., cases MF and QF).  Because the fleet reactors have perfect fuel
 sharing (described below) and no noise from refueling outages, differences observed will
 partly be a result of quantized shutdown.
 
@@ -576,7 +576,7 @@ generated power and the maximum amount of power that could have been generated
 among all possible fuel distribution alternatives.  This is difficult to
 actually compute. One possible approximation is to count the number of fresh
 fuel batches distributed to reactors that ended up not having enough fuel to
-operate (i.e. a full core) that time step.  This approximation assumes that
+operate (i.e., a full core) that time step.  This approximation assumes that
 every "wasted" batch of fuel, could have been given to a reactor that only
 needed one batch to operate.  Equation \ref{eq:badshare} describes such an
 approximation.
@@ -631,9 +631,9 @@ floating inventory buffers in order to avoid material shortages.  Another
 aspect of this effect is that at least one time step is required for a
 material object to move between two facilities. Larger time steps result in
 longer minimum bounds on time to traverse paths between facilities. Although
-direct measures of this effect are difficult, some of its consequences (e.g.
+direct measures of this effect are difficult, some of its consequences (e.g.,
 higher standing inventories during shortages) can be quantified by comparing
-scenarios with different time step durations (e.g.  cases MF and QF).
+scenarios with different time step durations (e.g.,  cases MF and QF).
 
 There are also performance differences between the two modeling paradigms.  A
 single 200 year simulation with several hundred fleet-based reactors takes
@@ -644,7 +644,7 @@ cycle analysis in general, particularly when considering optimization or
 sensitivity studies where running thousands or millions of simulations may be
 desirable.  The time step duration has less impact on performance because the
 amount of work being done in the simulation is similar; in the monthly time
-step cases most facilities (i.e. all reactors) only perform actions every
+step cases most facilities (i.e., all reactors) only perform actions every
 refueling cycle rather than every time step.
 
 \section{Results}
@@ -793,7 +793,7 @@ time step the cycle start is delayed.
 One useful overestimate of the fuel sharing inefficiency is to assume every
 one of the "wasted" batches could have been given to a reactor enabling it to
 operate.  Multiplying each of these cumulative batches by the fast reactor power capacity
-(i.e. 450 MWe) provides a way to compare fuel sharing inefficiency with the
+(i.e., 450 MWe) provides a way to compare fuel sharing inefficiency with the
 overall fuel outage.  This results in a cumulative energy deficit caused by
 poor fuel sharing of roughly 2,000 $\text{GWe} \cdot \text{months}$ and 6,600
 $\text{GWe} \cdot \text{months}$ for cases MI and QI respectively.  These
@@ -813,7 +813,7 @@ real-world fuel sharing outcomes.  A few include:
 
 \begin{enumerate}
 
-    \item Multiple fuel quanta comprise a single batch (i.e. multiple
+    \item Multiple fuel quanta comprise a single batch (i.e., multiple
         assemblies per batch). This functionality is natively supported in the
         individual reactor model.
 
@@ -1021,7 +1021,7 @@ to a globally optimum fuel management strategy.  Keeping on-hand fresh fuel
 batches would also have the same effect of increasing idling Pu
 quantities and would make the fuel shortage worse overall.
 
-Also notable is that different modeling choices (e.g. time step duration,
+Also notable is that different modeling choices (e.g., time step duration,
 facility discretization, etc.) may have varying levels of significance
 depending on the scenario/context they are operating in.  As shown in Figure
 \ref{fig:puinv-compare} before the fuel shortage begins, differences between
