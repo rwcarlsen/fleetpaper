@@ -44,7 +44,7 @@ Due to the diversity of fuel cycle simulator modeling assumptions, direct
 comparison and benchmarking can be difficult.  In 2012 the Organisation for
 Economic Co-operation and Development (OECD) completed a benchmark study that
 is perhaps the most complete published comparison performed.  Despite this,
-various results from the simulators were often significantly different due to
+various results from the simulators were often significantly different because of
 inconsistencies in modeling decisions involving reprocessing strategies,
 refueling behavior, reactor end-of-life handling, etc.  This work identifies
 and quantifies the effects of selected modeling choices that may sometimes be
@@ -79,7 +79,7 @@ comparison and benchmarking.  In 2012 the Organisation for
 Economic Co-operation and Development (OECD) completed a benchmark study
 \cite{oecd2012benchmark} that is perhaps one of the most complete published
 comparisons performed.  Despite this, however, various results from the
-different simulators were often significantly different due to inconsistent
+different simulators were often significantly different because of inconsistent
 modeling decisions involving reprocessing strategies, refueling behavior,
 reactor end-of-life handling, etc.  This work attempts to identify and
 quantify the effects of selected modeling choices relative to facility modeling
@@ -119,7 +119,7 @@ simulators.
 Traditionally, many fuel cycle simulators have used a system dynamics approach
 \cite{forrester_industrial_1961} to modeling. These simulators model several
 \emph{stocks} representing isotopes or isotope groups that have quantities that change
-over time due to \emph{flows} between them.  The flows are determined by equations
+over time because of \emph{flows} between them.  The flows are determined by equations
 that are a function of the state of the system (i.e. the system's stocks).  A
 constructed system is then solved in discrete or continuous time depending on
 the limitations of the software and constraints imposed by the model.  In
@@ -466,7 +466,7 @@ power generation) even though it is unrealistic in other ways.
 
 The parameters for each case were also selected to keep capacity factors for
 individual reactors very roughly around 90\%, although they are actually
-closer to 80\% due to integer variable constraints on the case MI and QI
+closer to 80\% because of integer variable constraints on the case MI and QI
 reactor configuration.  
 
 % response to technical comment 12
@@ -521,7 +521,7 @@ Quantifying this effect directly is difficult.  One way of observing
 it is to compare fleet reactor scenarios that have different time step
 durations (i.e. cases MF and QF).  Because the fleet reactors have perfect fuel
 sharing (described below) and no noise from refueling outages, differences observed will
-partly be due to quantized shutdown.
+partly be a result of quantized shutdown.
 
 Individually modeled reactors each have their own refueling cycles.  Depending
 on how the refueling cycles and outages are staggered, power production can
@@ -660,7 +660,7 @@ reactors in cases MI and QI actually go offline and back online for refueling
 causing more variance.  Around year 100, a fuel shortage begins and more
 significant differences between the four cases become apparent. This fuel
 shortage lasts until about year 140. The power generated in case QF is slightly
-lower than in case MF during the fuel shortage years. This is partly due to
+lower than in case MF during the fuel shortage years. This is partly a result of
 the \emph{quantized shutdown effect}.  The longer 3-month time step in case QF 
 results in reactor capacity going offline longer than necessary.
 
@@ -711,7 +711,7 @@ staggering visible by the end of the 200 years.
         between quarterly and monthly time steps for fleet reactor modeling
         (cases MF and QF) during the shortage; a longer time step causes more
         reactor outage than necessary. The consistent jumping up and down for
-        the fleet reactor cases (even pre-shortage) is due to the misalignment of reactors going
+        the fleet reactor cases (even pre-shortage) is caused by the misalignment of reactors going
         offline (multiples of 12 months) and the build period (21 months).
     }
     \label{fig:power-rel}
@@ -752,12 +752,12 @@ corresponding quarterly cases.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1.0\columnwidth]{exp2/unfueled.eps}
-    \caption[Cumulative offline power due to fuel shortage]{
-        Cumulative offline power for reactors that had delayed cycle start due
-        to fuel shortage. The difference between individual and fleet based
+    \caption[Cumulative offline power caused by fuel shortage]{
+        Cumulative offline power for reactors that had delayed cycle start caused
+        by fuel shortage. The difference between individual and fleet based
         modeling is primarily a result of the \emph{fuel sharing effect}. The
         difference between monthly and quarterly time steps is primarily
-        caused by the \emph{inventory drawdown effect}.
+        a result of the \emph{inventory drawdown effect}.
     }
     \label{fig:unfueled}
 \end{figure}
@@ -768,7 +768,7 @@ showing wasted batch-months computed using Equation \ref{eq:badshare}.  Fleet
 reactor modeling, by design, exhibits perfect fuel sharing (zero
 inefficiency) and so is not included in this figure.  Every batch that is
 given to a reactor that ends up not being able to start its cycle at the
-scheduled time (due to fuel shortage) adds one to this cumulative total for each
+scheduled time (caused by fuel shortage) adds one to this cumulative total for each
 time step the cycle start is delayed.
 
 %% Paul Wilson says:
@@ -853,9 +853,9 @@ fuel to reactors that need less to operate.
         Fuel sharing inefficiency approximated by the cumulative number of
         fuel batches given to each reactor on each refueling period multiplied
         by the number of time steps that reactor had to delay the start of its
-        next cycle (due to fuel shortage).  Fleet reactors implicitly have perfect fuel
+        next cycle (caused by fuel shortage).  Fleet reactors implicitly have perfect fuel
         sharing and so are not included here. The large difference
-        between cases MI and QI is mostly due to the \emph{inventory drawdown
+        between cases MI and QI is mostly a result of the \emph{inventory drawdown
         effect}. 
     }
     \label{fig:badshare}
@@ -864,7 +864,7 @@ fuel to reactors that need less to operate.
 \subsection{Inventory Drawdown}
 
 The large differences seen between monthly and quarterly time step cases in
-Figures \ref{fig:unfueled} and \ref{fig:badshare} are primarily caused by the
+Figures \ref{fig:unfueled} and \ref{fig:badshare} are primarily a result of the
 \emph{inventory drawdown effect}.  Figure \ref{fig:puinv} helps to visualize
 this effect.  The black dots in the figure represent impulse flows of
 available Pu from fuel fabrication and into fast reactors.  Blue lines represent
@@ -894,7 +894,7 @@ higher than the case MF withdrawals, exactly matching the time step duration rat
 between the two cases.
 
 Throughout most of the shortage, the aggregate outflow of Pu from separated
-inventory is roughly the same in cases MF and QF.  However, due to the longer
+inventory is roughly the same in cases MF and QF.  However, because of the longer
 time steps in case QF, the shortage starts slightly sooner because Pu inventory
 must be maintained at a higher limit as described above.  The small difference
 in outage start time has feedback effects.  Not only are extra reactors
@@ -984,7 +984,7 @@ reactors.  Lower inventory levels mean available Pu is being utilized more
 efficiently rather than sitting idle.  Cases QI and QF with their longer time
 steps show higher inventories indicating a more severe shortage.  Cases QI and
 QF take longer to recover from the shortage and fall a bit behind with respect
-to building up Pu stocks due to the delayed contributions of more unfueled
+to building up Pu stocks because of the delayed contributions of more unfueled
 reactors to the separated Pu pool.  This can be seen most clearly in Figure
 \ref{fig:puinv-compare-zoom}.  Cases MI and QF recover Pu inventory
 post-shortage at about the same time and rate --- this is consistent with their
