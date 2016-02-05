@@ -7,15 +7,15 @@ digraph ResourceFlows {
 
     "DU Source" -> "FR Fuel Fab" [label="Depleted U"];
 
-    "Enrichment" -> "Repository" [label=" Waste"];
+    "Enrichment" -> "Repository" [label="tails\n stream"];
     "Enrichment" -> "LWR" [label="LWR fresh"];
     "FR" -> "FR Storage" [label=" FR spent"];
-    "FR Separations" -> "FR Fuel Fab" [label="FR Pu"];
-    "FR Separations" -> "Repository" [label=" Waste"];
+    "FR Separations" -> "FR Fuel Fab" [label="fissile\n stream"];
+    "FR Separations" -> "Repository" [label=" waste\n  stream"];
     "FR Storage" -> "FR Separations" [label="FR spent \ncooled"];
     "FR Fuel Fab" -> "FR" [label="FR fresh"];
     "LWR" -> "LWR Storage" [label="LWR spent"];
     "LWR Separations" -> "FR Fuel Fab" [label="LWR Pu "];
-    "LWR Separations" -> "Repository" [label=" Waste"];
+    "LWR Separations" -> "Repository" [label=" waste\n  stream"];
     "LWR Storage" -> "LWR Separations" [label="LWR spent\ncooled"];
 }

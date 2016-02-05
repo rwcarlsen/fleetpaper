@@ -187,6 +187,11 @@ simulator \cite{cyclus_2015} was creating a simulation environment that is
 more expressive than more traditional fuel cycle simulators.  Cyclus was
 designed with a plug-in style architecture that allows different models for
 facility types, known as \emph{archetypes}, to be swapped in and out easily.
+While the reactor archetypes used in this analysis do not implement
+internal physics calculations, plug-in archetypes such as Bright-lite
+\cite{flanagan_bright-lite_2014} have been developed for Cyclus that provide
+varying degrees modeling fidelity.
+% response to technical comment 2.
 
 As a Cyclus simulation walks through each time step, facilities engage in a
 market-like dynamic resource exchange (DRE).  They broadcast requests for
@@ -213,8 +218,10 @@ provenance and reproducibility, and large-scale computing.
 
 \section{Methodology}
 
-A single fuel cycle transition scenario is used with a few modeling variations
-resulting in four different cases:
+Two particular design choices are selected for investigation: time step
+duration and facility discretization.  A single fuel cycle transition scenario
+is run in a set of simulations using combinations of the time step duration
+and facility discretization  --- four four different cases:
 
 \begin{enumerate}
 
@@ -225,6 +232,10 @@ resulting in four different cases:
 
 \end{enumerate}
 
+%% response to technical comment 1.
+These four cases span a spectrum of fidelity with one end being more realistic
+(i.e. smaller time steps, individual facilities) and the other being more
+appropriate for scoping studies (i.e.  larger time steps, fleet facilities).
 Conducting this analysis involved developing some additional capability
 in/around Cyclus.  Three primary pieces to the methodology are:
 
@@ -252,11 +263,15 @@ described in more detail in the following sections.
 A fleet reactor archetype was created for Cyclus.  Although the modeling of
 individual, discrete facilities was a motivation for Cyclus, its flexibility
 makes it relatively straightforward to create plug-in archetypes to model
-anywhere along the spectrum from individual, discrete facilities to
-continuous flow fleet facilities.  In order to contrast well with the individual,
-single-facility granularity modeling that is part of the standard Cyclus archetypes, 
-a fleet archetype was created for this work with aggregate facility behavior and
-continuous flow.
+anywhere along the spectrum from individual, discrete facilities to continuous
+flow fleet facilities.  In order to contrast well with the individual,
+single-facility granularity modeling that is part of the standard Cyclus
+archetypes, a fleet archetype was created for this work with aggregate
+facility behavior and continuous flow.  Although it would certainly be
+interesting to compare many intermediate levels of facility discretization
+(e.g. 1-reactor groups, 10-reactor groups, single-fleet, etc.), such a
+detailed analysis is beyond the scope of this work.
+% address technical comment 14
 
 The fleet reactor, although a single entity modeling many reactors, is
 actually designed to look like many individual reactors to the Cyclus
@@ -351,9 +366,14 @@ found in the Cyclus input files used \cite{Carlsen2015}.
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[keepaspectratio=true,width=0.45\textwidth,height=.9\textheight]{exp2/flow.eps}
-    \caption[Material flow paths]{Potential material flow paths between facility types.}
-    %% consider a Cyclist-derived visualization here?
+    \includegraphics[keepaspectratio=true,width=0.45\textwidth,height=.89\textheight]{exp2/flow.eps}
+    \caption[Material flow paths]{
+        Material flow paths between facility types. The DU source is separate
+        from enrichment tails for modeling simplicity, although enrichment
+        tails could be used for added realism.  The primary fissile isotope in
+        the fissile separations stream is $_{239}Pu$.
+    }
+    % response to technical comment 9
     \label{fig:flow}
 \end{figure}
 
@@ -435,22 +455,36 @@ cases.
     \label{tab:reactor-detail}
 \end{table*}
 
-In each of the four cases, the initial 100 LWRs are modified to have a zero-length
-refueling outage with an explicit 900 MWe net power output capacity.  Because the
-individual reactor model does not have any way to start a reactor mid-cycle,
-this was done to avoid having all initial LWRs refuel at the same time.  The
-parameters for each case were also selected to keep capacity factors for
-individual reactors very roughly around 90\%, although they are actually 
-closer to 80\% due to integer variable constraints on the case MI and QI
-reactor configuration.
+In each of the four cases, the initial 100 LWRs are modified to have a
+zero-length refueling outage with an explicit 900 MWe net power output
+capacity.  Because the individual reactor model does not have any way to start
+a reactor mid-cycle, this is a modeling trick that was done to avoid having
+all initial LWRs refuel at the same time.  This adjustment serves to improve
+the realism associated with the effects being investigated (i.e. fleet-average
+power generation) even though it is unrealistic in other ways.
+% response to technical comment 11
 
+The parameters for each case were also selected to keep capacity factors for
+individual reactors very roughly around 90\%, although they are actually
+closer to 80\% due to integer variable constraints on the case MI and QI
+reactor configuration.  
+
+% response to technical comment 12
 Instead of annual deployments, a longer 21-month deployment period is used
 because it provides better natural staggering for the reactor refueling
-cycles. The same deployment schedule is used for all four cases; power
-capacity is built along a curve starting at 100 GWe in year zero following the
-1\% exponential growth curve.  This particular deployment schedule is chosen
-because it causes significant fuel shortages providing interesting features to
-investigate and compare.
+cycles. The 630-month lowest common multiple (LCM) for 21-months (deployment
+period), 15 months (SFR cycle), and 18 months (LWR cycle) is much larger than
+the 180-month LCM when using a 12-month build period providing a more even
+power generation profile.  The same deployment schedule is used for all four
+cases; power capacity is built along a curve starting at 100 GWe in year zero
+following the 1\% exponential growth curve.  Although many alternate
+deployment schedules exist that avoid SFR fuel shortages (e.g. a more gradual
+shift toward SFRs), this particular schedule is deliberately chosen because it
+causes significant fuel shortages.  This is done in order to force the
+simulation and facility models into more extreme circumstances in order to
+expose behavioral differences among the design choices investigated.
+% response to general comment paragraph
+% response to technical comment 13
 
 All input files and other assets used in the analysis for each of the four
 cases are publicly available for download and use \cite{Carlsen2015}.
@@ -536,7 +570,7 @@ being short 3 batches might mean that one reactor has no batches and is not
 operating or that 3 reactors are each missing a single batch.  This is
 referred to as the \emph{fuel sharing effect}.  Fleet reactors, by design,
 have perfect fuel sharing --- all fuel is distributed so that the minimum
-possible amount of capacity is offline during shortages. The most correct
+possible amount of capacity is offline during shortages.  The most correct
 measure of fuel sharing inefficiency is the difference between the actual
 generated power and the maximum amount of power that could have been generated
 among all possible fuel distribution alternatives.  This is difficult to
