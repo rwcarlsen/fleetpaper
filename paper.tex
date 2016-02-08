@@ -253,7 +253,7 @@ in/around Cyclus.  Three primary pieces to the methodology are:
 Because the standard package of archetypes included with Cyclus does not
 include a fleet-based reactor model, one was necessarily developed. A
 simulation scenario was created that is roughly based on prior and ongoing
-work in the Department of Energy (DOE) fuel cycle options campaign.  A few
+work in the Department of Energy (DOE) fuel cycle options campaign \cite{hoffman-eg23-2016}.  A few
 phenomena related to the different modeling choices in each of the four cases
 are identified and used as a basis for comparison.  These are
 described in more detail in the following sections.
@@ -359,10 +359,18 @@ begins in year 15 with 2,000 MTHM/yr capacity and increases to 3,000 MTHM/yr in
 year 25.  Fast reactor spent fuel separations and fuel fabrication have
 infinite capacity.  All spent fuel is stored/cooled for 7 years before it becomes
 available for separation: 5 years for cooling and an additional 2 years to approximate non-instantaneous separations and fabrication times. Figure \ref{fig:flow} shows the material flow
-relationships between the facilities.  Compositions used for the simulations
-were simple containing $^{238}U$, $^{235}U$, $^{239}Pu$, $^{241}Am$,
-and small quantities of a few lanthanides.  Full composition details can be
-found in the Cyclus input files used \cite{Carlsen2015}.
+relationships between the facilities.
+
+In fuel cycle simulation, it is common to use simplified fresh and discharged
+fuel compositions that are consistent with results from externally performed
+loading and burnup calculations. Compositions used in this analysis follow
+this approach and are fixed (i.e. not dynamically computed in-situ).  These
+compositions are the same as those used in similar transition analyses by
+Hoffman, et al. \cite{hoffman-eg23-2016} and Littell, et al.
+\cite{littell-cyclus-2015} containing $^{238}U$, $^{235}U$, $^{239}Pu$,
+$^{241}Am$, and small quantities of a few other isotopes as place-holders
+representing fission products. Exact composition details can be found in the
+Cyclus input files used \cite{Carlsen2015}.
 
 \begin{figure}[!h]
     \centering
