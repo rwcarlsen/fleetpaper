@@ -111,10 +111,9 @@ very sensitive to.  For one particular scenario, the Cyclus results also
 showed no fuel shortages for reactors, while the VISION results indicated
 noticeable shortages.  This observation prompted a closer investigation to
 determine if the differences were caused by mistakes in simulator input, bugs
-in the simulator(s), or differing modeling choices between the simulators.
+in the simulator(s), or different (yet still reasonable) modeling choices of the simulators.
 This investigation eventually developed into this work which shows important
-effects of some modeling choices that are operative in many fuel cycle
-simulators.
+effects of that are operative in many fuel cycle simulators.
 
 Traditionally, many fuel cycle simulators have used a system dynamics approach
 \cite{forrester_industrial_1961} to modeling. These simulators model several
@@ -233,6 +232,7 @@ and facility discretization  --- four four different cases:
 \end{enumerate}
 
 %% response to technical comment 1.
+\noindent
 These four cases span a spectrum of fidelity with one end being more realistic
 (i.e., smaller time steps, individual facilities) and the other being more
 appropriate for scoping studies (i.e.,  larger time steps, fleet facilities).
@@ -250,6 +250,7 @@ in/around Cyclus.  Three primary pieces to the methodology are:
 
 \end{itemize}
 
+\noindent
 Because the standard package of archetypes included with Cyclus does not
 include a fleet-based reactor model, one was necessarily developed. A
 simulation scenario was created that is roughly based on prior and ongoing
