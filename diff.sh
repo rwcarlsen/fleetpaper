@@ -21,11 +21,13 @@ bash -c "cd $newdir &>/dev/null && git clone $PWD &>/dev/null && cd fleetpaper &
 latexdiff --flatten --append-context2cmd="myabstract" $olddir/fleetpaper/paper.tex $newdir/fleetpaper/paper.tex > diff.tex
 latexdiff $olddir/fleetpaper/paper.bbl $newdir/fleetpaper/paper.bbl > diff.bbl
 
+sed -i 's/%lineno//' diff.tex
+
 pdflatex diff.tex &> /dev/null
 bibtex diff.aux &>/dev/null
 pdflatex diff.tex &> /dev/null
 bibtex diff.aux &>/dev/null
 pdflatex diff.tex &> /dev/null
 
-rm -rf $olddir $newdir diff.tex diff.aux diff.blg diff.glo diff.ist diff.log diff.bbl diff.acn diff.out diff.xwm
+rm -rf $olddir $newdir diff.aux diff.blg diff.glo diff.ist diff.log diff.bbl diff.acn diff.out diff.xwm
 

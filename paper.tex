@@ -34,6 +34,7 @@
 \usepackage{caption}
 \usepackage{cite} % order citations correctly
 \usepackage{float} % used to help position figures with the H modifier
+\usepackage[modulo]{lineno}
 
 \newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
 \newcommand{\Cycamore}{\textsc{Cycamore}\xspace}%
@@ -68,8 +69,11 @@ fuel cycle dynamics will enable making more deliberate decisions with respect
 to trade-offs such as computational investment vs.  realism.
 }
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+
+%lineno\begin{linenumbers}
 
 \section{Introduction}
 
@@ -1115,5 +1119,8 @@ thank the NEUP for its generous support.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{ans}
 \bibliography{refs}
+
+%lineno\end{linenumbers}
+
 \end{document}
 
