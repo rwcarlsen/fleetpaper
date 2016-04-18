@@ -11,11 +11,13 @@ all: all-via-pdf
 pub: latexstyle = anstrans.cls
 pub: all-via-pdf
 
+print: latexstyle = printmanuscript.cls
+print: all-via-pdf
+
 all-via-pdf: $(manuscript).tex $(references) latexclass $(figs)
 	pdflatex $(latexopt) $<
 	bibtex $(manuscript).aux
 	pdflatex $(latexopt) $<
-	bibtex $(manuscript).aux
 	pdflatex $(latexopt) $<
 
 release: build
