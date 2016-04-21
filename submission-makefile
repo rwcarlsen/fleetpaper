@@ -1,0 +1,20 @@
+
+manuscript = NT15-138R1_LaTeX_FinalText
+references = NT15-138R1_references.bib
+latexstyle = NT15-138R1_LaTeX_class.cls
+
+latexopt   = -halt-on-error -file-line-error
+figs = $(shell  ls *.eps && ls *Fig*.pdf)
+
+all: $(manuscript).pdf
+
+$(manuscript).pdf: $(manuscript).tex $(references) $(latexstyle) $(figs)
+	pdflatex $(latexopt) $<
+	bibtex $(manuscript).aux
+	pdflatex $(latexopt) $<
+	pdflatex $(latexopt) $<
+
+clean:
+	rm -f $(manuscript).pdf *.dvi *.toc *.aux *.out *.log *.bbl *.blg *.log *.spl *~ *.spl *.zip *.acn *.glo *.ist *.epub *.xwm
+
+.PHONY: all clean realclean
