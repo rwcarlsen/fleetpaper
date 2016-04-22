@@ -4,7 +4,7 @@
 %  that, in turn, was based on the ANS transaction template and Edward W.
 %  Larsen
 %
-% Usage: \documentclass{ntmanuscript}
+% Usage: \documentclass{printmanuscript}
 % define \title and \author as usual
 % Also define \institute for each author
 % Finally, for the submitter    
@@ -13,7 +13,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 
-\ProvidesClass{ntmanuscript}[2013/11/16 v1.0 ANS Nuclear Technology Manuscript]
+\ProvidesClass{printmanuscript}[2013/11/16 v1.0 ANS Nuclear Technology Manuscript]
 
 %%%%%%%%%%% TYPE AND GEOMETRY %%%%%%%%%%%
 \LoadClass[12pt]{article}
@@ -53,33 +53,43 @@
 %%%%%%%%%%% REQUIRED VARIABLES %%%%%%%%%%%
 \newif\if@institutedefined
 \@institutedefinedfalse
-\def\@institute{\PackageWarning{ntmanuscript}{No institute has been defined.}}
+\def\@institute{\PackageWarning{printmanuscript}{No institute has been defined.}}
 \newcommand{\institute}[1]{\def\@institute{#1}\@institutedefinedtrue}
+
+\newif\if@instituteaddressdefined
+\@instituteaddressdefinedfalse
+\def\@instituteaddress{\PackageWarning{printmanuscript}{No instituteaddress has been defined.}}
+\newcommand{\instituteaddress}[1]{\def\@instituteaddress{#1}\@instituteaddressdefinedtrue}
 
 \newif\if@emaildefined
 \@emaildefinedfalse
-\def\@email{\PackageWarning{ntmanuscript}{No email address has been defined.}}
+\def\@email{\PackageWarning{printmanuscript}{No email address has been defined.}}
 \newcommand{\email}[1]{\def\@email{#1}\@emaildefinedtrue}
 
 \newif\if@keywordsdefined
 \@keywordsdefinedfalse
-\def\@keywords{\PackageWarning{ntmanuscript}{No keywords have been defined.}}
+\def\@keywords{\PackageWarning{printmanuscript}{No keywords have been defined.}}
 \newcommand{\keywords}[1]{\def\@keywords{#1}\@keywordsdefinedtrue}
 
 \newif\if@submitterdefined
 \@submitterdefinedfalse
-\def\@submitter{\PackageWarning{ntmanuscript}{No submitter has been defined.}}
+\def\@submitter{\PackageWarning{printmanuscript}{No submitter has been defined.}}
 \newcommand{\submitter}[1]{\def\@submitter{#1}\@submitterdefinedtrue}
 
 \newif\if@submitteremaildefined
 \@submitteremaildefinedfalse
-\def\@submitteremail{\PackageWarning{ntmanuscript}{No submitteremail has been defined.}}
+\def\@submitteremail{\PackageWarning{printmanuscript}{No submitteremail has been defined.}}
 \newcommand{\submitteremail}[1]{\def\@submitteremail{#1}\@submitteremaildefinedtrue}
 
 \newif\if@submitteraddressdefined
 \@submitteraddressdefinedfalse
-\def\@submitteraddress{\PackageWarning{ntmanuscript}{No submitteraddress has been defined.}}
+\def\@submitteraddress{\PackageWarning{printmanuscript}{No submitteraddress has been defined.}}
 \newcommand{\submitteraddress}[1]{\def\@submitteraddress{#1}\@submitteraddressdefinedtrue}
+
+\newif\if@submitterphonedefined
+\@submitterphonedefinedfalse
+\def\@submitterphone{\PackageWarning{printmanuscript}{No submitterphone has been defined.}}
+\newcommand{\submitterphone}[1]{\def\@submitterphone{#1}\@submitterphonedefinedtrue}
 
 
 %%%%%%%%%%% ABSTRACT %%%%%%%%%%%
@@ -179,8 +189,11 @@
       \end{tabular}
       %institute (optional?)
       \if@institutedefined 
-        \par 
-        {\let\and\par \itshape \raggedright \@institute} 
+        \par
+        \begin{tabular}{ll}
+            & \@institute\\
+            & \@instituteaddress\\
+        \end{tabular}
       \fi
       %email (optional?)
       \if@emaildefined
@@ -198,6 +211,7 @@
           \textbf{Send proofs to: }&  \@submitter\\
                                    &  \@submitteremail\\
                                    &  \@submitteraddress\\
+                                   &  \@submitterphone\\
           \end{tabularx}
       \fi
       %number of pages

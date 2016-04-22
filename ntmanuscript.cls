@@ -52,6 +52,11 @@
 \def\@institute{\PackageWarning{ntmanuscript}{No institute has been defined.}}
 \newcommand{\institute}[1]{\def\@institute{#1}\@institutedefinedtrue}
 
+\newif\if@instituteaddressdefined
+\@instituteaddressdefinedfalse
+\def\@instituteaddress{\PackageWarning{ntmanuscript}{No instituteaddress has been defined.}}
+\newcommand{\instituteaddress}[1]{\def\@instituteaddress{#1}\@instituteaddressdefinedtrue}
+
 \newif\if@emaildefined
 \@emaildefinedfalse
 \def\@email{\PackageWarning{ntmanuscript}{No email address has been defined.}}
@@ -77,6 +82,10 @@
 \def\@submitteraddress{\PackageWarning{ntmanuscript}{No submitteraddress has been defined.}}
 \newcommand{\submitteraddress}[1]{\def\@submitteraddress{#1}\@submitteraddressdefinedtrue}
 
+\newif\if@submitterphonedefined
+\@submitterphonedefinedfalse
+\def\@submitterphone{\PackageWarning{ntmanuscript}{No submitterphone has been defined.}}
+\newcommand{\submitterphone}[1]{\def\@submitterphone{#1}\@submitterphonedefinedtrue}
 
 %%%%%%%%%%% ABSTRACT %%%%%%%%%%%
 \newcommand{\myabstract}[1]{\def\@myabstract{#1}}
@@ -175,8 +184,11 @@
       \end{tabular}
       %institute (optional?)
       \if@institutedefined 
-        \par 
-        {\let\and\par \itshape \raggedright \@institute} 
+        \par
+        \begin{tabular}{ll}
+            & \@institute\\
+            & \@instituteaddress\\
+        \end{tabular}
       \fi
       %email (optional?)
       \if@emaildefined
@@ -194,6 +206,7 @@
           \textbf{Send proofs to: }&  \@submitter\\
                                    &  \@submitteremail\\
                                    &  \@submitteraddress\\
+                                   &  \@submitterphone\\
           \end{tabularx}
       \fi
       %number of pages
