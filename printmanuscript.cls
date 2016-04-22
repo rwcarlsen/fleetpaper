@@ -47,8 +47,10 @@
 % For the count of pages, tables, and figures on the title page
 \RequirePackage{totcount}
 
-% put figs at end of document for printing manuscript
-\RequirePackage{endfloat}
+% put figs and tables at end of document for printing manuscript
+% but also don't make contents lists and in-text markers for figs' original
+% locations.
+\RequirePackage[nolists,nomarkers]{endfloat}
 
 %%%%%%%%%%% REQUIRED VARIABLES %%%%%%%%%%%
 \newif\if@institutedefined
