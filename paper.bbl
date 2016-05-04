@@ -1,0 +1,68 @@
+\begin{thebibliography}{10}
+
+\bibitem{oecd2012benchmark}
+K.~A. MCCARTHY et~al.,
+\newblock ``Benchmark Study on Nuclear Fuel Cycle Transition Scenarios-Analysis
+  Codes,''
+\newblock , {Organisation for Economic Co-operation and Development (OECD)}
+  (2012).
+
+\bibitem{forrester_industrial_1961}
+J.~W. FORRESTER,
+\newblock {\em Industrial dynamics}, volume~2,
+\newblock {MIT} press Cambridge, {MA} (1961).
+
+\bibitem{jacobson_verifiable_2010}
+J.~JACOBSON et~al.,
+\newblock ``{VERIFIABLE} {FUEL} {CYCLE} {SIMULATION} {MODEL} ({VISION}): A
+  {TOOL} {FOR} {ANALYZING} {NUCLEAR} {FUEL} {CYCLE} {FUTURES},''
+\newblock {\em Nuclear Technology}, {\bf 172}, 157 (2010).
+
+\bibitem{van_den_durpel_daness_2009}
+V.~D. DURPEL, A.~YACOUT, D.~WADE, T.~TAIWO, and U.~LAUFERTS,
+\newblock ``{DANESS} {V}4.2: {Overview} of {Capabilities} and {Developments},''
+\newblock {\em Proc. Global 2009}, Paris, France, 2009.
+
+\bibitem{gregg_orion_2012}
+R.~W.~H. GREGG and C.~GROVE,
+\newblock ``Analysis of the UK Nuclear Fission Roadmap Using the ORION Fuel
+  Cycle Modelling Code,''
+\newblock {\em Proc. IChemE Nuclear Fuel Cycle Conference}, Manchester, United
+  Kingdom, 2012.
+
+\bibitem{cyclus-fundamentals-2016}
+K.~D. HUFF et~al.,
+\newblock ``Fundamental Concepts in the Cyclus Nuclear Fuel Cycle Simulation
+  Framework,''
+\newblock {\em Advances in Engineering Software} (2016),
+\newblock Available at http://arxiv.org/abs/1509.03604.
+
+\bibitem{flanagan_bright-lite_2014}
+R.~FLANAGAN,
+\newblock ``Bright-lite: A physics-driven reactor facility archetype for the
+  {Cyclus} framework.,'' 2014,
+\newblock https://github.com/bright-dev/bright-lite.
+
+\bibitem{hoffman-eg23-2016}
+E.~HOFFMAN et~al.,
+\newblock ``Expanded Analysis of Transition to an Alternative Fuel Cycle,''
+\newblock {\em Proc. ICAPP 2016}, San Francisco, CA, 2016.
+
+\bibitem{Carlsen2015}
+R.~CARLSEN,
+\newblock ``{Data for: Challenging Fuel Cycle Modeling Assumptions},''
+\newblock (2015),
+\newblock http://dx.doi.org/10.6084/m9.figshare.1546775.
+
+\bibitem{wigeland_nuclear_2014}
+T.~WIGELAND, R.~TAIWO et~al.,
+\newblock ``Nuclear Fuel Cycle Evaluation and Screening - Final Report,''
+\newblock  INL/EXT-14-31465, Idaho National Laboratory (2014).
+
+\bibitem{littell-cyclus-2015}
+J.~LITTELL, S.~SKUTNIK, A.~WORRALL, and E.~SUNNY,
+\newblock ``Assessment and Benchmarking with ORION and Cyclus for U.S. Fuel
+  Cycle Options,''
+\newblock {\em Proc. Global 2015}, Paris, France, 2015.
+
+\end{thebibliography}

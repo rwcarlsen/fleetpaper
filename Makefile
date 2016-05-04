@@ -14,17 +14,13 @@ pub: all-via-pdf
 print: latexstyle = printmanuscript.cls
 print: all-via-pdf
 
-all-via-pdf: $(manuscript).tex $(references) latexclass $(figs)
+all-via-pdf: $(manuscript).tex $(references) $(figs)
 	pdflatex $(latexopt) $<
 	bibtex $(manuscript).aux
 	pdflatex $(latexopt) $<
 	pdflatex $(latexopt) $<
 
 release: build
-
-latexclass: 
-	rm -f $(latexclass)
-	ln -s $(latexstyle) $(latexclass)
 
 all-via-dvi: $(figs) latexclass
 	latex $(latexopt) $(manuscript)

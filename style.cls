@@ -22,7 +22,7 @@
 
 \RequirePackage[text={173mm,9in}, columnsep=0.75cm,centering]{geometry}
 
-\RequirePackage[doublespacing]{setspace}
+\RequirePackage[onehalfspacing]{setspace}
 
 %%use times for math font
 \RequirePackage[T1]{fontenc}
@@ -94,19 +94,19 @@
     \newpage
     \begin{center}
         {\sffamily\LARGE\@title\par} 
-        \@author
+        \@author\\
+        \@institute\\
     \end{center}
 
     \vspace{1em}
     {\LARGE \noindent\textbf{Abstract}}\ignorespaces\par%
+    \vspace{1em}
 
     %\end{@twocolumnfalse}
     %\titleline{\color{gray!50!white}\titlerule[10pt]}\medskip}%
 
     \@myabstract
 
-    \vspace{1em}
-    \textbf{Keywords}: \@keywords
     \pagebreak
 
     \pagestyle{plain}
@@ -228,7 +228,6 @@
 }
 
 \AtBeginDocument{
-  \maketitle
   \makeabstract
 }
 
